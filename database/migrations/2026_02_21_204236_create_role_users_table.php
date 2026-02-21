@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
-class CreateUsersTable extends Migration
+class CreateRolesUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,17 +14,14 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('roleUsers', function (Blueprint $table) {
             $table->uuid('id')
                 ->primary()
                 ->default(DB::raw('uuid_generate_v4()'));
-            $table->string('nom');
-            $table->string('prenom');
-            $table->string('telephone')->unique();
-            $table->string('password');
-            $table->string('email')->unique();
-            $table->enum('status',['actif', 'inactif']);
-            $table->rememberToken();
+                $table->uuid('idRole');
+            $table-> foreign("idRole")->references("id")->on("roleUsers")->onDelete("cascade");
+            $table->uuid('idUsers');
+            $table-> foreign("idUsers")->references("id")->on("roleUsers")->onDelete("cascade");
             $table->timestamps();
         });
     }
@@ -36,6 +33,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('roleUsers');
     }
 }
