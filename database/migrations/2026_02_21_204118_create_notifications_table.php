@@ -4,29 +4,32 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-return new class extends Migration
+
+class CreateNotificationsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
+        DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
         Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')
-                ->primary()
-                ->default(DB::raw('uuid_generate_v4()'));
-             $table->String('nom');
-             $table->uuid('idGroupe');
-            $table-> foreign("idGroupe")->references("id")->on("notifications")->onDelete("cascade");
+            $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
+            $table->string('titre');
+            $table->text('message')->nullable();
+            $table->uuid('idGroupe')->nullable(); // important
             $table->timestamps();
+        });
+
+        // FK ajoutée après création
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->foreign('idGroupe')
+                  ->references('id')
+                  ->on('notifications')
+                  ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('notifications');
     }
-};
+}
