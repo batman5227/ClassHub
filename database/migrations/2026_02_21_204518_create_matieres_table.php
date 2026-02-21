@@ -5,28 +5,21 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-class CreateClassesTable extends Migration
+return new class extends Migration
 {
-    public function up()
+    public function up(): void
     {
         DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
 
-        Schema::create('classes', function (Blueprint $table) {
+        Schema::create('matieres', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
-
-            $table->uuid('idSites');
-            $table->foreign('idSites')
-                  ->references('id')
-                  ->on('sites')
-                  ->onDelete('cascade');
-
             $table->timestamps();
         });
     }
 
-    public function down()
+    public function down(): void
     {
-        Schema::dropIfExists('classes');
+        Schema::dropIfExists('matieres');
     }
-}
+};

@@ -4,30 +4,30 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
-return new class extends Migration
+
+class CreateSitesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
+    public function up()
     {
-        Schema::create('notifications', function (Blueprint $table) {
-            $table->uuid('id')
-                ->primary()
-                ->default(DB::raw('uuid_generate_v4()'));
-             $table->String('nom');
-             $table->String('localisation');
-             $table->uuid('idCoursDappuie');
-            $table-> foreign("idCoursDappuie")->references("id")->on("Sites")->onDelete("cascade");
+        DB::statement('CREATE EXTENSION IF NOT EXISTS "uuid-ossp";');
+
+        Schema::create('sites', function (Blueprint $table) {
+            $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
+            $table->string('nom');
+            $table->string('localisation');
+
+            $table->uuid('idCoursDappuie');
+            $table->foreign('idCoursDappuie')
+                  ->references('id')
+                  ->on('coursdappuies')
+                  ->onDelete('cascade');
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('sites');
     }
-};
+}

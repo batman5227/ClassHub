@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
+
 return new class extends Migration
 {
     /**
@@ -11,13 +12,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('notifications', function (Blueprint $table) {
+        Schema::create('groupes', function (Blueprint $table) {
             $table->uuid('id')
                 ->primary()
                 ->default(DB::raw('uuid_generate_v4()'));
-             $table->String('nom');
-             $table->uuid('idClasse');
-            $table-> foreign("idClasse")->references("id")->on("groupe")->onDelete("cascade");
+
+            $table->string('nom');
+
+            $table->uuid('idClasse');
+$table->foreign('idClasse')->references('id')->on('classes')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -27,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('notifications');
+        Schema::dropIfExists('groupes'); // ✅ bonne table
     }
 };
