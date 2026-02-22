@@ -14,7 +14,8 @@ class RoleUsersController extends Controller
      */
     public function index()
     {
-        //
+        $rolesUsers = RoleUsers::all();
+        return view('back.role_users.index', compact('rolesUsers'));
     }
 
     /**
@@ -22,7 +23,7 @@ class RoleUsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.role_users.create');
     }
 
     /**
@@ -30,7 +31,11 @@ class RoleUsersController extends Controller
      */
     public function store(StoreRoleUsersRequest $request)
     {
-        //
+        $data = $request->validated();
+        RoleUsers::create($data);
+
+        return redirect()->route('role_users.index')
+                         ->with('success', 'Role utilisateur ajouté avec succès.');
     }
 
     /**
@@ -38,7 +43,7 @@ class RoleUsersController extends Controller
      */
     public function show(RoleUsers $roleUsers)
     {
-        //
+        return view('back.role_users.show', compact('roleUsers'));
     }
 
     /**
@@ -46,7 +51,7 @@ class RoleUsersController extends Controller
      */
     public function edit(RoleUsers $roleUsers)
     {
-        //
+        return view('back.role_users.edit', compact('roleUsers'));
     }
 
     /**
@@ -54,7 +59,11 @@ class RoleUsersController extends Controller
      */
     public function update(UpdateRoleUsersRequest $request, RoleUsers $roleUsers)
     {
-        //
+        $data = $request->validated();
+        $roleUsers->update($data);
+
+        return redirect()->route('role_users.index')
+                         ->with('success', 'Role utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -62,6 +71,9 @@ class RoleUsersController extends Controller
      */
     public function destroy(RoleUsers $roleUsers)
     {
-        //
+        $roleUsers->delete();
+
+        return redirect()->route('role_users.index')
+                         ->with('success', 'Role utilisateur supprimé avec succès.');
     }
 }

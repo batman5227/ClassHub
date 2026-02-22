@@ -14,7 +14,8 @@ class SitesController extends Controller
      */
     public function index()
     {
-        //
+        $sites = Sites::all();
+        return view('back.sites.index', compact('sites'));
     }
 
     /**
@@ -22,7 +23,7 @@ class SitesController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.sites.create');
     }
 
     /**
@@ -30,7 +31,11 @@ class SitesController extends Controller
      */
     public function store(StoreSitesRequest $request)
     {
-        //
+        $data = $request->validated();
+        Sites::create($data);
+
+        return redirect()->route('sites.index')
+                         ->with('success', 'Site ajouté avec succès.');
     }
 
     /**
@@ -38,7 +43,7 @@ class SitesController extends Controller
      */
     public function show(Sites $sites)
     {
-        //
+        return view('back.sites.show', compact('sites'));
     }
 
     /**
@@ -46,7 +51,7 @@ class SitesController extends Controller
      */
     public function edit(Sites $sites)
     {
-        //
+        return view('back.sites.edit', compact('sites'));
     }
 
     /**
@@ -54,7 +59,11 @@ class SitesController extends Controller
      */
     public function update(UpdateSitesRequest $request, Sites $sites)
     {
-        //
+        $data = $request->validated();
+        $sites->update($data);
+
+        return redirect()->route('sites.index')
+                         ->with('success', 'Site mis à jour avec succès.');
     }
 
     /**
@@ -62,6 +71,9 @@ class SitesController extends Controller
      */
     public function destroy(Sites $sites)
     {
-        //
+        $sites->delete();
+
+        return redirect()->route('sites.index')
+                         ->with('success', 'Site supprimé avec succès.');
     }
 }

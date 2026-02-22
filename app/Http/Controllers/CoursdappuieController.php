@@ -14,7 +14,9 @@ class CoursdappuieController extends Controller
      */
     public function index()
     {
-        //
+        $coursdappuies = Coursdappuie::latest()->paginate(10);
+
+        return view('back.Coursdappuie.index', compact('coursdappuies'));
     }
 
     /**
@@ -22,7 +24,7 @@ class CoursdappuieController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.Coursdappuie.create');
     }
 
     /**
@@ -30,7 +32,13 @@ class CoursdappuieController extends Controller
      */
     public function store(StoreCoursdappuieRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Coursdappuie::create($data);
+
+        return redirect()
+            ->route('coursdappuies.index')
+            ->with('success', 'Cours d’appuie ajouté avec succès.');
     }
 
     /**
@@ -38,7 +46,7 @@ class CoursdappuieController extends Controller
      */
     public function show(Coursdappuie $coursdappuie)
     {
-        //
+        return view('back.Coursdappuie.show', compact('coursdappuie'));
     }
 
     /**
@@ -46,7 +54,7 @@ class CoursdappuieController extends Controller
      */
     public function edit(Coursdappuie $coursdappuie)
     {
-        //
+        return view('back.Coursdappuie.edit', compact('coursdappuie'));
     }
 
     /**
@@ -54,7 +62,13 @@ class CoursdappuieController extends Controller
      */
     public function update(UpdateCoursdappuieRequest $request, Coursdappuie $coursdappuie)
     {
-        //
+        $data = $request->validated();
+
+        $coursdappuie->update($data);
+
+        return redirect()
+            ->route('coursdappuies.index')
+            ->with('success', 'Cours d’appuie modifié avec succès.');
     }
 
     /**
@@ -62,6 +76,10 @@ class CoursdappuieController extends Controller
      */
     public function destroy(Coursdappuie $coursdappuie)
     {
-        //
+        $coursdappuie->delete();
+
+        return redirect()
+            ->route('coursdappuies.index')
+            ->with('success', 'Cours d’appuie supprimé avec succès.');
     }
 }

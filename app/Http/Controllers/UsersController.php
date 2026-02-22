@@ -14,7 +14,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = Users::all();
+        return view('back.users.index', compact('users'));
     }
 
     /**
@@ -22,7 +23,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.users.create');
     }
 
     /**
@@ -30,7 +31,11 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-        //
+        $data = $request->validated();
+        Users::create($data);
+
+        return redirect()->route('users.index')
+                         ->with('success', 'Utilisateur ajouté avec succès.');
     }
 
     /**
@@ -38,7 +43,7 @@ class UsersController extends Controller
      */
     public function show(Users $users)
     {
-        //
+        return view('back.users.show', compact('users'));
     }
 
     /**
@@ -46,7 +51,7 @@ class UsersController extends Controller
      */
     public function edit(Users $users)
     {
-        //
+        return view('back.users.edit', compact('users'));
     }
 
     /**
@@ -54,7 +59,11 @@ class UsersController extends Controller
      */
     public function update(UpdateUsersRequest $request, Users $users)
     {
-        //
+        $data = $request->validated();
+        $users->update($data);
+
+        return redirect()->route('users.index')
+                         ->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -62,6 +71,9 @@ class UsersController extends Controller
      */
     public function destroy(Users $users)
     {
-        //
+        $users->delete();
+
+        return redirect()->route('users.index')
+                         ->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

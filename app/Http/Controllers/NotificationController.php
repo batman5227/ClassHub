@@ -14,7 +14,9 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        //
+        $notifications = Notification::latest()->paginate(10);
+
+        return view('back.notification.index', compact('notifications'));
     }
 
     /**
@@ -22,7 +24,7 @@ class NotificationController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.notification.create');
     }
 
     /**
@@ -30,7 +32,11 @@ class NotificationController extends Controller
      */
     public function store(StoreNotificationRequest $request)
     {
-        //
+        Notification::create($request->validated());
+
+        return redirect()
+            ->route('notifications.index')
+            ->with('success', 'Notification créée avec succès.');
     }
 
     /**
@@ -38,7 +44,7 @@ class NotificationController extends Controller
      */
     public function show(Notification $notification)
     {
-        //
+        return view('back.notification.show', compact('notification'));
     }
 
     /**
@@ -46,7 +52,7 @@ class NotificationController extends Controller
      */
     public function edit(Notification $notification)
     {
-        //
+        return view('back.notification.edit', compact('notification'));
     }
 
     /**
@@ -54,7 +60,11 @@ class NotificationController extends Controller
      */
     public function update(UpdateNotificationRequest $request, Notification $notification)
     {
-        //
+        $notification->update($request->validated());
+
+        return redirect()
+            ->route('notifications.index')
+            ->with('success', 'Notification mise à jour avec succès.');
     }
 
     /**
@@ -62,6 +72,10 @@ class NotificationController extends Controller
      */
     public function destroy(Notification $notification)
     {
-        //
+        $notification->delete();
+
+        return redirect()
+            ->route('notifications.index')
+            ->with('success', 'Notification supprimée avec succès.');
     }
 }

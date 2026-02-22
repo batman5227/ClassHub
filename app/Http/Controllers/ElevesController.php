@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Document;
+use App\Models\eleves;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDocumentRequest;
-use App\Http\Requests\UpdateDocumentRequest;
+use App\Http\Requests\StoreelevesRequest;
+use App\Http\Requests\UpdateelevesRequest;
 
-class DocumentController extends Controller
+class ElevesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,7 +28,7 @@ class DocumentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDocumentRequest $request)
+    public function store(StoreelevesRequest $request)
     {
         //
     }
@@ -36,7 +36,7 @@ class DocumentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Document $document)
+    public function show(eleves $eleves)
     {
         //
     }
@@ -44,7 +44,7 @@ class DocumentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Document $document)
+    public function edit(eleves $eleves)
     {
         //
     }
@@ -52,7 +52,7 @@ class DocumentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDocumentRequest $request, Document $document)
+    public function update(UpdateelevesRequest $request, eleves $eleves)
     {
         //
     }
@@ -60,7 +60,7 @@ class DocumentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Document $document)
+    public function destroy(eleves $eleves)
     {
         //
     }

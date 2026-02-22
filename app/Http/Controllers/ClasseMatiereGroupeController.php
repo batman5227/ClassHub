@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Classe;
+use App\Models\Matiere;
+use App\Models\Groupe;
 use App\Models\ClasseMatiereGroupe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClasseMatiereGroupeRequest;
@@ -14,7 +17,11 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function index()
     {
-        //
+        $data = ClasseMatiereGroupe::with(['classe', 'matiere', 'groupe'])
+                    ->latest()
+                    ->paginate(10);
+
+        return view('back.classeMatiere.index', compact('data'));
     }
 
     /**
@@ -22,7 +29,11 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function create()
     {
-        //
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        $groupes = Groupe::all();
+
+        return view('back.classeMatiere.create', compact('classes', 'matieres', 'groupes'));
     }
 
     /**
@@ -30,7 +41,13 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function store(StoreClasseMatiereGroupeRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        ClasseMatiereGroupe::create($data);
+
+        return redirect()
+            ->route('classe-matiere-groupe.index')
+            ->with('success', 'Association créée avec succès.');
     }
 
     /**
@@ -38,7 +55,7 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function show(ClasseMatiereGroupe $classeMatiereGroupe)
     {
-        //
+        return view('back.classeMatiere.show', compact('classeMatiereGroupe'));
     }
 
     /**
@@ -46,15 +63,30 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function edit(ClasseMatiereGroupe $classeMatiereGroupe)
     {
-        //
+        $classes = Classe::all();
+        $matieres = Matiere::all();
+        $groupes = Groupe::all();
+
+        return view(
+            'back.classeMatiere.edit',
+            compact('classeMatiereGroupe', 'classes', 'matieres', 'groupes')
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateClasseMatiereGroupeRequest $request, ClasseMatiereGroupe $classeMatiereGroupe)
-    {
-        //
+    public function update(
+        UpdateClasseMatiereGroupeRequest $request,
+        ClasseMatiereGroupe $classeMatiereGroupe
+    ) {
+        $data = $request->validated();
+
+        $classeMatiereGroupe->update($data);
+
+        return redirect()
+            ->route('classe-matiere-groupe.index')
+            ->with('success', 'Association mise à jour.');
     }
 
     /**
@@ -62,6 +94,10 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function destroy(ClasseMatiereGroupe $classeMatiereGroupe)
     {
-        //
+        $classeMatiereGroupe->delete();
+
+        return redirect()
+            ->route('classe-matiere-groupe.index')
+            ->with('success', 'Association supprimée.');
     }
 }

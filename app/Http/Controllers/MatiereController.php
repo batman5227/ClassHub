@@ -14,7 +14,9 @@ class MatiereController extends Controller
      */
     public function index()
     {
-        //
+        $matieres = Matiere::latest()->paginate(10);
+
+        return view('back.matiere.index', compact('matieres'));
     }
 
     /**
@@ -22,7 +24,7 @@ class MatiereController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.matiere.create');
     }
 
     /**
@@ -30,7 +32,11 @@ class MatiereController extends Controller
      */
     public function store(StoreMatiereRequest $request)
     {
-        //
+        Matiere::create($request->validated());
+
+        return redirect()
+            ->route('matieres.index')
+            ->with('success', 'Matière créée avec succès.');
     }
 
     /**
@@ -38,7 +44,7 @@ class MatiereController extends Controller
      */
     public function show(Matiere $matiere)
     {
-        //
+        return view('back.matiere.show', compact('matiere'));
     }
 
     /**
@@ -46,7 +52,7 @@ class MatiereController extends Controller
      */
     public function edit(Matiere $matiere)
     {
-        //
+        return view('back.matiere.edit', compact('matiere'));
     }
 
     /**
@@ -54,7 +60,11 @@ class MatiereController extends Controller
      */
     public function update(UpdateMatiereRequest $request, Matiere $matiere)
     {
-        //
+        $matiere->update($request->validated());
+
+        return redirect()
+            ->route('matieres.index')
+            ->with('success', 'Matière mise à jour avec succès.');
     }
 
     /**
@@ -62,6 +72,10 @@ class MatiereController extends Controller
      */
     public function destroy(Matiere $matiere)
     {
-        //
+        $matiere->delete();
+
+        return redirect()
+            ->route('matieres.index')
+            ->with('success', 'Matière supprimée avec succès.');
     }
 }

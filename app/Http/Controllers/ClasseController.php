@@ -14,7 +14,9 @@ class ClasseController extends Controller
      */
     public function index()
     {
-        //
+        $classes = Classe::latest()->paginate(10);
+
+        return view('back.classe.index', compact('classes'));
     }
 
     /**
@@ -22,7 +24,7 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        //
+        return view('back.classe.create');
     }
 
     /**
@@ -30,7 +32,13 @@ class ClasseController extends Controller
      */
     public function store(StoreClasseRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        Classe::create($data);
+
+        return redirect()
+            ->route('classe.index')
+            ->with('success', 'Classe créée avec succès.');
     }
 
     /**
@@ -38,7 +46,7 @@ class ClasseController extends Controller
      */
     public function show(Classe $classe)
     {
-        //
+        return view('back.classe.show', compact('classe'));
     }
 
     /**
@@ -46,7 +54,7 @@ class ClasseController extends Controller
      */
     public function edit(Classe $classe)
     {
-        //
+        return view('back.classe.edit', compact('classe'));
     }
 
     /**
@@ -54,7 +62,13 @@ class ClasseController extends Controller
      */
     public function update(UpdateClasseRequest $request, Classe $classe)
     {
-        //
+        $data = $request->validated();
+
+        $classe->update($data);
+
+        return redirect()
+            ->route('classe.index')
+            ->with('success', 'Classe mise à jour avec succès.');
     }
 
     /**
@@ -62,6 +76,10 @@ class ClasseController extends Controller
      */
     public function destroy(Classe $classe)
     {
-        //
+        $classe->delete();
+
+        return redirect()
+            ->route('classe.index')
+            ->with('success', 'Classe supprimée avec succès.');
     }
 }

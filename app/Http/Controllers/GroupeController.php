@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Groupe;
+use App\Models\Classe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupeRequest;
 use App\Http\Requests\UpdateGroupeRequest;
@@ -14,7 +15,9 @@ class GroupeController extends Controller
      */
     public function index()
     {
-        //
+        $groupes = Groupe::with('classe')->latest()->paginate(10);
+
+        return view('back.groupe.index', compact('groupes'));
     }
 
     /**
@@ -22,7 +25,9 @@ class GroupeController extends Controller
      */
     public function create()
     {
-        //
+        $classes = Classe::all();
+
+        return view('back.groupe.create', compact('classes'));
     }
 
     /**
@@ -30,7 +35,11 @@ class GroupeController extends Controller
      */
     public function store(StoreGroupeRequest $request)
     {
-        //
+        Groupe::create($request->validated());
+
+        return redirect()
+            ->route('groupes.index')
+            ->with('success', 'Groupe créé avec succès.');
     }
 
     /**
@@ -38,7 +47,7 @@ class GroupeController extends Controller
      */
     public function show(Groupe $groupe)
     {
-        //
+        return view('back.groupe.show', compact('groupe'));
     }
 
     /**
@@ -46,7 +55,9 @@ class GroupeController extends Controller
      */
     public function edit(Groupe $groupe)
     {
-        //
+        $classes = Classe::all();
+
+        return view('back.groupe.edit', compact('groupe', 'classes'));
     }
 
     /**
@@ -54,7 +65,11 @@ class GroupeController extends Controller
      */
     public function update(UpdateGroupeRequest $request, Groupe $groupe)
     {
-        //
+        $groupe->update($request->validated());
+
+        return redirect()
+            ->route('groupes.index')
+            ->with('success', 'Groupe mis à jour avec succès.');
     }
 
     /**
@@ -62,6 +77,10 @@ class GroupeController extends Controller
      */
     public function destroy(Groupe $groupe)
     {
-        //
+        $groupe->delete();
+
+        return redirect()
+            ->route('groupes.index')
+            ->with('success', 'Groupe supprimé avec succès.');
     }
 }
