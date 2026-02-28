@@ -22,7 +22,9 @@ class UpdateNotificationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'titre' => 'required|string|max:255',
+            'message' => 'nullable|string',
+            'idGroupe' => 'nullable|uuid|exists:groupes,id',
         ];
     }
 }

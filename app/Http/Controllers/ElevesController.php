@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\eleves;
+use App\Models\Classe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreelevesRequest;
 use App\Http\Requests\UpdateelevesRequest;
@@ -14,7 +15,8 @@ class ElevesController extends Controller
      */
     public function index()
     {
-        //
+        $eleves = eleves::with('classe')->latest()->paginate(10);
+        return view('back.eleves.index', compact('eleves'));
     }
 
     /**
@@ -22,7 +24,8 @@ class ElevesController extends Controller
      */
     public function create()
     {
-        //
+        $classes = Classe::all();
+        return view('back.eleves.create', compact('classes'));
     }
 
     /**
@@ -30,7 +33,12 @@ class ElevesController extends Controller
      */
     public function store(StoreelevesRequest $request)
     {
-        //
+        $data = $request->validated();
+        eleves::create($data);
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève ajouté avec succès.');
     }
 
     /**
@@ -38,7 +46,8 @@ class ElevesController extends Controller
      */
     public function show(eleves $eleves)
     {
-        //
+        $eleves->load('classe');
+        return view('back.eleves.show', compact('eleves'));
     }
 
     /**
@@ -46,7 +55,8 @@ class ElevesController extends Controller
      */
     public function edit(eleves $eleves)
     {
-        //
+        $classes = Classe::all();
+        return view('back.eleves.edit', compact('eleves', 'classes'));
     }
 
     /**
@@ -54,7 +64,12 @@ class ElevesController extends Controller
      */
     public function update(UpdateelevesRequest $request, eleves $eleves)
     {
-        //
+        $data = $request->validated();
+        $eleves->update($data);
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève mis à jour avec succès.');
     }
 
     /**
@@ -62,6 +77,19 @@ class ElevesController extends Controller
      */
     public function destroy(eleves $eleves)
     {
-        //
+        $eleves->delete();
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève supprimé avec succès.');
+    }
+
+    /**
+     * Display eleves filtered by class.
+     */
+    public function byClass($idClasse)
+    {
+        $eleves = eleves::with('classe')->where('idClasse', $idClasse)->get();
+        return view('back.eleves.index', compact('eleves'));
     }
 }

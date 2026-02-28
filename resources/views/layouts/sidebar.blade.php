@@ -1,4 +1,4 @@
- <div class="app-menu navbar-menu">
+<div class="app-menu navbar-menu">
     <!-- LOGO -->
     <div class="navbar-brand-box">
         <!-- Dark Logo-->
@@ -100,53 +100,52 @@
                     </div>
                 </li>
 
+                <!-- Gestion des Classes -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link " href="#sidebarApps" data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarApps">
-                        <i class="ri-apps-2-line"></i> <span data-key="t-apps">Acteurs</span>
+                    <a class="nav-link menu-link " href="#sidebarGestionClasses" data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarGestionClasses">
+                        <i class="ri-school-line"></i> <span data-key="t-gestion-classes">Gestion des Classes</span>
                     </a>
-                    <div class="collapse menu-dropdown " id="sidebarApps">
+                    <div class="collapse menu-dropdown " id="sidebarGestionClasses">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarTasks" class="nav-link " data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarTasks" data-key="t-tasks"> Modérateurs
-                                </a>
-                                 </a>
-                    <div class="collapse menu-dropdown " id="sidebarApps">
+                                <a href="{{ route('classes.index') }}" class="nav-link " data-key="t-classes">Classes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('matieres.index') }}" class="nav-link " data-key="t-matieres">Matières</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('groupes.index') }}" class="nav-link " data-key="t-groupes">Groupes</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('classe-matiere-groupe.index') }}" class="nav-link " data-key="t-classe-matiere-groupe">Classe-Matière-Groupe</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Élèves -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link " href="#sidebarEleves" data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarEleves">
+                        <i class="ri-user-student-line"></i> <span data-key="t-eleves">Élèves</span>
+                    </a>
+                    <div class="collapse menu-dropdown " id="sidebarEleves">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarTasks" class="nav-link " data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarTasks" data-key="t-tasks"> Assistants
-                                </a>
-                                 </a>
-                    <div class="collapse menu-dropdown " id="sidebarApps">
+                                <a href="{{ route('eleves.index') }}" class="nav-link " data-key="t-liste-eleves">Liste des Élèves</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Documents -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link " href="#sidebarDocuments" data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarDocuments">
+                        <i class="ri-file-chart-line"></i> <span data-key="t-documents">Documents</span>
+                    </a>
+                    <div class="collapse menu-dropdown " id="sidebarDocuments">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="#sidebarTasks" class="nav-link " data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarTasks" data-key="t-tasks"> Elèves
-                                </a>
-                                 </a>
-                    <div class="collapse menu-dropdown " id="sidebarApps">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="#sidebarTasks" class="nav-link " data-bs-toggle="collapse" role="button" aria-expanded="" aria-controls="sidebarTasks" data-key="t-tasks"> Professeurs
-                                </a>
-                                <div class="collapse menu-dropdown " id="sidebarTasks">
-                                    <ul class="nav nav-sm flex-column">
-                                        <li class="nav-item">
-                                            {{-- {{ route('tasks-kanban') }} --}}
-                                            <a href="" class="nav-link " data-key="t-kanbanboard">
-                                                Kanban Board
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            {{-- {{ route('tasks-list-view') }} --}}
-                                            <a href="" class="nav-link " data-key="t-list-view">
-                                                List View
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            {{-- {{ route('tasks-details') }} --}}
-                                            <a href="" class="nav-link " data-key="t-task-details"> Task Details </a>
-                                        </li>
-                                    </ul>
-                                </div>
+                                <a href="{{ route('documents.index') }}" class="nav-link " data-key="t-liste-documents">Liste des Documents</a>
                             </li>
                         </ul>
                     </div>

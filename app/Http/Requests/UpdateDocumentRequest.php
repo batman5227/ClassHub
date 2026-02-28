@@ -22,7 +22,8 @@ class UpdateDocumentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'idMatiere' => 'nullable|uuid|exists:documents,id',
         ];
     }
 }

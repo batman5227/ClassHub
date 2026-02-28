@@ -22,7 +22,7 @@ class UpdateGroupeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
         ];
     }
 }

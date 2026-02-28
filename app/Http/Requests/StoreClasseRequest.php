@@ -22,7 +22,8 @@ class StoreClasseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'idSites' => 'required|uuid|exists:sites,id',
         ];
     }
 }

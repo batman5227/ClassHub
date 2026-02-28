@@ -22,7 +22,9 @@ class StoreSitesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'localisation' => 'nullable|string|max:255',
+            'idCoursDappuie' => 'nullable|uuid|exists:coursdappuies,id',
         ];
     }
 }

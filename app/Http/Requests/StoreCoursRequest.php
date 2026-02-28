@@ -22,7 +22,8 @@ class StoreCoursRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'idMatiere' => 'required|uuid|exists:matieres,id',
         ];
     }
 }
