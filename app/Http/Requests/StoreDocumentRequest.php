@@ -11,7 +11,7 @@ class StoreDocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,6 +24,7 @@ class StoreDocumentRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'idMatiere' => 'nullable|uuid|exists:documents,id',
+            'fichier' => 'nullable|file|max:10240',
         ];
     }
 }

@@ -9,13 +9,10 @@ use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\ClasseMatiereGroupeController;
 use App\Http\Controllers\SitesController;
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/',function()
-    {
-        return view('dashboard.home');
-    });
+// Dashboard route
+Route::get('/', function () {
+    return view('dashboard.home');
+})->name('dashboard');
 
 // Routes pour les Classes
 Route::resource('classes', ClasseController::class);
