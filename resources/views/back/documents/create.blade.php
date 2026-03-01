@@ -34,17 +34,17 @@
                             <input type="text" class="form-control" id="nom" name="nom" required>
                         </div>
                         <div class="mb-3">
-                            <label for="idMatiere" class="form-label">Matière parente (optionnel)</label>
+                            <label for="idMatiere" class="form-label">Matière (optionnel)</label>
                             <select class="form-select" id="idMatiere" name="idMatiere">
                                 <option value="">Sélectionner une matière</option>
-                                @foreach(\App\Models\Documents::whereNull('idMatiere')->get() as $doc)
-                                <option value="{{ $doc->id }}">{{ $doc->nom }}</option>
+                                @foreach(\App\Models\Matiere::all() as $matiere)
+                                <option value="{{ $matiere->id }}">{{ $matiere->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="fichier" class="form-label">Fichier</label>
-                            <input type="file" class="form-control" id="fichier" name="fichier">
+                            <input type="file" class="form-control" id="fichier" name="fichier" required>
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>

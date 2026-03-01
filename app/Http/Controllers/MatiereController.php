@@ -16,7 +16,7 @@ class MatiereController extends Controller
     {
         $matieres = Matiere::latest()->paginate(10);
 
-        return view('back.matiere.index', compact('matieres'));
+        return view('back.matieres.index', compact('matieres'));
     }
 
     /**
@@ -24,7 +24,7 @@ class MatiereController extends Controller
      */
     public function create()
     {
-        return view('back.matiere.create');
+        return view('back.matieres.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class MatiereController extends Controller
      */
     public function show(Matiere $matiere)
     {
-        return view('back.matiere.show', compact('matiere'));
+        return view('back.matieres.show', compact('matiere'));
     }
 
     /**
@@ -52,7 +52,7 @@ class MatiereController extends Controller
      */
     public function edit(Matiere $matiere)
     {
-        return view('back.matiere.edit', compact('matiere'));
+        return view('back.matieres.edit', compact('matiere'));
     }
 
     /**

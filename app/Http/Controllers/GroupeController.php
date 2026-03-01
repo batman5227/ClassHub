@@ -17,7 +17,7 @@ class GroupeController extends Controller
     {
         $groupes = Groupe::with('classe')->latest()->paginate(10);
 
-        return view('back.groupe.index', compact('groupes'));
+        return view('back.groupes.index', compact('groupes'));
     }
 
     /**
@@ -27,7 +27,7 @@ class GroupeController extends Controller
     {
         $classes = Classe::all();
 
-        return view('back.groupe.create', compact('classes'));
+        return view('back.groupes.create', compact('classes'));
     }
 
     /**
@@ -47,7 +47,7 @@ class GroupeController extends Controller
      */
     public function show(Groupe $groupe)
     {
-        return view('back.groupe.show', compact('groupe'));
+        return view('back.groupes.show', compact('groupe'));
     }
 
     /**
@@ -57,7 +57,7 @@ class GroupeController extends Controller
     {
         $classes = Classe::all();
 
-        return view('back.groupe.edit', compact('groupe', 'classes'));
+        return view('back.groupes.edit', compact('groupe', 'classes'));
     }
 
     /**

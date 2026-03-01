@@ -11,7 +11,7 @@ class StoreSitesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,8 @@ class StoreSitesRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
-            'localisation' => 'nullable|string|max:255',
-            'idCoursDappuie' => 'nullable|uuid|exists:coursdappuies,id',
+            'localisation' => 'required|string|max:255',
+            'idCoursDappuie' => 'required|uuid|exists:coursdappuies,id',
         ];
     }
 }

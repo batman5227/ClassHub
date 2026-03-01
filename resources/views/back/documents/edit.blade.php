@@ -35,11 +35,11 @@
                             <input type="text" class="form-control" id="nom" name="nom" value="{{ $documents->nom }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="idMatiere" class="form-label">Matière parente (optionnel)</label>
+                            <label for="idMatiere" class="form-label">Matière (optionnel)</label>
                             <select class="form-select" id="idMatiere" name="idMatiere">
                                 <option value="">Sélectionner une matière</option>
-                                @foreach(\App\Models\Documents::whereNull('idMatiere')->get() as $doc)
-                                <option value="{{ $doc->id }}" {{ $documents->idMatiere == $doc->id ? 'selected' : '' }}>{{ $doc->nom }}</option>
+                                @foreach(\App\Models\Matiere::all() as $matiere)
+                                <option value="{{ $matiere->id }}" {{ $documents->idMatiere == $matiere->id ? 'selected' : '' }}>{{ $matiere->nom }}</option>
                                 @endforeach
                             </select>
                         </div>

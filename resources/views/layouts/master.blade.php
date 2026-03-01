@@ -29,6 +29,10 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css">
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css">
+    <!-- Classes Custom CSS -->
+    <link href="{{ asset('assets/css/classes.css') }}" rel="stylesheet" type="text/css">
+    <!-- New Dark Theme CSS -->
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -1803,6 +1807,9 @@
             });
         });
     </script>
+
+    <!-- Classes Module JavaScript -->
+    <script src="{{ asset('assets/js/classes.js') }}"></script>
 
     @yield('script')
 

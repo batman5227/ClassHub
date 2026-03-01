@@ -8,6 +8,12 @@ use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\ClasseMatiereGroupeController;
 use App\Http\Controllers\SitesController;
+use App\Http\Controllers\CoursController;
+use App\Http\Controllers\CoursdappuieController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoleUsersController;
+use App\Http\Controllers\UsersController;
 
 // Dashboard route
 Route::get('/', function () {
@@ -15,10 +21,31 @@ Route::get('/', function () {
 })->name('dashboard');
 
 // Routes pour les Classes
-Route::resource('classes', ClasseController::class);
+Route::resource('classes', ClasseController::class)->parameters([
+    'classes' => 'classe'
+]);
+
+// Route pour filtrer les classes par site
+Route::get('classes/site/{idSites}', [ClasseController::class, 'bySite'])->name('classes.bySite');
+
+// Routes pour gérer les matières et groupes d'une classe
+Route::get('classes/{classe}/matieres-groupes', [ClasseController::class, 'manageMatieresGroupes'])->name('classes.manageMatieresGroupes');
+Route::post('classes/{classe}/matieres-groupes', [ClasseController::class, 'storeMatieresGroupes'])->name('classes.storeMatieresGroupes');
+Route::delete('classes/{classe}/matieres-groupes/{classeMatiereGroupe}', [ClasseController::class, 'destroyMatieresGroupes'])->name('classes.destroyMatieresGroupes');
+
+// Routes API pour récupérer les matières et groupes d'une classe
+Route::get('classes/{classe}/matieres', [ClasseController::class, 'matieres'])->name('classes.matieres');
+Route::get('classes/{classe}/groupes', [ClasseController::class, 'groupes'])->name('classes.groupes');
 
 // Routes pour les Élèves
-Route::resource('eleves', ElevesController::class);
+Route::resource('eleves', ElevesController::class)->parameters([
+    'eleves' => 'elefe'
+]);
+
+// Routes pour filtrer les eleves
+Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');
+Route::get('eleves/site/{idSites}', [ElevesController::class, 'bySite'])->name('eleves.bySite');
+Route::get('eleves/coursdappuie/{idCoursDappuie}', [ElevesController::class, 'byCoursDappuie'])->name('eleves.byCoursDappuie');
 
 // Routes pour les Documents
 Route::resource('documents', DocumentsController::class);
@@ -34,3 +61,21 @@ Route::resource('classe-matiere-groupe', ClasseMatiereGroupeController::class);
 
 // Routes pour les Sites
 Route::resource('sites', SitesController::class);
+
+// Routes pour les Cours
+Route::resource('cours', CoursController::class);
+
+// Routes pour les Cours d'Appui
+Route::resource('coursdappuie', CoursdappuieController::class);
+
+// Routes pour les Notifications
+Route::resource('notifications', NotificationController::class);
+
+// Routes pour les Rôles
+Route::resource('roles', RoleController::class);
+
+// Routes pour Role-Users
+Route::resource('role-users', RoleUsersController::class);
+
+// Routes pour les Utilisateurs
+Route::resource('users', UsersController::class);

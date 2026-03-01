@@ -11,7 +11,7 @@ class StoreGroupeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StoreGroupeRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
+            'idClasse' => 'required|uuid|exists:classes,id',
         ];
     }
 }

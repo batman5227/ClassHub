@@ -11,7 +11,7 @@ class UpdateelevesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,11 +21,15 @@ class UpdateelevesRequest extends FormRequest
      */
     public function rules(): array
     {
+        $eleveId = $this->route('elefe');
+
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:eleves,email,' . $this->route('eleves'),
+            'email' => 'required|email|max:255|unique:eleves,email,' . $eleveId,
             'idClasse' => 'required|uuid|exists:classes,id',
+            'idSites' => 'required|uuid|exists:sites,id',
+            'idCoursDappuie' => 'required|uuid|exists:coursdappuies,id',
         ];
     }
 }

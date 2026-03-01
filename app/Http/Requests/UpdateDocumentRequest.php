@@ -23,8 +23,8 @@ class UpdateDocumentRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
-            'idMatiere' => 'nullable|uuid|exists:documents,id',
-            'fichier' => 'nullable|file|max:10240',
+            'idMatiere' => 'nullable|uuid|exists:matieres,id',
+            'fichier' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,zip,rar',
         ];
     }
 }

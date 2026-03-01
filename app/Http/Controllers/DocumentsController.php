@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Documents;
+use App\Models\Matiere;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreDocumentsRequest;
-use App\Http\Requests\UpdateDocumentsRequest;
+use App\Http\Requests\StoreDocumentRequest;
+use App\Http\Requests\UpdateDocumentRequest;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentsController extends Controller
@@ -15,9 +16,9 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $documents = Documents::latest()->paginate(10);
+        $documents = Documents::with('matiere')->latest()->paginate(10);
 
-        return view('back.Documents.index', compact('documents'));
+        return view('back.documents.index', compact('documents'));
     }
 
     /**
@@ -25,13 +26,14 @@ class DocumentsController extends Controller
      */
     public function create()
     {
-        return view('back.Documents.create');
+        $matieres = Matiere::all();
+        return view('back.documents.create', compact('matieres'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreDocumentsRequest $request)
+    public function store(StoreDocumentRequest $request)
     {
         $data = $request->validated();
 
@@ -52,7 +54,8 @@ class DocumentsController extends Controller
      */
     public function show(Documents $documents)
     {
-        return view('back.Documents.show', compact('documents'));
+        $documents->load('matiere');
+        return view('back.documents.show', compact('documents'));
     }
 
     /**
@@ -60,18 +63,18 @@ class DocumentsController extends Controller
      */
     public function edit(Documents $documents)
     {
-        return view('back.Documents.edit', compact('documents'));
+        $matieres = Matiere::all();
+        return view('back.documents.edit', compact('documents', 'matieres'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDocumentsRequest $request, Documents $documents)
+    public function update(UpdateDocumentRequest $request, Documents $documents)
     {
         $data = $request->validated();
 
         if ($request->hasFile('fichier')) {
-
             // supprimer ancien fichier
             if ($documents->fichier) {
                 Storage::disk('public')->delete($documents->fichier);

@@ -16,7 +16,7 @@ class RoleController extends Controller
     {
         $roles = Role::latest()->paginate(10);
 
-        return view('back.role.index', compact('roles'));
+        return view('back.roles.index', compact('roles'));
     }
 
     /**
@@ -24,7 +24,7 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view('back.role.create');
+        return view('back.roles.create');
     }
 
     /**
@@ -46,7 +46,7 @@ class RoleController extends Controller
      */
     public function show(Role $role)
     {
-        return view('back.role.show', compact('role'));
+        return view('back.roles.show', compact('role'));
     }
 
     /**
@@ -54,7 +54,7 @@ class RoleController extends Controller
      */
     public function edit(Role $role)
     {
-        return view('back.role.edit', compact('role'));
+        return view('back.roles.edit', compact('role'));
     }
 
     /**

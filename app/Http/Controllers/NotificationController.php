@@ -16,7 +16,7 @@ class NotificationController extends Controller
     {
         $notifications = Notification::latest()->paginate(10);
 
-        return view('back.notification.index', compact('notifications'));
+        return view('back.notifications.index', compact('notifications'));
     }
 
     /**
@@ -24,7 +24,7 @@ class NotificationController extends Controller
      */
     public function create()
     {
-        return view('back.notification.create');
+        return view('back.notifications.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class NotificationController extends Controller
      */
     public function show(Notification $notification)
     {
-        return view('back.notification.show', compact('notification'));
+        return view('back.notifications.show', compact('notification'));
     }
 
     /**
@@ -52,7 +52,7 @@ class NotificationController extends Controller
      */
     public function edit(Notification $notification)
     {
-        return view('back.notification.edit', compact('notification'));
+        return view('back.notifications.edit', compact('notification'));
     }
 
     /**

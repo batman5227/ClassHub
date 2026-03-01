@@ -11,7 +11,7 @@ class StoreDocumentsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreDocumentsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'idMatiere' => 'nullable|uuid|exists:matieres,id',
+            'fichier' => 'nullable|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,zip,rar',
         ];
     }
 }

@@ -11,7 +11,7 @@ class UpdateRoleUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateRoleUsersRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'idRole' => 'required|uuid|exists:roles,id',
+            'idUsers' => 'required|uuid|exists:users,id',
         ];
     }
 }

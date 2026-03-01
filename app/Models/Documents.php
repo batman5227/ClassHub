@@ -13,6 +13,7 @@ class Documents extends Model
     protected $fillable = [
         'nom',
         'idMatiere',
+        'fichier',
     ];
 
     /**

@@ -22,7 +22,7 @@ class StoreClasseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nom' => 'required|string|max:255',
+            'nom' => 'required|string|in:6ème,5ème,4ème,3ème,2nde,1ère,Terminale',
             'idSites' => 'required|uuid|exists:sites,id',
         ];
     }
