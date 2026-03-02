@@ -4,10 +4,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Coursdappuie extends Model
 {
     use HasUuids;
     protected $fillable = [
     'nom',
+    'logo',
+    'slogan'
     ];
 }

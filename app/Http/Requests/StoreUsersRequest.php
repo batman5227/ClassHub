@@ -11,7 +11,7 @@ class StoreUsersRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,13 @@ class StoreUsersRequest extends FormRequest
     {
         return [
             //
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'telephone' => 'required|string|max:20',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'status' => 'required|in:actif,inactif',
         ];
     }
 }

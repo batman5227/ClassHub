@@ -1,0 +1,149 @@
+@extends('layouts.master')
+@section('content')
+<div class="container-fluid px-4 py-5">
+    <!-- En-tête avec gradient -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="bg-gradient-primary rounded-4 p-5 shadow-lg position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 opacity-10">
+                    <i class="fas fa-plus-circle fa-8x text-blue"></i>
+                </div>
+                <div class="position-absolute bottom-0 start-0 opacity-10">
+                    <i class="fas fa-user-tag fa-8x text-blue"></i>
+                </div>
+
+                <div class="row align-items-center position-relative">
+                    <div class="col-lg-8">
+                        <nav aria-label="breadcrumb" class="mb-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('roles.index') }}" class="text-blue opacity-75">Rôles</a>
+                                </li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Création</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="display-4 fw-bold text-blue mb-3">Création d'un rôle</h1>
+                        <p class="text-blue opacity-90 lead mb-4">
+                            Ajoutez un nouveau rôle à l'application
+                        </p>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                        <a href="{{ route('roles.index') }}" class="btn btn-light btn-lg rounded-pill px-5 shadow-sm hover-lift">
+                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulaire de création -->
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                <div class="card-header bg-white border-0 p-4">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="fas fa-plus-circle text-primary me-2"></i>
+                        Nouveau rôle
+                    </h4>
+                    <p class="text-muted mb-0 mt-1">
+                        Remplissez les informations ci-dessous pour créer un nouveau rôle
+                    </p>
+                </div>
+
+                <div class="card-body p-4">
+                    <form action="{{ route('roles.store') }}" method="POST">
+                        @csrf
+
+                        <div class="mb-4">
+                            <label for="nom" class="form-label fw-semibold">
+                                <i class="fas fa-tag text-primary me-2"></i>Nom du rôle
+                            </label>
+                            <input type="text"
+                                   name="nom"
+                                   id="nom"
+                                   class="form-control form-control-lg @error('nom') is-invalid @enderror"
+                                   placeholder="Ex: Administrateur, Éditeur, etc."
+                                   value="{{ old('nom') }}"
+                                   required>
+                            @error('nom')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">
+                                Le nom doit être unique et descriptif
+                            </small>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="description" class="form-label fw-semibold">
+                                <i class="fas fa-align-left text-primary me-2"></i>Description
+                            </label>
+                            <textarea name="description"
+                                      id="description"
+                                      class="form-control form-control-lg @error('description') is-invalid @enderror"
+                                      rows="4"
+                                      placeholder="Décrivez les responsabilités de ce rôle...">{{ old('description') }}</textarea>
+                            @error('description')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">
+                                Une description claire aidera à comprendre le rôle
+                            </small>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mt-4 pt-4 border-top">
+                            <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary btn-lg px-5 rounded-pill">
+                                <i class="fas fa-times me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn btn-primary btn-lg px-5 rounded-pill shadow-primary hover-lift">
+                                <i class="fas fa-save me-2"></i>Créer le rôle
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@push('styles')
+<style>
+    .bg-gradient-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .hover-lift {
+        transition: transform 0.2s;
+    }
+
+    .hover-lift:hover {
+        transform: translateY(-2px);
+    }
+
+    .shadow-primary {
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+
+    .opacity-10 {
+        opacity: 0.1;
+    }
+
+    .opacity-75 {
+        opacity: 0.75;
+    }
+
+    .bg-opacity-20 {
+        --bs-bg-opacity: 0.2;
+    }
+
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+</style>
+@endpush
+@endsection

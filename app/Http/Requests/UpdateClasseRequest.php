@@ -11,7 +11,7 @@ class UpdateClasseRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,8 @@ class UpdateClasseRequest extends FormRequest
     {
         return [
             //
+            'nom'=>'required|String|max:255',
+            'idSites'=>'required|exists:sites,id',
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class ClasseMatiereGroupe extends Model
 {
     use HasUuids;
     protected $fillable = [

@@ -3,26 +3,34 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGroupeRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+            'nom' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+            'idClasse' => 'required|exists:classes,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'nom.required' => 'Le nom du groupe est obligatoire.',
+            'nom.max' => 'Le nom ne doit pas dépasser :max caractères.',
+            'idClasse.required' => 'La classe est obligatoire.',
+            'idClasse.exists' => 'La classe sélectionnée n\'existe pas.',
         ];
     }
 }

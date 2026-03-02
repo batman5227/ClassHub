@@ -3,26 +3,40 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSitesRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        // ✅ Récupérer l'ID depuis la route (car le model binding n'est pas encore fait)
+        $siteId = $this->route('sites'); // ou $this->route('sites') selon ta route
+
         return [
-            //
+            'nom' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('sites', 'nom')->ignore($siteId, 'id')
+            ],
+            'localisation' => 'required|string',
+            'idCoursDappuie' => 'nullable|exists:coursdappuies,id',
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'nom.required' => 'Le nom du site est obligatoire.',
+            'nom.unique' => 'Ce nom de site existe déjà.',
+            'nom.max' => 'Le nom ne doit pas dépasser :max caractères.',
+            'localisation.required' => 'La localisation est obligatoire.',
+            'idCoursDappuie.exists' => 'Le cours d\'appui sélectionné n\'existe pas.',
         ];
     }
 }

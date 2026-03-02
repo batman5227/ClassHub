@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Groupe extends Model
 {
     use HasUuids;
     protected $fillable = [
@@ -12,4 +12,8 @@ class Role extends Model
     'idClasse',
 
     ];
+    public function classe()
+{
+    return $this->belongsTo(Classe::class, 'idClasse');
+}
 }

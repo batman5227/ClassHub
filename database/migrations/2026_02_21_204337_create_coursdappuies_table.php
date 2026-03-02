@@ -14,6 +14,8 @@ class CreateCoursdappuiesTable extends Migration
         Schema::create('coursdappuies', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
+            $table->string('logo');
+            $table->string('slogan');
             $table->timestamps();
         });
     }

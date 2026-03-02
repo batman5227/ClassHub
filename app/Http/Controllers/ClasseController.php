@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClasseRequest;
 use App\Http\Requests\UpdateClasseRequest;
+use App\Models\Classe;
+use App\Models\Sites;
 
 class ClasseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $classes = Classe::latest()->paginate(10);
@@ -24,7 +26,8 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        return view('back.classe.create');
+        $sites = Sites::all();
+        return view('back.classe.create', compact('sites'));
     }
 
     /**
@@ -37,7 +40,7 @@ class ClasseController extends Controller
         Classe::create($data);
 
         return redirect()
-            ->route('classe.index')
+            ->route('classes.index')
             ->with('success', 'Classe créée avec succès.');
     }
 
@@ -54,7 +57,8 @@ class ClasseController extends Controller
      */
     public function edit(Classe $classe)
     {
-        return view('back.classe.edit', compact('classe'));
+        $sites = Sites::all();
+        return view('back.classe.updat', compact('classe','sites'));
     }
 
     /**
@@ -67,7 +71,7 @@ class ClasseController extends Controller
         $classe->update($data);
 
         return redirect()
-            ->route('classe.index')
+            ->route('classes.index')
             ->with('success', 'Classe mise à jour avec succès.');
     }
 
@@ -79,7 +83,7 @@ class ClasseController extends Controller
         $classe->delete();
 
         return redirect()
-            ->route('classe.index')
+            ->route('classes.index')
             ->with('success', 'Classe supprimée avec succès.');
     }
 }
