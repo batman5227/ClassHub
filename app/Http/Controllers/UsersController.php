@@ -6,6 +6,7 @@ use App\Models\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -14,7 +15,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = Users::all();
+        $users = Users::paginate(10);
         return view('back.users.index', compact('users'));
     }
 
@@ -32,6 +33,10 @@ class UsersController extends Controller
     public function store(StoreUsersRequest $request)
     {
         $data = $request->validated();
+
+        // Hash the password
+        $data['password'] = Hash::make($data['password']);
+
         Users::create($data);
 
         return redirect()->route('users.index')
@@ -41,26 +46,34 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Users $users)
+    public function show(Users $user)
     {
-        return view('back.users.show', compact('users'));
+        return view('back.users.show', compact('user'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Users $users)
+    public function edit(Users $user)
     {
-        return view('back.users.edit', compact('users'));
+        return view('back.users.edit', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUsersRequest $request, Users $users)
+    public function update(UpdateUsersRequest $request, Users $user)
     {
         $data = $request->validated();
-        $users->update($data);
+
+        // Only update password if provided
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
 
         return redirect()->route('users.index')
                          ->with('success', 'Utilisateur mis à jour avec succès.');
@@ -69,9 +82,9 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Users $users)
+    public function destroy(Users $user)
     {
-        $users->delete();
+        $user->delete();
 
         return redirect()->route('users.index')
                          ->with('success', 'Utilisateur supprimé avec succès.');

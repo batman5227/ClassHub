@@ -14,7 +14,7 @@ class RoleUsersController extends Controller
      */
     public function index()
     {
-        $rolesUsers = RoleUsers::all();
+        $rolesUsers = RoleUsers::with(['user', 'role'])->paginate(10);
         return view('back.role_users.index', compact('rolesUsers'));
     }
 
@@ -23,7 +23,10 @@ class RoleUsersController extends Controller
      */
     public function create()
     {
-        return view('back.role_users.create');
+        $users = \App\Models\Users::all();
+        $roles = \App\Models\Role::all();
+
+        return view('back.role_users.create', compact('users', 'roles'));
     }
 
     /**
@@ -34,7 +37,7 @@ class RoleUsersController extends Controller
         $data = $request->validated();
         RoleUsers::create($data);
 
-        return redirect()->route('role_users.index')
+        return redirect()->route('role-users.index')
                          ->with('success', 'Role utilisateur ajouté avec succès.');
     }
 
@@ -43,6 +46,7 @@ class RoleUsersController extends Controller
      */
     public function show(RoleUsers $roleUsers)
     {
+        $roleUsers->load(['user', 'role']);
         return view('back.role_users.show', compact('roleUsers'));
     }
 
@@ -51,7 +55,10 @@ class RoleUsersController extends Controller
      */
     public function edit(RoleUsers $roleUsers)
     {
-        return view('back.role_users.edit', compact('roleUsers'));
+        $users = \App\Models\Users::all();
+        $roles = \App\Models\Role::all();
+
+        return view('back.role_users.edit', compact('roleUsers', 'users', 'roles'));
     }
 
     /**
@@ -62,7 +69,7 @@ class RoleUsersController extends Controller
         $data = $request->validated();
         $roleUsers->update($data);
 
-        return redirect()->route('role_users.index')
+        return redirect()->route('role-users.index')
                          ->with('success', 'Role utilisateur mis à jour avec succès.');
     }
 
@@ -73,7 +80,7 @@ class RoleUsersController extends Controller
     {
         $roleUsers->delete();
 
-        return redirect()->route('role_users.index')
+        return redirect()->route('role-users.index')
                          ->with('success', 'Role utilisateur supprimé avec succès.');
     }
 }

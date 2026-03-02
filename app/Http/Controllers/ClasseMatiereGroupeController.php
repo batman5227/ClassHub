@@ -21,7 +21,7 @@ class ClasseMatiereGroupeController extends Controller
                     ->latest()
                     ->paginate(10);
 
-        return view('back.classeMatiere.index', compact('data'));
+        return view('back.classe-matiere-groupe.index', compact('data'));
     }
 
     /**
@@ -33,7 +33,7 @@ class ClasseMatiereGroupeController extends Controller
         $matieres = Matiere::all();
         $groupes = Groupe::all();
 
-        return view('back.classeMatiere.create', compact('classes', 'matieres', 'groupes'));
+        return view('back.classe-matiere-groupe.create', compact('classes', 'matieres', 'groupes'));
     }
 
     /**
@@ -55,7 +55,7 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function show(ClasseMatiereGroupe $classeMatiereGroupe)
     {
-        return view('back.classeMatiere.show', compact('classeMatiereGroupe'));
+        return view('back.classe-matiere-groupe.show', compact('classeMatiereGroupe'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ClasseMatiereGroupeController extends Controller
         $groupes = Groupe::all();
 
         return view(
-            'back.classeMatiere.edit',
+            'back.classe-matiere-groupe.edit',
             compact('classeMatiereGroupe', 'classes', 'matieres', 'groupes')
         );
     }

@@ -74,7 +74,7 @@
                                     <td class="text-muted"><strong>Date de création:</strong></td>
                                     <td>
                                         <i class="ri-calendar-line me-1 text-muted"></i>
-                                        {{ $classe->created_at->format('d/m/Y H:i') }}
+                                        {{ $classe->created_at ? $classe->created_at->format('d/m/Y H:i') : 'N/A' }}
                                     </td>
                                 </tr>
                             </table>
@@ -157,11 +157,11 @@
                     </div>
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <span class="text-muted">Dernière modification</span>
-                        <span class="fw-semibold">{{ $classe->updated_at->format('d/m/Y') }}</span>
+                        <span class="fw-semibold">{{ $classe->updated_at ? $classe->updated_at->format('d/m/Y') : 'N/A' }}</span>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="text-muted">Créé le</span>
-                        <span class="fw-semibold">{{ $classe->created_at->format('d/m/Y') }}</span>
+                        <span class="fw-semibold">{{ $classe->created_at ? $classe->created_at->format('d/m/Y') : 'N/A' }}</span>
                     </div>
                 </div>
             </div>

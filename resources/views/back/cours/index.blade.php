@@ -46,8 +46,8 @@
                         <table class="table table-hover table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                             <thead class="table-light">
                                 <tr>
-                                    <th class="text-uppercase fw-bold">Titre</th>
-                                    <th class="text-uppercase fw-bold">Description</th>
+                                    <th class="text-uppercase fw-bold">Nom</th>
+                                    <th class="text-uppercase fw-bold">Matière</th>
                                     <th class="text-uppercase fw-bold">Date de création</th>
                                     <th class="text-uppercase fw-bold text-center">Actions</th>
                                 </tr>
@@ -57,11 +57,11 @@
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <div class="avatar me-3">{{ substr($cour->titre, 0, 2) }}</div>
-                                            <span class="fw-semibold">{{ $cour->titre }}</span>
+                                            <div class="avatar me-3">{{ substr($cour->nom, 0, 2) }}</div>
+                                            <span class="fw-semibold">{{ $cour->nom }}</span>
                                         </div>
                                     </td>
-                                    <td>{{ Str::limit($cour->description, 50) }}</td>
+                                    <td>{{ $cour->matiere->nom ?? 'N/A' }}</td>
                                     <td><span class="text-muted"><i class="ri-calendar-line me-1"></i>{{ $cour->created_at->format('d/m/Y') }}</span></td>
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
@@ -79,7 +79,7 @@
                                             <div class="modal-header"><h5 class="modal-title">Confirmation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
                                             <div class="modal-body text-center py-4">
                                                 <i class="ri-error-warning-line text-danger" style="font-size: 4rem;"></i>
-                                                <p class="mt-3">Supprimer <strong>{{ $cour->titre }}</strong>?</p>
+                                                <p class="mt-3">Supprimer <strong>{{ $cour->nom }}</strong>?</p>
                                             </div>
                                             <div class="modal-footer justify-content-center">
                                                 <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>

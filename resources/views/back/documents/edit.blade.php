@@ -27,27 +27,27 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('documents.update', $documents->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('documents.update', $document) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
                             <label for="nom" class="form-label">Nom du document</label>
-                            <input type="text" class="form-control" id="nom" name="nom" value="{{ $documents->nom }}" required>
+                            <input type="text" class="form-control" id="nom" name="nom" value="{{ $document->nom }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="idMatiere" class="form-label">Matière (optionnel)</label>
                             <select class="form-select" id="idMatiere" name="idMatiere">
                                 <option value="">Sélectionner une matière</option>
-                                @foreach(\App\Models\Matiere::all() as $matiere)
-                                <option value="{{ $matiere->id }}" {{ $documents->idMatiere == $matiere->id ? 'selected' : '' }}>{{ $matiere->nom }}</option>
+                                @foreach($matieres as $matiere)
+                                <option value="{{ $matiere->id }}" {{ $document->idMatiere == $matiere->id ? 'selected' : '' }}>{{ $matiere->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="fichier" class="form-label">Fichier</label>
                             <input type="file" class="form-control" id="fichier" name="fichier">
-                            @if($documents->fichier)
-                            <small class="text-muted">Fichier actuel: {{ $documents->fichier }}</small>
+                            @if($document->fichier)
+                            <small class="text-muted">Fichier actuel: {{ $document->fichier }}</small>
                             @endif
                         </div>
                         <div class="d-flex gap-2">

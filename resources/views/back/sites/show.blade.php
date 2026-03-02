@@ -33,7 +33,7 @@
                     <table class="table table-borderless">
                         <tr><td class="text-muted w-50"><strong>Nom:</strong></td><td class="fw-semibold">{{ $site->nom }}</td></tr>
                         <tr><td class="text-muted"><strong>Localisation:</strong></td><td>{{ $site->localisation }}</td></tr>
-                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $site->created_at->format('d/m/Y H:i') }}</td></tr>
+                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $site->created_at ? $site->created_at->format('d/m/Y H:i') : 'N/A' }}</td></tr>
                     </table>
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between">
                         <a href="{{ route('sites.index') }}" class="btn btn-light"><i class="ri-arrow-left-line me-1"></i>Retour</a>

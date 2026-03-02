@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sites;
+use App\Models\Coursdappuie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSitesRequest;
 use App\Http\Requests\UpdateSitesRequest;
@@ -14,7 +15,7 @@ class SitesController extends Controller
      */
     public function index()
     {
-        $sites = Sites::all();
+        $sites = Sites::paginate(10);
         return view('back.sites.index', compact('sites'));
     }
 
@@ -23,7 +24,8 @@ class SitesController extends Controller
      */
     public function create()
     {
-        return view('back.sites.create');
+        $coursdappuies = Coursdappuie::all();
+        return view('back.sites.create', compact('coursdappuies'));
     }
 
     /**
@@ -41,26 +43,27 @@ class SitesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sites $sites)
+    public function show(Sites $site)
     {
-        return view('back.sites.show', compact('sites'));
+        return view('back.sites.show', compact('site'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Sites $sites)
+    public function edit(Sites $site)
     {
-        return view('back.sites.edit', compact('sites'));
+        $coursdappuies = Coursdappuie::all();
+        return view('back.sites.edit', compact('site', 'coursdappuies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSitesRequest $request, Sites $sites)
+    public function update(UpdateSitesRequest $request, Sites $site)
     {
         $data = $request->validated();
-        $sites->update($data);
+        $site->update($data);
 
         return redirect()->route('sites.index')
                          ->with('success', 'Site mis à jour avec succès.');
@@ -69,9 +72,9 @@ class SitesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Sites $sites)
+    public function destroy(Sites $site)
     {
-        $sites->delete();
+        $site->delete();
 
         return redirect()->route('sites.index')
                          ->with('success', 'Site supprimé avec succès.');

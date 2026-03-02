@@ -14,16 +14,34 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleUsersController;
 use App\Http\Controllers\UsersController;
+use App\Models\Classe;
+use App\Models\Eleves;
+use App\Models\Sites;
+use App\Models\Matiere;
+use App\Models\Groupe;
+use App\Models\Cours;
+use App\Models\Documents;
 
-// Dashboard route
+// Dashboard route with data
 Route::get('/', function () {
-    return view('dashboard.home');
+    $stats = [
+        'totalClasses' => Classe::count(),
+        'totalEleves' => Eleves::count(),
+        'totalSites' => Sites::count(),
+        'totalMatieres' => Matiere::count(),
+        'totalGroupes' => Groupe::count(),
+        'totalCours' => Cours::count(),
+        'totalDocuments' => Documents::count(),
+    ];
+
+    $recentClasses = Classe::with('sites')->latest()->take(5)->get();
+    $recentEleves = Eleves::latest()->take(5)->get();
+
+    return view('dashboard.home', compact('stats', 'recentClasses', 'recentEleves'));
 })->name('dashboard');
 
 // Routes pour les Classes
-Route::resource('classes', ClasseController::class)->parameters([
-    'classes' => 'classe'
-]);
+Route::resource('classes', ClasseController::class);
 
 // Route pour filtrer les classes par site
 Route::get('classes/site/{idSites}', [ClasseController::class, 'bySite'])->name('classes.bySite');
@@ -38,9 +56,7 @@ Route::get('classes/{classe}/matieres', [ClasseController::class, 'matieres'])->
 Route::get('classes/{classe}/groupes', [ClasseController::class, 'groupes'])->name('classes.groupes');
 
 // Routes pour les Élèves
-Route::resource('eleves', ElevesController::class)->parameters([
-    'eleves' => 'elefe'
-]);
+Route::resource('eleves', ElevesController::class);
 
 // Routes pour filtrer les eleves
 Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');

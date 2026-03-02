@@ -37,7 +37,7 @@ class RoleController extends Controller
         Role::create($data);
 
         return redirect()
-            ->route('role.index')
+            ->route('roles.index')
             ->with('success', 'Rôle créé avec succès.');
     }
 
@@ -67,7 +67,7 @@ class RoleController extends Controller
         $role->update($data);
 
         return redirect()
-            ->route('role.index')
+            ->route('roles.index')
             ->with('success', 'Rôle mis à jour avec succès.');
     }
 
@@ -79,7 +79,7 @@ class RoleController extends Controller
         $role->delete();
 
         return redirect()
-            ->route('role.index')
+            ->route('roles.index')
             ->with('success', 'Rôle supprimé avec succès.');
     }
 }

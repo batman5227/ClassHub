@@ -47,11 +47,11 @@
                         </tr>
                         <tr>
                             <td class="text-muted"><strong>Date de création:</strong></td>
-                            <td>{{ $matiere->created_at->format('d/m/Y H:i') }}</td>
+                            <td>{{ $matiere->created_at ? $matiere->created_at->format('d/m/Y H:i') : 'N/A' }}</td>
                         </tr>
                         <tr>
                             <td class="text-muted"><strong>Dernière modification:</strong></td>
-                            <td>{{ $matiere->updated_at->format('d/m/Y H:i') }}</td>
+                            <td>{{ $matiere->updated_at ? $matiere->updated_at->format('d/m/Y H:i') : 'N/A' }}</td>
                         </tr>
                     </table>
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between">

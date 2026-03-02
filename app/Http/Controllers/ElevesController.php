@@ -48,30 +48,30 @@ class ElevesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(eleves $eleves)
+    public function show(eleves $elefe)
     {
-        $eleves->load(['classe', 'sites', 'coursdappuie']);
-        return view('back.eleves.show', compact('eleves'));
+        $elefe->load(['classe', 'sites', 'coursdappuie']);
+        return view('back.eleves.show', compact('elefe'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(eleves $eleves)
+    public function edit(eleves $elefe)
     {
         $classes = Classe::all();
         $sites = Sites::all();
         $coursdappuies = Coursdappuie::all();
-        return view('back.eleves.edit', compact('eleves', 'classes', 'sites', 'coursdappuies'));
+        return view('back.eleves.edit', compact('elefe', 'classes', 'sites', 'coursdappuies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateelevesRequest $request, eleves $eleves)
+    public function update(UpdateelevesRequest $request, eleves $elefe)
     {
         $data = $request->validated();
-        $eleves->update($data);
+        $elefe->update($data);
 
         return redirect()
             ->route('eleves.index')
@@ -81,9 +81,9 @@ class ElevesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(eleves $eleves)
+    public function destroy(eleves $elefe)
     {
-        $eleves->delete();
+        $elefe->delete();
 
         return redirect()
             ->route('eleves.index')

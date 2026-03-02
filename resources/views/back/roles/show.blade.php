@@ -32,7 +32,7 @@
                 <div class="card-body">
                     <table class="table table-borderless">
                         <tr><td class="text-muted w-50"><strong>Nom:</strong></td><td class="fw-semibold">{{ $role->nom }}</td></tr>
-                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $role->created_at->format('d/m/Y H:i') }}</td></tr>
+                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $role->created_at ? $role->created_at->format('d/m/Y H:i') : 'N/A' }}</td></tr>
                     </table>
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between">
                         <a href="{{ route('roles.index') }}" class="btn btn-light"><i class="ri-arrow-left-line me-1"></i>Retour</a>

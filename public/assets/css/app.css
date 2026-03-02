@@ -149,28 +149,100 @@ body {
 }
 
 /* Modal Styles */
+.modal-backdrop {
+    background-color: rgba(0, 0, 0, 0.7) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+.modal {
+    z-index: 1055 !important;
+}
+
+.modal.show {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
 .modal-content {
     background-color: var(--bg-secondary) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 12px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+    animation: modalFadeIn 0.3s ease-out !important;
+}
+
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .modal-header {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
     background: linear-gradient(90deg, var(--bg-secondary), rgba(0, 229, 255, 0.05)) !important;
+    border-radius: 16px 16px 0 0 !important;
+    padding: 20px 24px !important;
+}
+
+.modal-body {
+    padding: 24px !important;
+    color: var(--text-primary) !important;
 }
 
 .modal-footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 0 0 16px 16px !important;
+    padding: 16px 24px !important;
 }
 
 .modal-title {
     color: var(--text-primary) !important;
     font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+.modal-footer .btn {
+    min-width: 100px !important;
 }
 
 .btn-close {
     filter: invert(1) !important;
+    opacity: 0.5 !important;
+    transition: opacity 0.2s ease !important;
+}
+
+.btn-close:hover {
+    opacity: 1 !important;
+}
+
+/* Fix for modal vibration/conflict */
+.modal {
+    display: none !important;
+}
+
+.modal.show {
+    display: flex !important;
+}
+
+.modal.fade .modal-dialog {
+    transition: none !important;
+    transform: none !important;
+}
+
+.modal-dialog {
+    margin: 1.75rem auto !important;
+}
+
+.modal-dialog-centered {
+    min-height: calc(100% - 3.5rem) !important;
+    display: flex !important;
+    align-items: center !important;
 }
 
 /* Alert Styles */
@@ -543,4 +615,231 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* ========================
+   SIDEBAR DROPDOWN MENUS FIX
+   ======================== */
+
+/* Ensure collapse elements work properly */
+.collapse:not(.show) {
+    display: none;
+}
+
+.collapse.show {
+    display: block;
+}
+
+/* Menu dropdown container */
+.menu-dropdown {
+    display: none;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* Sidebar dropdown menu fix */
+.sidebar .dropdown-menu {
+    position: static !important;
+    float: none !important;
+    width: 100%;
+    transform: none !important;
+}
+
+/* Additional sidebar menu fixes */
+.sidebar .menu-dropdown {
+    position: static !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Ensure menu items display correctly */
+.sidebar .nav-item {
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Fix navbar-nav collapse */
+.navbar-nav .collapse {
+    position: static !important;
+    display: none !important;
+}
+
+.navbar-nav .collapse.show {
+    display: block !important;
+}
+
+.menu-dropdown.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Ensure navbar-nav collapse works */
+.navbar-nav .collapse {
+    display: none;
+}
+
+.navbar-nav .collapse.show {
+    display: block;
+}
+
+/* Fix for nav-sm items */
+.nav-sm {
+    display: block;
+}
+
+/* Ensure proper visibility during transitions */
+.collapse {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Fix z-index issues */
+.navbar-menu {
+    z-index: 1000;
+}
+
+/* Make sure the toggle icons rotate properly */
+.nav-link[data-bs-toggle="collapse"]::after {
+    content: "\282F";
+    display: inline-block;
+    margin-left: auto;
+    transition: transform 0.2s ease-in-out;
+}
+
+.nav-link[data-bs-toggle="collapse"][aria-expanded="true"]::after {
+    transform: rotate(90deg);
+}
+
+/* ========================
+   SIDEBAR NAVIGATION IMPROVEMENTS
+   ======================== */
+
+/* Nav link base styles */
+.navbar-nav .nav-link {
+    position: relative;
+    transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.navbar-nav .nav-link:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding-left: 25px;
+}
+
+/* Active state */
+.navbar-nav .nav-link.active,
+.navbar-nav .nav-link[aria-expanded="true"] {
+    background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Menu item hover animation */
+.navbar-nav .nav-item .nav-link {
+    border-left: 3px solid transparent;
+    transition: all 0.25s ease;
+}
+
+.navbar-nav .nav-item:hover > .nav-link {
+    border-left-color: var(--accent-blue, #2eaadc);
+    padding-left: 25px;
+}
+
+/* Smooth menu dropdown animation */
+.menu-dropdown {
+    overflow: hidden;
+}
+
+.menu-dropdown .nav-item .nav-link {
+    transition: all 0.2s ease;
+    padding: 10px 20px 10px 35px;
+}
+
+.menu-dropdown .nav-item .nav-link:hover {
+    padding-left: 40px;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Chevron rotation animation */
+.nav-link .menu-arrow {
+    transition: transform 0.3s ease;
+}
+
+.nav-link[aria-expanded="true"] .menu-arrow {
+    transform: rotate(90deg);
+}
+
+/* Smooth collapse animation */
+.collapse {
+    transition: max-height 0.35s ease, opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* Additional hover glow effect */
+.navbar-nav .nav-link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    background-color: var(--accent-blue, #2eaadc);
+    transition: width 0.25s ease;
+    opacity: 0;
+}
+
+.navbar-nav .nav-item:hover > .nav-link::before {
+    width: 3px;
+    height: 60%;
+    opacity: 1;
+}
+
+/* ========================
+   SIDEBAR COLLAPSED STATE
+   ======================== */
+
+/* Collapsed sidebar styles */
+.app-menu.collapsed,
+.navbar-menu.collapsed {
+    width: 72px !important;
+}
+
+.app-menu.collapsed .navbar-brand-box,
+.navbar-menu.collapsed .navbar-brand-box {
+    display: none !important;
+}
+
+.app-menu.collapsed .sidebar-user,
+.navbar-menu.collapsed .sidebar-user {
+    display: none !important;
+}
+
+.app-menu.collapsed .menu-title,
+.navbar-menu.collapsed .menu-title {
+    display: none !important;
+}
+
+.app-menu.collapsed .nav-link span,
+.navbar-menu.collapsed .nav-link span {
+    display: none !important;
+}
+
+.app-menu.collapsed .nav-link,
+.navbar-menu.collapsed .nav-link {
+    justify-content: center !important;
+    padding: 12px !important;
+}
+
+.app-menu.collapsed .nav-link::after,
+.navbar-menu.collapsed .nav-link::after {
+    display: none !important;
+}
+
+/* Main content when sidebar is collapsed */
+body:has(.app-menu.collapsed) .main-content,
+body:has(.navbar-menu.collapsed) .main-content {
+    margin-left: 72px !important;
 }

@@ -16,7 +16,7 @@ class CoursdappuieController extends Controller
     {
         $coursdappuies = Coursdappuie::latest()->paginate(10);
 
-        return view('back.Coursdappuie.index', compact('coursdappuies'));
+        return view('back.coursdappuie.index', compact('coursdappuies'));
     }
 
     /**
@@ -24,7 +24,7 @@ class CoursdappuieController extends Controller
      */
     public function create()
     {
-        return view('back.Coursdappuie.create');
+        return view('back.coursdappuie.create');
     }
 
     /**
@@ -37,8 +37,8 @@ class CoursdappuieController extends Controller
         Coursdappuie::create($data);
 
         return redirect()
-            ->route('coursdappuies.index')
-            ->with('success', 'Cours d’appuie ajouté avec succès.');
+            ->route('coursdappuie.index')
+            ->with('success', 'Cours d\'appuie ajoute avec succes.');
     }
 
     /**
@@ -46,7 +46,7 @@ class CoursdappuieController extends Controller
      */
     public function show(Coursdappuie $coursdappuie)
     {
-        return view('back.Coursdappuie.show', compact('coursdappuie'));
+        return view('back.coursdappuie.show', compact('coursdappuie'));
     }
 
     /**
@@ -54,7 +54,7 @@ class CoursdappuieController extends Controller
      */
     public function edit(Coursdappuie $coursdappuie)
     {
-        return view('back.Coursdappuie.edit', compact('coursdappuie'));
+        return view('back.coursdappuie.edit', compact('coursdappuie'));
     }
 
     /**
@@ -67,8 +67,8 @@ class CoursdappuieController extends Controller
         $coursdappuie->update($data);
 
         return redirect()
-            ->route('coursdappuies.index')
-            ->with('success', 'Cours d’appuie modifié avec succès.');
+            ->route('coursdappuie.index')
+            ->with('success', 'Cours d\'appuie modifie avec succes.');
     }
 
     /**
@@ -79,7 +79,7 @@ class CoursdappuieController extends Controller
         $coursdappuie->delete();
 
         return redirect()
-            ->route('coursdappuies.index')
-            ->with('success', 'Cours d’appuie supprimé avec succès.');
+            ->route('coursdappuie.index')
+            ->with('success', 'Cours d\'appuie supprime avec succes.');
     }
 }

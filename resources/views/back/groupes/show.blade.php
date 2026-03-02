@@ -33,7 +33,7 @@
                     <table class="table table-borderless">
                         <tr><td class="text-muted w-50"><strong>Nom:</strong></td><td class="fw-semibold">{{ $groupe->nom }}</td></tr>
                         <tr><td class="text-muted"><strong>Description:</strong></td><td>{{ $groupe->description ?? 'Aucune description' }}</td></tr>
-                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $groupe->created_at->format('d/m/Y H:i') }}</td></tr>
+                        <tr><td class="text-muted"><strong>Créé le:</strong></td><td>{{ $groupe->created_at ? $groupe->created_at->format('d/m/Y H:i') : 'N/A' }}</td></tr>
                     </table>
                     <div class="mt-4 pt-3 border-top d-flex justify-content-between">
                         <a href="{{ route('groupes.index') }}" class="btn btn-light"><i class="ri-arrow-left-line me-1"></i>Retour</a>

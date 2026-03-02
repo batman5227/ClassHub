@@ -30,13 +30,19 @@
                     <form action="{{ route('cours.store') }}" method="POST" class="needs-validation" novalidate>
                         @csrf
                         <div class="mb-3">
-                            <label for="titre" class="form-label">Titre du cours</label>
-                            <input type="text" class="form-control" id="titre" name="titre" required>
-                            <div class="invalid-feedback">Veuillez entrer un titre.</div>
+                            <label for="nom" class="form-label">Nom du cours</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
+                            <div class="invalid-feedback">Veuillez entrer un nom.</div>
                         </div>
                         <div class="mb-3">
-                            <label for="description" class="form-label">Description</label>
-                            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                            <label for="idMatiere" class="form-label">Matière</label>
+                            <select class="form-select" id="idMatiere" name="idMatiere" required>
+                                <option value="">Sélectionner une matière</option>
+                                @foreach($matieres as $matiere)
+                                    <option value="{{ $matiere->id }}">{{ $matiere->nom }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Veuillez sélectionner une matière.</div>
                         </div>
                         <div class="mt-4 pt-3 border-top d-flex justify-content-between">
                             <a href="{{ route('cours.index') }}" class="btn btn-light"><i class="ri-arrow-left-line me-1"></i>Retour</a>

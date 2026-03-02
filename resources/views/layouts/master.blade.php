@@ -33,6 +33,14 @@
     <link href="{{ asset('assets/css/classes.css') }}" rel="stylesheet" type="text/css">
     <!-- New Dark Theme CSS -->
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
+    <!-- Future Style CSS -->
+    <link href="{{ asset('assets/css/future-style.css') }}" rel="stylesheet" type="text/css">
+    <!-- Immersive Design CSS -->
+    <link href="{{ asset('assets/css/immersive.css') }}" rel="stylesheet" type="text/css">
+    <!-- Modern Design CSS (Notion/Linear/Stripe style) -->
+    <link href="{{ asset('assets/css/modern.css') }}" rel="stylesheet" type="text/css">
+    <!-- Sidebar Custom CSS -->
+    <link href="{{ asset('assets/css/sidebar.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -792,7 +800,7 @@
         <!-- Start right Content here -->
         <!-- ============================================================== -->
         <div class="main-content">
-            <div class="page-content">
+            <div class="page-content page-content-cyber">
                 @yield('content')
                 <!-- container-fluid -->
             </div>
@@ -1810,6 +1818,12 @@
 
     <!-- Classes Module JavaScript -->
     <script src="{{ asset('assets/js/classes.js') }}"></script>
+
+    <!-- Sidebar Toggle JavaScript -->
+    <script src="{{ asset('assets/js/sidebar-toggle.js') }}"></script>
+
+    <!-- Theme Toggle JavaScript -->
+    <script src="{{ asset('assets/js/theme-toggle.js') }}"></script>
 
     @yield('script')
 

@@ -52,39 +52,39 @@ class DocumentsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Documents $documents)
+    public function show(Documents $document)
     {
-        $documents->load('matiere');
-        return view('back.documents.show', compact('documents'));
+        $document->load('matiere');
+        return view('back.documents.show', compact('document'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Documents $documents)
+    public function edit(Documents $document)
     {
         $matieres = Matiere::all();
-        return view('back.documents.edit', compact('documents', 'matieres'));
+        return view('back.documents.edit', compact('document', 'matieres'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateDocumentRequest $request, Documents $documents)
+    public function update(UpdateDocumentRequest $request, Documents $document)
     {
         $data = $request->validated();
 
         if ($request->hasFile('fichier')) {
             // supprimer ancien fichier
-            if ($documents->fichier) {
-                Storage::disk('public')->delete($documents->fichier);
+            if ($document->fichier) {
+                Storage::disk('public')->delete($document->fichier);
             }
 
             $data['fichier'] = $request->file('fichier')
                 ->store('documents', 'public');
         }
 
-        $documents->update($data);
+        $document->update($data);
 
         return redirect()
             ->route('documents.index')
@@ -94,13 +94,13 @@ class DocumentsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Documents $documents)
+    public function destroy(Documents $document)
     {
-        if ($documents->fichier) {
-            Storage::disk('public')->delete($documents->fichier);
+        if ($document->fichier) {
+            Storage::disk('public')->delete($document->fichier);
         }
 
-        $documents->delete();
+        $document->delete();
 
         return redirect()
             ->route('documents.index')

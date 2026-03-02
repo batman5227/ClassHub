@@ -27,27 +27,27 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('eleves.update', $eleves->id) }}" method="POST">
+                    <form action="{{ route('eleves.update', $elefe) }}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="mb-3">
                             <label for="nom" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="nom" name="nom" value="{{ $eleves->nom }}" required>
+                            <input type="text" class="form-control" id="nom" name="nom" value="{{ $elefe->nom }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="prenom" class="form-label">Prénom</label>
-                            <input type="text" class="form-control" id="prenom" name="prenom" value="{{ $eleves->prenom }}" required>
+                            <input type="text" class="form-control" id="prenom" name="prenom" value="{{ $elefe->prenom }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ $eleves->email }}" required>
+                            <input type="email" class="form-control" id="email" name="email" value="{{ $elefe->email }}" required>
                         </div>
                         <div class="mb-3">
                             <label for="idSites" class="form-label">Site</label>
                             <select class="form-select" id="idSites" name="idSites" required>
                                 <option value="">Sélectionner un site</option>
                                 @foreach($sites as $site)
-                                <option value="{{ $site->id }}" {{ $eleves->idSites == $site->id ? 'selected' : '' }}>{{ $site->nom }}</option>
+                                <option value="{{ $site->id }}" {{ $elefe->idSites == $site->id ? 'selected' : '' }}>{{ $site->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -56,7 +56,7 @@
                             <select class="form-select" id="idCoursDappuie" name="idCoursDappuie" required>
                                 <option value="">Sélectionner un cours d'appui</option>
                                 @foreach($coursdappuies as $coursdappuie)
-                                <option value="{{ $coursdappuie->id }}" {{ $eleves->idCoursDappuie == $coursdappuie->id ? 'selected' : '' }}>{{ $coursdappuie->nom }}</option>
+                                <option value="{{ $coursdappuie->id }}" {{ $elefe->idCoursDappuie == $coursdappuie->id ? 'selected' : '' }}>{{ $coursdappuie->nom }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -65,7 +65,7 @@
                             <select class="form-select" id="idClasse" name="idClasse" required>
                                 <option value="">Sélectionner une classe</option>
                                 @foreach($classes as $classe)
-                                <option value="{{ $classe->id }}" {{ $eleves->idClasse == $classe->id ? 'selected' : '' }}>{{ $classe->nom }}</option>
+                                <option value="{{ $classe->id }}" {{ $elefe->idClasse == $classe->id ? 'selected' : '' }}>{{ $classe->nom }}</option>
                                 @endforeach
                             </select>
                         </div>

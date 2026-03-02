@@ -39,6 +39,16 @@
                             <input type="text" class="form-control" id="localisation" name="localisation" required>
                             <div class="invalid-feedback">Veuillez entrer une localisation.</div>
                         </div>
+                        <div class="mb-3">
+                            <label for="idCoursDappuie" class="form-label">Cours d'appui</label>
+                            <select class="form-select" id="idCoursDappuie" name="idCoursDappuie" required>
+                                <option value="">Sélectionner un cours d'appui</option>
+                                @foreach($coursdappuies as $coursdappuie)
+                                    <option value="{{ $coursdappuie->id }}">{{ $coursdappuie->nom }}</option>
+                                @endforeach
+                            </select>
+                            <div class="invalid-feedback">Veuillez sélectionner un cours d'appui.</div>
+                        </div>
                         <div class="mt-4 pt-3 border-top d-flex justify-content-between">
                             <a href="{{ route('sites.index') }}" class="btn btn-light"><i class="ri-arrow-left-line me-1"></i>Retour</a>
                             <button type="submit" class="btn btn-primary"><i class="ri-save-line me-1"></i>Enregistrer</button>

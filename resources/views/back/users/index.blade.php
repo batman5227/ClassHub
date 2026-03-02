@@ -45,6 +45,7 @@
                                 <tr>
                                     <th class="text-uppercase fw-bold">Nom</th>
                                     <th class="text-uppercase fw-bold">Email</th>
+                                    <th class="text-uppercase fw-bold">Statut</th>
                                     <th class="text-uppercase fw-bold">Date</th>
                                     <th class="text-uppercase fw-bold text-center">Actions</th>
                                 </tr>
@@ -54,30 +55,22 @@
                                 <tr>
                                     <td><span class="fw-semibold">{{ $user->name }}</span></td>
                                     <td>{{ $user->email }}</td>
+                                    <td>
+                                        @if($user->status === 'actif')
+                                            <span class="badge bg-success">Actif</span>
+                                        @else
+                                            <span class="badge bg-danger">Inactif</span>
+                                        @endif
+                                    </td>
                                     <td><span class="text-muted">{{ $user->created_at->format('d/m/Y') }}</span></td>
                                     <td>
                                         <div class="d-flex gap-2 justify-content-center">
                                             <a href="{{ route('users.show', $user->id) }}" class="action-btn action-btn-view"><i class="ri-eye-line"></i></a>
                                             <a href="{{ route('users.edit', $user->id) }}" class="action-btn action-btn-edit"><i class="ri-edit-line"></i></a>
-                                            <button type="button" class="action-btn action-btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $user->id }}"><i class="ri-delete-bin-line"></i></button>
+                                            <button type="button" class="action-btn action-btn-delete" onclick="confirmDelete('{{ route('users.destroy', $user->id) }}', '{{ $user->name }}')"><i class="ri-delete-bin-line"></i></button>
                                         </div>
                                     </td>
                                 </tr>
-                                <div class="modal fade" id="deleteModal{{ $user->id }}" tabindex="-1">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header"><h5 class="modal-title">Confirmation</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-                                            <div class="modal-body text-center py-4">
-                                                <i class="ri-error-warning-line text-danger" style="font-size: 4rem;"></i>
-                                                <p class="mt-3">Supprimer <strong>{{ $user->name }}</strong>?</p>
-                                            </div>
-                                            <div class="modal-footer justify-content-center">
-                                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
-                                                <form action="{{ route('users.destroy', $user->id) }}" method="POST">@csrf @method('DELETE')<button type="submit" class="btn btn-danger">Supprimer</button></form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 @endforeach
                             </tbody>
                         </table>
@@ -89,4 +82,29 @@
         </div>
     </div>
 </div>
+
+<!-- Simple Delete Confirmation -->
+<div id="deleteConfirmBox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
+    <div style="background: var(--bg-secondary); padding: 30px 40px; border-radius: 16px; text-align: center; max-width: 400px; border: 1px solid rgba(255,255,255,0.1);">
+        <i class="ri-error-warning-line" style="font-size: 4rem; color: var(--accent-secondary);"></i>
+        <h4 style="margin: 20px 0; color: var(--text-primary);">Confirmation</h4>
+        <p id="deleteConfirmText" style="color: var(--text-secondary); margin-bottom: 25px;"></p>
+        <div style="display: flex; gap: 15px; justify-content: center;">
+            <button onclick="closeDeleteConfirm()" class="btn btn-light">Annuler</button>
+            <a id="deleteConfirmBtn" href="#" class="btn btn-danger">Supprimer</a>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(url, name) {
+    document.getElementById('deleteConfirmText').textContent = 'Voulez-vous vraiment supprimer "' + name + '" ?';
+    document.getElementById('deleteConfirmBtn').href = url;
+    document.getElementById('deleteConfirmBox').style.display = 'flex';
+}
+
+function closeDeleteConfirm() {
+    document.getElementById('deleteConfirmBox').style.display = 'none';
+}
+</script>
 @endsection

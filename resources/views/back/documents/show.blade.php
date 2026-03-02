@@ -27,7 +27,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">{{ $documents->nom }}</h5>
+                    <h5 class="card-title mb-0">{{ $document->nom }}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -36,21 +36,21 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <td><strong>Nom:</strong></td>
-                                    <td>{{ $documents->nom }}</td>
+                                    <td>{{ $document->nom }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Matière parente:</strong></td>
-                                    <td>{{ $documents->matiere ? $documents->matiere->nom : 'N/A' }}</td>
+                                    <td><strong>Matière:</strong></td>
+                                    <td>{{ $document->matiere ? $document->matiere->nom : 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Date de création:</strong></td>
-                                    <td>{{ $documents->created_at->format('d/m/Y H:i') }}</td>
+                                    <td>{{ $document->created_at->format('d/m/Y H:i') }}</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <a href="{{ route('documents.edit', $documents->id) }}" class="btn btn-warning">
+                        <a href="{{ route('documents.edit', $document) }}" class="btn btn-warning">
                             <i class="ri-edit-line"></i> Modifier
                         </a>
                         <a href="{{ route('documents.index') }}" class="btn btn-secondary">

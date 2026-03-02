@@ -27,7 +27,7 @@
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">{{ $eleves->nom }} {{ $eleves->prenom }}</h5>
+                    <h5 class="card-title mb-0">{{ $elefe->nom }} {{ $elefe->prenom }}</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -36,29 +36,29 @@
                             <table class="table table-borderless">
                                 <tr>
                                     <td><strong>Nom:</strong></td>
-                                    <td>{{ $eleves->nom }}</td>
+                                    <td>{{ $elefe->nom }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Prénom:</strong></td>
-                                    <td>{{ $eleves->prenom }}</td>
+                                    <td>{{ $elefe->prenom }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Email:</strong></td>
-                                    <td>{{ $eleves->email }}</td>
+                                    <td>{{ $elefe->email }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Classe:</strong></td>
-                                    <td>{{ $eleves->classe->nom ?? 'N/A' }}</td>
+                                    <td>{{ $elefe->classe->nom ?? 'N/A' }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Date de création:</strong></td>
-                                    <td>{{ $eleves->created_at->format('d/m/Y H:i') }}</td>
+                                    <td>{{ $elefe->created_at ? $elefe->created_at->format('d/m/Y H:i') : 'N/A' }}</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
                     <div class="mt-3">
-                        <a href="{{ route('eleves.edit', $eleves->id) }}" class="btn btn-warning">
+                        <a href="{{ route('eleves.edit', $elefe) }}" class="btn btn-warning">
                             <i class="ri-edit-line"></i> Modifier
                         </a>
                         <a href="{{ route('eleves.index') }}" class="btn btn-secondary">

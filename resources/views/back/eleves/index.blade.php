@@ -32,6 +32,16 @@
                     </a>
                 </div>
                 <div class="card-body">
+                    @if($eleves->isEmpty())
+                    <div class="empty-state">
+                        <i class="ri-user-smile-line"></i>
+                        <h5>Aucun élève trouvé</h5>
+                        <p>Commencez par ajouter votre premier élève</p>
+                        <a href="{{ route('eleves.create') }}" class="btn btn-primary mt-3">
+                            <i class="ri-add-line me-1"></i>Ajouter un élève
+                        </a>
+                    </div>
+                    @else
                     <table id="eleves-table" class="table table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
                         <thead>
                             <tr>
@@ -52,27 +62,46 @@
                                 <td>{{ $eleve->classe->nom ?? 'N/A' }}</td>
                                 <td>{{ $eleve->created_at->format('d/m/Y') }}</td>
                                 <td>
-                                    <div class="d-flex gap-2">
-                                        <a href="{{ route('eleves.show', $eleve->id) }}" class="btn btn-sm btn-info">
+                                    <div class="d-flex gap-2 justify-content-center">
+                                        <a href="{{ route('eleves.show', $eleve) }}" class="action-btn action-btn-view">
                                             <i class="ri-eye-line"></i>
                                         </a>
-                                        <a href="{{ route('eleves.edit', $eleve->id) }}" class="btn btn-sm btn-warning">
+                                        <a href="{{ route('eleves.edit', $eleve) }}" class="action-btn action-btn-edit">
                                             <i class="ri-edit-line"></i>
                                         </a>
-                                        <form action="{{ route('eleves.destroy', $eleve->id) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet élève?')">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </button>
-                                        </form>
+                                        <button type="button" class="action-btn action-btn-delete" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $eleve->id }}">
+                                            <i class="ri-delete-bin-line"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="deleteModal{{ $eleve->id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Confirmation</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body text-center py-4">
+                                            <i class="ri-error-warning-line text-danger" style="font-size: 4rem;"></i>
+                                            <p class="mt-3">Supprimer l'élève <strong>{{ $eleve->nom }} {{ $eleve->prenom }}</strong>?</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-center">
+                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                                            <form action="{{ route('eleves.destroy', $eleve) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             @endforeach
                         </tbody>
                     </table>
                     {{ $eleves->links() }}
+                    @endif
                 </div>
             </div>
         </div>
