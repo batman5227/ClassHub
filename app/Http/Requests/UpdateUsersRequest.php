@@ -7,34 +7,29 @@ use Illuminate\Validation\Rule;
 
 class UpdateUsersRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return true; // ← Corrigé : true au lieu de false
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
+        // Récupérer l'ID de l'utilisateur depuis la route
+        $userId = $this->route('user') ?? $this->route('users');
+
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => [
                 'required',
                 'email',
-                Rule::unique('users', 'email')->ignore($this->user->id)
+                Rule::unique('users', 'email')->ignore($userId)
             ],
             'telephone' => [
                 'required',
                 'string',
                 'max:20',
-                Rule::unique('users', 'telephone')->ignore($this->user->id)
+                Rule::unique('users', 'telephone')->ignore($userId)
             ],
             'password' => 'nullable|string|min:8|confirmed',
             'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
@@ -42,11 +37,6 @@ class UpdateUsersRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get custom messages for validator errors.
-     *
-     * @return array
-     */
     public function messages(): array
     {
         return [
@@ -62,6 +52,9 @@ class UpdateUsersRequest extends FormRequest
             'telephone.max' => 'Le téléphone ne doit pas dépasser :max caractères.',
             'password.min' => 'Le mot de passe doit contenir au moins :min caractères.',
             'password.confirmed' => 'La confirmation du mot de passe ne correspond pas.',
+            'photo.image' => 'Le fichier doit être une image.',
+            'photo.mimes' => 'L\'image doit être au format :values.',
+            'photo.max' => 'L\'image ne doit pas dépasser 5 Mo.',
             'status.required' => 'Le statut est obligatoire.',
             'status.in' => 'Le statut doit être "actif" ou "inactif".',
         ];

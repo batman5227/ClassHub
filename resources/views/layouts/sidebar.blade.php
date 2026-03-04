@@ -228,6 +228,61 @@
                         <i class="ri-link"></i> <span>Affectations</span>
                     </a>
                 </li>
+                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarEleves" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEleves">
+                        <i class="ri-user-smile-line"></i> <span data-key="t-eleves">Eleves</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarEleves">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('eleves.index') }}" class="nav-link" data-key="t-list-users">
+                                    <i class="ri-list-check me-2"></i> Liste des eleves
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('eleves.create') }}" class="nav-link" data-key="t-create-user">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un eleve
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarDocuments" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDocuments">
+                        <i class="ri-file-chart-line"></i> <span data-key="t-documents">Documents</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarDocuments">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('documents.index') }}" class="nav-link" data-key="t-list-documents">
+                                    <i class="ri-list-check me-2"></i> Liste des documents
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('documents.create') }}" class="nav-link" data-key="t-create-document">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un document
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li> <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarclasse-matiere-groupe" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarclasse-matiere-groupe">
+                        <i class="ri-links-line"></i> <span data-key="t-classe-matiere-groupe">classe matiere groupe</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarclasse-matiere-groupe">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('classe-matiere-groupe.index') }}" class="nav-link" data-key="t-list-users">
+                                    <i class="ri-list-check me-2"></i> Liste des associations classe-matière-groupe
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('classe-matiere-groupe.create') }}" class="nav-link" data-key="t-create-user">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter une association classe-matière-groupe
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
 
                 <!-- Menu existant à conserver -->
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>

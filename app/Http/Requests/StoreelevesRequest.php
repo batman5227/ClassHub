@@ -11,7 +11,7 @@ class StoreelevesRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreelevesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255',
+            'prenom' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:eleves,email',
+            'idClasse' => 'required|uuid|exists:classes,id',
+            'idSites' => 'required|uuid|exists:sites,id',
+            'idCoursDappuie' => 'required|uuid|exists:coursdappuies,id',
         ];
     }
 }

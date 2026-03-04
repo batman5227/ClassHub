@@ -22,8 +22,9 @@ class StoreClasseMatiereGroupeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
-            
+            'idMatiere' => 'required|uuid|exists:matieres,id',
+            'idClasse' => 'required|uuid|exists:classes,id',
+            'idGroupe' => 'required|uuid|exists:groupes,id',
         ];
     }
 }

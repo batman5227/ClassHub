@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\eleves;
+use App\Models\Classe;
+use App\Models\Sites;
+use App\Models\Coursdappuie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreelevesRequest;
 use App\Http\Requests\UpdateelevesRequest;
@@ -14,7 +17,8 @@ class ElevesController extends Controller
      */
     public function index()
     {
-        //
+        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->latest()->paginate(10);
+        return view('back.eleves.index', compact('eleves'));
     }
 
     /**
@@ -22,7 +26,10 @@ class ElevesController extends Controller
      */
     public function create()
     {
-        //
+        $classes = Classe::all();
+        $sites = Sites::all();
+        $coursdappuies = Coursdappuie::all();
+        return view('back.eleves.create', compact('classes', 'sites', 'coursdappuies'));
     }
 
     /**
@@ -30,38 +37,83 @@ class ElevesController extends Controller
      */
     public function store(StoreelevesRequest $request)
     {
-        //
+        $data = $request->validated();
+        eleves::create($data);
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève ajouté avec succès.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(eleves $eleves)
+    public function show(eleves $elefe)
     {
-        //
+        $elefe->load(['classe', 'sites', 'coursdappuie']);
+        return view('back.eleves.show', compact('elefe'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(eleves $eleves)
+    public function edit(eleves $elefe)
     {
-        //
+        $classes = Classe::all();
+        $sites = Sites::all();
+        $coursdappuies = Coursdappuie::all();
+        return view('back.eleves.edit', compact('elefe', 'classes', 'sites', 'coursdappuies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateelevesRequest $request, eleves $eleves)
+    public function update(UpdateelevesRequest $request, eleves $elefe)
     {
-        //
+        $data = $request->validated();
+        $elefe->update($data);
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève mis à jour avec succès.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(eleves $eleves)
+    public function destroy(eleves $elefe)
     {
-        //
+        $elefe->delete();
+
+        return redirect()
+            ->route('eleves.index')
+            ->with('success', 'Élève supprimé avec succès.');
+    }
+
+    /**
+     * Display eleves filtered by class.
+     */
+    public function byClass($idClasse)
+    {
+        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idClasse', $idClasse)->paginate(10);
+        return view('back.eleves.index', compact('eleves'));
+    }
+
+    /**
+     * Display eleves filtered by site.
+     */
+    public function bySite($idSites)
+    {
+        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idSites', $idSites)->paginate(10);
+        return view('back.eleves.index', compact('eleves'));
+    }
+
+    /**
+     * Display eleves filtered by cours d'appuie.
+     */
+    public function byCoursDappuie($idCoursDappuie)
+    {
+        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idCoursDappuie', $idCoursDappuie)->paginate(10);
+        return view('back.eleves.index', compact('eleves'));
     }
 }

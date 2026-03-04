@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\ClasseController;
+use App\Http\Controllers\ClasseMatiereGroupeController;
 use App\Http\Controllers\CoursdappuieController;
+use App\Http\Controllers\DocumentsController;
+use App\Http\Controllers\ElevesController;
 use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoleController;
@@ -78,3 +81,17 @@ Route::resource('users',UsersController::class);
 // Route::resources('subjects', 'App\Http\Controllers\SubjectController');
 // Route::resources('schedules', 'App\Http\Controllers\ScheduleController');
 // Route::resources('enrollments', 'App\Http\Controllers\EnrollmentController');
+//Yanick
+
+// Routes pour les Élèves
+Route::resource('eleves', ElevesController::class);
+
+// Routes pour filtrer les eleves
+Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');
+Route::get('eleves/site/{idSites}', [ElevesController::class, 'bySite'])->name('eleves.bySite');
+Route::get('eleves/coursdappuie/{idCoursDappuie}', [ElevesController::class, 'byCoursDappuie'])->name('eleves.byCoursDappuie');
+
+// Routes pour Classe-Matière-Groupe
+Route::resource('classe-matiere-groupe', ClasseMatiereGroupeController::class);
+// Routes pour les Documents
+Route::resource('documents', DocumentsController::class);

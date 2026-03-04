@@ -7,8 +7,9 @@ use App\Http\Requests\StoreUsersRequest;
 use App\Http\Requests\UpdateUsersRequest;
 use App\Models\Users;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -34,7 +35,7 @@ class UsersController extends Controller
      */
     public function store(StoreUsersRequest $request)
     {
-        
+
         try {
             $data = $request->validated();
 
@@ -107,6 +108,7 @@ class UsersController extends Controller
      */
     public function edit(Users $user)
     {
+
         return view('back.users.updat', compact('user'));
     }
 
@@ -115,8 +117,10 @@ class UsersController extends Controller
      */
     public function update(UpdateUsersRequest $request, Users $user)
     {
+        // dd($request->all());
         try {
             $data = $request->validated();
+
 
             // ✅ GESTION DU MOT DE PASSE (optionnel en modification)
             if (!empty($data['password'])) {

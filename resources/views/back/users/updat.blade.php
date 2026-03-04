@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="card-body p-4">
-                    <form action="{{ route('users.update', $user->id) }}" method="POST">
+                    <form action="{{ route('users.update', $user->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                        <!-- SECTION: PHOTO DE PROFIL -->
@@ -84,32 +84,35 @@
         </div>
     </div>
 
-    <!-- Nouvelle photo -->
-    <div class="row">
-        <div class="col-md-12">
-            <label for="photo" class="form-label fw-semibold">
-                <i class="fas fa-cloud-upload-alt text-primary me-2"></i>Changer la photo
-            </label>
-            <input type="file"
-                   name="photo"
-                   id="photo"
-                   class="form-control form-control-lg @error('photo') is-invalid @enderror"
-                   accept="image/*">
-            @error('photo')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
-            <small class="text-muted">Laissez vide pour conserver la photo actuelle</small>
-        </div>
-    </div>
+                        <div class="mb-4">
+                            <h5 class="text-primary mb-3 pb-2 border-bottom">
+                                <i class="fas fa-camera me-2"></i>Photo de profil
+                            </h5>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label for="photo" class="form-label fw-semibold">
+                                        <i class="fas fa-image text-primary me-2"></i>Photo
+                                    </label>
+                                    <input type="file"
+                                           name="photo"
+                                           id="photo"
+                                           class="form-control form-control-lg @error('photo') is-invalid @enderror"
+                                           accept="image/*">
+                                    @error('photo')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="text-muted">Formats acceptés : JPG, PNG, GIF, WEBP. Taille max : 2 Mo</small>
+                                </div>
+                            </div>
 
-    <!-- Aperçu de la nouvelle photo -->
-    <div class="mt-3" id="preview-container" style="display: none;">
-        <label class="form-label fw-semibold">Aperçu de la nouvelle photo</label>
-        <div class="bg-light rounded-3 p-3 text-center">
-            <img id="photo-preview" src="#" alt="Aperçu" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
-        </div>
-    </div>
-</div>
+                            <!-- Aperçu de la photo -->
+                            <div class="mt-3" id="preview-container" style="display: none;">
+                                <label class="form-label fw-semibold">Aperçu</label>
+                                <div class="bg-light rounded-3 p-3 text-center">
+                                    <img id="photo-preview" src="#" alt="Aperçu" class="rounded-circle" style="width: 150px; height: 150px; object-fit: cover;">
+                                </div>
+                            </div>
+                        </div>
                         <!-- SECTION 1: IDENTITÉ -->
                         <div class="mb-4">
                             <h5 class="text-primary mb-3 pb-2 border-bottom">
