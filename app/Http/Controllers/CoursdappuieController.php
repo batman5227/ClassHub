@@ -18,7 +18,7 @@ class CoursdappuieController extends Controller
     {
         $coursdappuies = Coursdappuie::latest()->paginate(10);
 
-        return view('back.Coursdappuie.index', compact('coursdappuies'));
+        return view('back.coursdappuie.index', compact('coursdappuies'));
     }
 
     /**
@@ -26,7 +26,7 @@ class CoursdappuieController extends Controller
      */
     public function create()
     {
-        return view('back.Coursdappuie.create');
+        return view('back.coursdappuie.create');
     }
 
     /**
@@ -73,7 +73,7 @@ class CoursdappuieController extends Controller
      */
     public function show(Coursdappuie $coursdappuie)
     {
-        return view('back.Coursdappuie.show', compact('coursdappuie'));
+        return view('back.coursdappuie.show', compact('coursdappuie'));
     }
 
     /**
@@ -81,7 +81,7 @@ class CoursdappuieController extends Controller
      */
     public function edit(Coursdappuie $coursdappuie)
     {
-        return view('back.Coursdappuie.updat', compact('coursdappuie'));
+        return view('back.coursdappuie.edit', compact('coursdappuie'));
     }
 
     /**
