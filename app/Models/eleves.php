@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class eleves extends Model
 {
@@ -13,10 +12,7 @@ class eleves extends Model
     protected $fillable = [
         'nom',
         'prenom',
-        'email',
-        'idClasse',
-        'idSites',
-        'idCoursDappuie',
+        'numParents',
     ];
 
     /**
@@ -25,29 +21,5 @@ class eleves extends Model
     public function getRouteKeyName(): string
     {
         return 'id';
-    }
-
-    /**
-     * Get the classe that owns the eleve.
-     */
-    public function classe(): BelongsTo
-    {
-        return $this->belongsTo(Classe::class, 'idClasse');
-    }
-
-    /**
-     * Get the site that owns the eleve.
-     */
-    public function sites(): BelongsTo
-    {
-        return $this->belongsTo(Sites::class, 'idSites');
-    }
-
-    /**
-     * Get the cours d'appuie that owns the eleve.
-     */
-    public function coursdappuie(): BelongsTo
-    {
-        return $this->belongsTo(Coursdappuie::class, 'idCoursDappuie');
     }
 }

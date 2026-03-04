@@ -3,9 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\eleves;
-use App\Models\Classe;
-use App\Models\Sites;
-use App\Models\Coursdappuie;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreelevesRequest;
 use App\Http\Requests\UpdateelevesRequest;
@@ -17,7 +14,7 @@ class ElevesController extends Controller
      */
     public function index()
     {
-        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->latest()->paginate(10);
+        $eleves = eleves::latest()->paginate(10);
         return view('back.eleves.index', compact('eleves'));
     }
 
@@ -26,10 +23,7 @@ class ElevesController extends Controller
      */
     public function create()
     {
-        $classes = Classe::all();
-        $sites = Sites::all();
-        $coursdappuies = Coursdappuie::all();
-        return view('back.eleves.create', compact('classes', 'sites', 'coursdappuies'));
+        return view('back.eleves.create');
     }
 
     /**
@@ -50,7 +44,6 @@ class ElevesController extends Controller
      */
     public function show(eleves $elefe)
     {
-        $elefe->load(['classe', 'sites', 'coursdappuie']);
         return view('back.eleves.show', compact('elefe'));
     }
 
@@ -59,10 +52,7 @@ class ElevesController extends Controller
      */
     public function edit(eleves $elefe)
     {
-        $classes = Classe::all();
-        $sites = Sites::all();
-        $coursdappuies = Coursdappuie::all();
-        return view('back.eleves.edit', compact('elefe', 'classes', 'sites', 'coursdappuies'));
+        return view('back.eleves.edit', compact('elefe'));
     }
 
     /**
@@ -89,31 +79,5 @@ class ElevesController extends Controller
             ->route('eleves.index')
             ->with('success', 'Élève supprimé avec succès.');
     }
-
-    /**
-     * Display eleves filtered by class.
-     */
-    public function byClass($idClasse)
-    {
-        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idClasse', $idClasse)->paginate(10);
-        return view('back.eleves.index', compact('eleves'));
-    }
-
-    /**
-     * Display eleves filtered by site.
-     */
-    public function bySite($idSites)
-    {
-        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idSites', $idSites)->paginate(10);
-        return view('back.eleves.index', compact('eleves'));
-    }
-
-    /**
-     * Display eleves filtered by cours d'appuie.
-     */
-    public function byCoursDappuie($idCoursDappuie)
-    {
-        $eleves = eleves::with(['classe', 'sites', 'coursdappuie'])->where('idCoursDappuie', $idCoursDappuie)->paginate(10);
-        return view('back.eleves.index', compact('eleves'));
-    }
 }
+

@@ -16,6 +16,7 @@ class Groupe extends Model
         'idClasse',
     ];
 
+
     /**
      * Get the classe that owns the groupe.
      */
@@ -47,4 +48,9 @@ class Groupe extends Model
     {
         return $this->hasMany(ClasseMatiereGroupe::class, 'idGroupe');
     }
+    public function classeGroupe()
+{
+    return $this->belongsTo(Classe::class, 'idClasse');
 }
+}
+

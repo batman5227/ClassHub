@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
+            $table->uuid('idClasse');
+            $table->foreign('idClasse')->references('id')->on('classes')->onDelete('cascade');
             $table->timestamps();
         });
     }

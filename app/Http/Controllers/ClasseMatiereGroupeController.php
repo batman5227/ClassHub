@@ -17,11 +17,11 @@ class ClasseMatiereGroupeController extends Controller
      */
     public function index()
     {
-        $data = ClasseMatiereGroupe::with(['classe', 'matiere', 'groupe'])
+        $classeMatiereGroupes = ClasseMatiereGroupe::with(['classe', 'matiere', 'groupe'])
                     ->latest()
                     ->paginate(10);
 
-        return view('back.classe-matiere-groupe.index', compact('data'));
+        return view('back.classe-matiere-groupe.index', compact('classeMatiereGroupes'));
     }
 
     /**

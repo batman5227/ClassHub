@@ -23,6 +23,8 @@ class UpdateRoleRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
+            'nom' => 'required|string|max:255|unique:roles,nom,'.$this->role->id,
+            'description' => 'nullable|string|max:1000',
         ];
     }
 }

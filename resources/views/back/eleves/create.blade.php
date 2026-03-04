@@ -38,35 +38,8 @@
                             <input type="text" class="form-control" id="prenom" name="prenom" required>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idSites" class="form-label">Site</label>
-                            <select class="form-select" id="idSites" name="idSites" required>
-                                <option value="">Sélectionner un site</option>
-                                @foreach($sites as $site)
-                                <option value="{{ $site->id }}">{{ $site->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idCoursDappuie" class="form-label">Cours d'Appui</label>
-                            <select class="form-select" id="idCoursDappuie" name="idCoursDappuie" required>
-                                <option value="">Sélectionner un cours d'appui</option>
-                                @foreach($coursdappuies as $coursdappuie)
-                                <option value="{{ $coursdappuie->id }}">{{ $coursdappuie->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idClasse" class="form-label">Classe</label>
-                            <select class="form-select" id="idClasse" name="idClasse" required>
-                                <option value="">Sélectionner une classe</option>
-                                @foreach($classes as $classe)
-                                <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
-                                @endforeach
-                            </select>
+                            <label for="numParents" class="form-label">Numéro des Parents</label>
+                            <input type="text" class="form-control" id="numParents" name="numParents" required>
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Enregistrer</button>
@@ -79,3 +52,4 @@
     </div>
 </div>
 @endsection
+

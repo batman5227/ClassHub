@@ -11,7 +11,11 @@ class Coursdappuie extends Model
     use HasUuids;
 
     protected $fillable = [
+
         'nom',
+    'nom',
+    'logo',
+    'slogan'
     ];
 
     /**

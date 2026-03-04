@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Role;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreRoleRequest;
 use App\Http\Requests\UpdateRoleRequest;
+use App\Models\permissions;
+use App\Models\Role;
+use Illuminate\Support\Facades\Log;
 
 class RoleController extends Controller
 {
@@ -14,9 +16,32 @@ class RoleController extends Controller
      */
     public function index()
     {
-        $roles = Role::latest()->paginate(10);
-
+        $roles = Role::with('permissions')->get();
         return view('back.roles.index', compact('roles'));
+    }
+
+    public function affecter($id)
+    {
+        $role = Role::with('permissions')->findOrFail($id);
+        $permissions = permissions::all();
+
+        Log::info('IDs des permissions:', $permissions->pluck('id')->toArray());
+
+        foreach ($permissions as $p) {
+            Log::info("Permission {$p->nom}: ID = {$p->id}, Type = " . gettype($p->id));
+        }
+
+        $rolePermissions = $role->permissions->pluck('id')->toArray();
+
+        return view('back.role.affecter', compact('role', 'permissions', 'rolePermissions'));
+    }
+
+    public function retirer($id)
+    {
+        $role = Role::where('id', $id)->with('permissions')->first();
+        $permissions = $role->permissions;
+
+        return view('back.role.retirer', compact('role', 'permissions'));
     }
 
     /**
@@ -33,8 +58,10 @@ class RoleController extends Controller
     public function store(StoreRoleRequest $request)
     {
         $data = $request->validated();
+        $nom = strtolower($data['nom']);
+        $nom = str_replace(' ', '_', $nom);
 
-        Role::create($data);
+        Role::create(['nom' => $nom]);
 
         return redirect()
             ->route('roles.index')
@@ -63,7 +90,6 @@ class RoleController extends Controller
     public function update(UpdateRoleRequest $request, Role $role)
     {
         $data = $request->validated();
-
         $role->update($data);
 
         return redirect()
@@ -83,3 +109,4 @@ class RoleController extends Controller
             ->with('success', 'Rôle supprimé avec succès.');
     }
 }
+

@@ -80,3 +80,4 @@ class SitesController extends Controller
                          ->with('success', 'Site supprimé avec succès.');
     }
 }
+

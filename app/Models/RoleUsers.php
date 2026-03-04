@@ -17,6 +17,7 @@ class RoleUsers extends Model
         'idUsers',
     ];
 
+
     /**
      * Get the role that owns the role user.
      */
@@ -31,5 +32,16 @@ class RoleUsers extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(Users::class, 'idUsers');
+      public function user(): BelongsTo
+    {
+        return $this->belongsTo(Users::class, 'idUsers', 'id');
+    }
+
+    /**
+     * Relation avec le rôle
+     */
+    public function role(): BelongsTo
+    {
+        return $this->belongsTo(Role::class, 'idRole', 'id');
     }
 }

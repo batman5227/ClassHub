@@ -16,7 +16,8 @@ class CreateRolesTable extends Migration
             $table->uuid('id')
                 ->primary()
                 ->default(DB::raw('uuid_generate_v4()'));
-            $table->string('nom');
+            $table->string('nom')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

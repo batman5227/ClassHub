@@ -5,106 +5,322 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
+<div class="container-fluid px-4 py-5">
+
+    <!-- En-tête -->
+    <div class="row mb-5">
         <div class="col-12">
-            <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0">Gestion des Utilisateurs</h4>
-                <div class="page-title-right">
-                    <ol class="breadcrumb m-0">
-                        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Utilisateurs</li>
-                    </ol>
+            <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
+                 style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="position-absolute top-0 end-0 opacity-10">
+                    <i class="fas fa-users fa-8x text-white"></i>
+                </div>
+                <div class="position-absolute bottom-0 start-0 opacity-10">
+                    <i class="fas fa-user-shield fa-8x text-white"></i>
+                </div>
+                <div class="row align-items-center position-relative">
+                    <div class="col-lg-8">
+                        <nav aria-label="breadcrumb" class="mb-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active text-white" aria-current="page">Utilisateurs</li>
+                            </ol>
+                        </nav>
+                        <h1 class="display-4 fw-bold text-white mb-3">Gestion des utilisateurs</h1>
+                        <p class="text-white opacity-90 lead mb-4">Gérez les utilisateurs de l'application</p>
+                        <div class="d-flex gap-3">
+                            <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
+                                <small class="text-white opacity-75 d-block">Total utilisateurs</small>
+                                <span class="text-white fw-bold">{{ count($users) }}</span>
+                            </div>
+                            <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
+                                <small class="text-white opacity-75 d-block">Actifs</small>
+                                <span class="text-white fw-bold">{{ $users->where('status', 'actif')->count() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                        <a href="{{ route('users.create') }}"
+                           class="btn btn-light btn-lg rounded-pill px-5 shadow-sm hover-lift">
+                            <i class="fas fa-plus-circle me-2 text-primary"></i>Nouvel utilisateur
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header bg-gradient border-bottom d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                        <i class="ri-user-settings-line me-2 fs-4 text-white"></i>
-                        <h5 class="card-title mb-0 text-white">Liste des Utilisateurs</h5>
-                    </div>
-                    <a href="{{ route('users.create') }}" class="btn btn-primary">
-                        <i class="ri-add-line align-bottom"></i> Ajouter
-                    </a>
+
+    <!-- Messages flash -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm border-0 bg-success bg-opacity-10 mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle fa-2x text-success"></i>
                 </div>
-                <div class="card-body">
-                    @if($users->isEmpty())
-                    <div class="empty-state">
-                        <i class="ri-user-settings-line"></i>
-                        <h5>Aucun utilisateur</h5>
-                        <a href="{{ route('users.create') }}" class="btn btn-primary mt-3">Ajouter</a>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="alert-heading mb-1 text-success">Opération réussie !</h5>
+                    <p class="mb-0">{{ session('success') }}</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm border-0 bg-danger bg-opacity-10 mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-circle fa-2x text-danger"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="alert-heading mb-1 text-danger">Erreur</h5>
+                    <p class="mb-0">{{ session('error') }}</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    @endif
+
+    <!-- Tableau -->
+    <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+        <div class="card-header bg-white border-0 p-4">
+            <div class="row align-items-center">
+                <div class="col">
+                    <h4 class="mb-0 fw-bold">
+                        <i class="fas fa-list text-primary me-2"></i>Liste des utilisateurs
+                    </h4>
+                    <p class="text-muted mb-0 mt-1">{{ count($users) }} utilisateur(s) trouvé(s)</p>
+                </div>
+                <div class="col-auto">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" id="search-users"
+                               placeholder="Rechercher un utilisateur...">
                     </div>
-                    @else
-                    <div class="table-responsive">
-                        <table class="table table-hover table-bordered dt-responsive nowrap table-striped align-middle" style="width:100%">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="text-uppercase fw-bold">Nom</th>
-                                    <th class="text-uppercase fw-bold">Email</th>
-                                    <th class="text-uppercase fw-bold">Statut</th>
-                                    <th class="text-uppercase fw-bold">Date</th>
-                                    <th class="text-uppercase fw-bold text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $user)
-                                <tr>
-                                    <td><span class="fw-semibold">{{ $user->name }}</span></td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>
-                                        @if($user->status === 'actif')
-                                            <span class="badge bg-success">Actif</span>
-                                        @else
-                                            <span class="badge bg-danger">Inactif</span>
-                                        @endif
-                                    </td>
-                                    <td><span class="text-muted">{{ $user->created_at->format('d/m/Y') }}</span></td>
-                                    <td>
-                                        <div class="d-flex gap-2 justify-content-center">
-                                            <a href="{{ route('users.show', $user->id) }}" class="action-btn action-btn-view"><i class="ri-eye-line"></i></a>
-                                            <a href="{{ route('users.edit', $user->id) }}" class="action-btn action-btn-edit"><i class="ri-edit-line"></i></a>
-                                            <button type="button" class="action-btn action-btn-delete" onclick="confirmDelete('{{ route('users.destroy', $user->id) }}', '{{ $user->name }}')"><i class="ri-delete-bin-line"></i></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    {{ $users->links() }}
-                    @endif
                 </div>
             </div>
         </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="px-4 py-3">Utilisateur</th>
+                            <th class="px-4 py-3">Email</th>
+                            <th class="px-4 py-3">Téléphone</th>
+                            <th class="px-4 py-3">Statut</th>
+                            <th class="px-4 py-3">Date d'inscription</th>
+                            <th class="px-4 py-3 text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $user)
+                            <tr class="user-row" data-name="{{ strtolower($user->nom . ' ' . $user->prenom . ' ' . $user->email) }}">
+                                <td class="px-4 py-3">
+                                    <div class="d-flex align-items-center">
+                                        <div class="me-3">
+                                            @if($user->photo)
+                                                <img src="{{ asset('storage/' . $user->photo) }}"
+                                                     alt="{{ $user->nom }}"
+                                                     class="rounded-circle object-fit-cover border border-2 border-primary"
+                                                     style="width: 48px; height: 48px; object-fit: cover;">
+                                            @else
+                                                <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center"
+                                                     style="width: 48px; height: 48px;">
+                                                    <i class="fas fa-user-circle fa-2x text-primary"></i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div>
+                                            <span class="fw-semibold">{{ $user->nom }} {{ $user->prenom }}</span>
+                                            <small class="text-muted d-block">
+                                                ID: {{ substr($user->id, 0, 6) }}...{{ substr($user->id, -4) }}
+                                            </small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-4 py-3">
+                                    <i class="fas fa-envelope text-muted me-2"></i>{{ $user->email }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    <i class="fas fa-phone text-muted me-2"></i>{{ $user->telephone }}
+                                </td>
+                                <td class="px-4 py-3">
+                                    @if($user->status === 'actif')
+                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
+                                            <i class="fas fa-check-circle me-1"></i>Actif
+                                        </span>
+                                    @else
+                                        <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-2">
+                                            <i class="fas fa-times-circle me-1"></i>Inactif
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="px-4 py-3">
+                                    <i class="far fa-calendar-alt text-muted me-2"></i>
+                                    {{ $user->created_at->format('d/m/Y') }}
+                                </td>
+                                <td class="px-4 py-3 text-center">
+                                    <div class="d-flex justify-content-center gap-2">
+                                        <a href="{{ route('users.roles.assigner', $user->id) }}"
+                                           class="btn btn-sm btn-outline-info rounded-pill px-3"
+                                           data-bs-toggle="tooltip" title="Assigner un rôle">
+                                            <i class="fas fa-user-tag"></i>
+                                        </a>
+
+                                        <a href="{{ route('users.affecter-cours', $user->id) }}"
+                                           class="btn btn-sm btn-outline-success rounded-pill px-3"
+                                           data-bs-toggle="tooltip" title="Assigner un cours / site / classe">
+                                            <i class="fas fa-plus-circle"></i>
+                                        </a>
+
+                                        <a href="{{ route('users.retirer-cours', $user->id) }}"
+                                           class="btn btn-sm btn-outline-danger rounded-pill px-3"
+                                           data-bs-toggle="tooltip" title="Retirer des affectations">
+                                            <i class="fas fa-user-minus"></i>
+                                        </a>
+
+                                        <a href="{{ route('users.show', $user->id) }}"
+                                           class="btn btn-sm btn-outline-info rounded-pill px-3"
+                                           data-bs-toggle="tooltip" title="Voir les détails">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                           class="btn btn-sm btn-outline-warning rounded-pill px-3"
+                                           data-bs-toggle="tooltip" title="Modifier">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+
+                                        <button type="button"
+                                                class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete"
+                                                data-user-id="{{ $user->id }}"
+                                                data-user-name="{{ $user->nom }} {{ $user->prenom }}"
+                                                data-bs-toggle="tooltip" title="Supprimer">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                    <form id="delete-form-{{ $user->id }}"
+                                          action="{{ route('users.destroy', $user->id) }}"
+                                          method="POST"
+                                          style="display:none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <i class="fas fa-users-slash fa-4x text-muted mb-3 d-block"></i>
+                                    <h5 class="text-muted">Aucun utilisateur trouvé</h5>
+                                    <a href="{{ route('users.create') }}"
+                                       class="btn btn-primary rounded-pill px-4 mt-2">
+                                        <i class="fas fa-plus-circle me-2"></i>Créer un utilisateur
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @if($users->count() > 0)
+        <div class="card-footer bg-white border-0 p-4">
+            <span class="text-muted">Affichage de {{ $users->count() }} utilisateur(s)</span>
+        </div>
+        @endif
     </div>
 </div>
 
-<!-- Simple Delete Confirmation -->
-<div id="deleteConfirmBox" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9999; align-items: center; justify-content: center;">
-    <div style="background: var(--bg-secondary); padding: 30px 40px; border-radius: 16px; text-align: center; max-width: 400px; border: 1px solid rgba(255,255,255,0.1);">
-        <i class="ri-error-warning-line" style="font-size: 4rem; color: var(--accent-secondary);"></i>
-        <h4 style="margin: 20px 0; color: var(--text-primary);">Confirmation</h4>
-        <p id="deleteConfirmText" style="color: var(--text-secondary); margin-bottom: 25px;"></p>
-        <div style="display: flex; gap: 15px; justify-content: center;">
-            <button onclick="closeDeleteConfirm()" class="btn btn-light">Annuler</button>
-            <a id="deleteConfirmBtn" href="#" class="btn btn-danger">Supprimer</a>
-        </div>
-    </div>
-</div>
+<style>
+    .bg-gradient {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .hover-lift { transition: transform 0.2s ease; }
+    .hover-lift:hover { transform: translateY(-2px); }
+    .btn-outline-info, .btn-outline-warning, .btn-outline-danger, .btn-outline-success {
+        border-width: 2px;
+        transition: all 0.2s ease;
+    }
+    .btn-outline-info:hover, .btn-outline-warning:hover, .btn-outline-danger:hover, .btn-outline-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .badge { font-weight: 500; letter-spacing: 0.3px; }
+    .swal2-container { z-index: 99999 !important; }
+    .bg-opacity-10 { --bs-bg-opacity: 0.1; }
+    .bg-opacity-20 { --bs-bg-opacity: 0.2; }
+    .object-fit-cover { object-fit: cover; }
+</style>
 
 <script>
-function confirmDelete(url, name) {
-    document.getElementById('deleteConfirmText').textContent = 'Voulez-vous vraiment supprimer "' + name + '" ?';
-    document.getElementById('deleteConfirmBtn').href = url;
-    document.getElementById('deleteConfirmBox').style.display = 'flex';
-}
+(function () {
+    function waitFor(v, cb, t) {
+        t = t || 0;
+        if (t > 50) return;
+        typeof window[v] !== 'undefined' ? cb() : setTimeout(function(){ waitFor(v, cb, t+1); }, 100);
+    }
 
-function closeDeleteConfirm() {
-    document.getElementById('deleteConfirmBox').style.display = 'none';
-}
+    function init() {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        var searchInput = document.getElementById('search-users');
+        if (searchInput) {
+            searchInput.addEventListener('input', function() {
+                var search = this.value.toLowerCase();
+                document.querySelectorAll('.user-row').forEach(function(row) {
+                    var name = row.dataset.name;
+                    row.style.display = name.includes(search) ? '' : 'none';
+                });
+            });
+        }
+
+        document.querySelectorAll('.btn-delete').forEach(function(btn) {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                var id   = this.getAttribute('data-user-id');
+                var name = this.getAttribute('data-user-name');
+
+                Swal.fire({
+                    title: 'Supprimer cet utilisateur ?',
+                    html: '<div class="text-center"><i class="fas fa-exclamation-triangle text-warning fa-4x mb-3"></i><p class="fw-bold mb-2">' + name + '</p><p class="text-muted small">Cette action est irréversible.</p></div>',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Oui, supprimer',
+                    cancelButtonText: 'Annuler',
+                    reverseButtons: true,
+                    focusCancel: true,
+                    customClass: { popup: 'rounded-4 shadow-lg' }
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        document.getElementById('delete-form-' + id).submit();
+                    }
+                });
+            });
+        });
+    }
+
+    document.readyState === 'loading'
+        ? document.addEventListener('DOMContentLoaded', function(){ waitFor('Swal', init); })
+        : waitFor('Swal', init);
+})();
 </script>
+
 @endsection
+

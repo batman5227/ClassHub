@@ -23,6 +23,9 @@ class StoreCoursdappuieRequest extends FormRequest
     {
         return [
             'nom' => 'required|string|max:255',
+            'nom' => 'required|string|max:255',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5048',
+            'slogan' => 'nullable|string|max:255',
         ];
     }
 }

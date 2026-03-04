@@ -47,8 +47,7 @@
                             <tr>
                                 <th>Nom</th>
                                 <th>Prénom</th>
-                                <th>Email</th>
-                                <th>Classe</th>
+                                <th>Numéro Parents</th>
                                 <th>Date de création</th>
                                 <th>Actions</th>
                             </tr>
@@ -58,8 +57,7 @@
                             <tr>
                                 <td>{{ $eleve->nom }}</td>
                                 <td>{{ $eleve->prenom }}</td>
-                                <td>{{ $eleve->email }}</td>
-                                <td>{{ $eleve->classe->nom ?? 'N/A' }}</td>
+                                <td>{{ $eleve->numParents }}</td>
                                 <td>{{ $eleve->created_at->format('d/m/Y') }}</td>
                                 <td>
                                     <div class="d-flex gap-2 justify-content-center">
@@ -108,3 +106,4 @@
     </div>
 </div>
 @endsection
+

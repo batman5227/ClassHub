@@ -15,7 +15,11 @@ class CreateDocumentsTable extends Migration
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
             $table->uuid('idMatiere')->nullable();
-            $table->string('fichier')->nullable();
+            $table->string('fichier')->nullable()->after('idMatiere');
+            $table->foreign('idMatiere')
+                ->references('id')
+                ->on('matieres')
+                ->onDelete('set null');
             $table->timestamps();
         });
     }
@@ -25,3 +29,4 @@ class CreateDocumentsTable extends Migration
         Schema::dropIfExists('documents');
     }
 }
+

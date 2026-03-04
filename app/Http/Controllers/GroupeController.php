@@ -4,83 +4,88 @@ namespace App\Http\Controllers;
 
 use App\Models\Groupe;
 use App\Models\Classe;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreGroupeRequest;
 use App\Http\Requests\UpdateGroupeRequest;
+use Illuminate\Support\Facades\Log;
 
 class GroupeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $groupes = Groupe::with('classe')->latest()->paginate(10);
-
         return view('back.groupes.index', compact('groupes'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $classes = Classe::all();
-
         return view('back.groupes.create', compact('classes'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(StoreGroupeRequest $request)
     {
-        Groupe::create($request->validated());
+        try {
+            $data = $request->validated();
+            Groupe::create($data);
 
-        return redirect()
-            ->route('groupes.index')
-            ->with('success', 'Groupe créé avec succès.');
+            return redirect()
+                ->route('groupes.index')
+                ->with('success', 'Groupe créé avec succès.');
+
+        } catch (\Exception $e) {
+            Log::error('Erreur création groupe:', ['error' => $e->getMessage()]);
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erreur lors de la création : ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Groupe $groupe)
     {
         return view('back.groupes.show', compact('groupe'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Groupe $groupe)
     {
         $classes = Classe::all();
-
         return view('back.groupes.edit', compact('groupe', 'classes'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(UpdateGroupeRequest $request, Groupe $groupe)
     {
-        $groupe->update($request->validated());
+        try {
+            $data = $request->validated();
+            $groupe->update($data);
 
-        return redirect()
-            ->route('groupes.index')
-            ->with('success', 'Groupe mis à jour avec succès.');
+            return redirect()
+                ->route('groupes.index')
+                ->with('success', 'Groupe mis à jour avec succès.');
+
+        } catch (\Exception $e) {
+            Log::error('Erreur mise à jour groupe:', ['error' => $e->getMessage()]);
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Erreur lors de la mise à jour : ' . $e->getMessage());
+        }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Groupe $groupe)
     {
-        $groupe->delete();
+        try {
+            $groupe->delete();
 
-        return redirect()
-            ->route('groupes.index')
-            ->with('success', 'Groupe supprimé avec succès.');
+            return redirect()
+                ->route('groupes.index')
+                ->with('success', 'Groupe supprimé avec succès.');
+
+        } catch (\Exception $e) {
+            Log::error('Erreur suppression groupe:', ['error' => $e->getMessage()]);
+            return redirect()
+                ->back()
+                ->with('error', 'Erreur lors de la suppression : ' . $e->getMessage());
+        }
     }
 }
+

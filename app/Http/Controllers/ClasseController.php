@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Classe;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClasseRequest;
 use App\Http\Requests\UpdateClasseRequest;
+use App\Models\Classe;
+use App\Models\Sites;
 
 class ClasseController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
-        $classes = Classe::with('sites')->paginate(10);
-        return view('back.classes.index', compact('classes'));
+        $classes = Classe::latest()->paginate(10);
+
+        return view('back.classe.index', compact('classes'));
     }
 
     /**
@@ -23,8 +26,8 @@ class ClasseController extends Controller
      */
     public function create()
     {
-        $sites = \App\Models\Sites::all();
-        return view('back.classes.create', compact('sites'));
+        $sites = Sites::all();
+        return view('back.classe.create', compact('sites'));
     }
 
     /**
@@ -33,10 +36,12 @@ class ClasseController extends Controller
     public function store(StoreClasseRequest $request)
     {
         $data = $request->validated();
+
         Classe::create($data);
 
-        return redirect()->route('classes.index')
-                         ->with('success', 'Classe ajoutée avec succès.');
+        return redirect()
+            ->route('classes.index')
+            ->with('success', 'Classe créée avec succès.');
     }
 
     /**
@@ -44,8 +49,7 @@ class ClasseController extends Controller
      */
     public function show(Classe $classe)
     {
-        $classe->load('sites', 'classeMatiereGroupes.matiere', 'classeMatiereGroupes.groupe');
-        return view('back.classes.show', compact('classe'));
+        return view('back.classe.show', compact('classe'));
     }
 
     /**
@@ -53,8 +57,8 @@ class ClasseController extends Controller
      */
     public function edit(Classe $classe)
     {
-        $sites = \App\Models\Sites::all();
-        return view('back.classes.edit', compact('classe', 'sites'));
+        $sites = Sites::all();
+        return view('back.classe.updat', compact('classe','sites'));
     }
 
     /**
@@ -63,10 +67,12 @@ class ClasseController extends Controller
     public function update(UpdateClasseRequest $request, Classe $classe)
     {
         $data = $request->validated();
+
         $classe->update($data);
 
-        return redirect()->route('classes.index')
-                         ->with('success', 'Classe mise à jour avec succès.');
+        return redirect()
+            ->route('classes.index')
+            ->with('success', 'Classe mise à jour avec succès.');
     }
 
     /**
@@ -76,16 +82,8 @@ class ClasseController extends Controller
     {
         $classe->delete();
 
-        return redirect()->route('classes.index')
-                         ->with('success', 'Classe supprimée avec succès.');
-    }
-
-    /**
-     * Display classes filtered by site.
-     */
-    public function bySite($idSites)
-    {
-        $classes = Classe::with('sites')->where('idSites', $idSites)->get();
-        return view('back.classes.index', compact('classes'));
+        return redirect()
+            ->route('classes.index')
+            ->with('success', 'Classe supprimée avec succès.');
     }
 }

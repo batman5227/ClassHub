@@ -24,10 +24,7 @@ class StoreelevesRequest extends FormRequest
         return [
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:eleves,email',
-            'idClasse' => 'required|uuid|exists:classes,id',
-            'idSites' => 'required|uuid|exists:sites,id',
-            'idCoursDappuie' => 'required|uuid|exists:coursdappuies,id',
+            'numParents' => 'required|string|max:255',
         ];
     }
 }

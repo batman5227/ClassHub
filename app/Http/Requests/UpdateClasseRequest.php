@@ -24,6 +24,8 @@ class UpdateClasseRequest extends FormRequest
         return [
             'nom' => 'required|string|in:6ème,5ème,4ème,3ème,2nde,1ère,Terminale',
             'idSites' => 'required|uuid|exists:sites,id',
+            'nom'=>'required|String|max:255',
+            'idSites'=>'required|exists:sites,id',
         ];
     }
 }

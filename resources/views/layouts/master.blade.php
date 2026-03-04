@@ -29,18 +29,6 @@
     <link href="{{ asset('assets/css/app.min.css') }}" rel="stylesheet" type="text/css">
     <!-- custom Css-->
     <link href="{{ asset('assets/css/custom.min.css') }}" rel="stylesheet" type="text/css">
-    <!-- Classes Custom CSS -->
-    <link href="{{ asset('assets/css/classes.css') }}" rel="stylesheet" type="text/css">
-    <!-- New Dark Theme CSS -->
-    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" type="text/css">
-    <!-- Future Style CSS -->
-    <link href="{{ asset('assets/css/future-style.css') }}" rel="stylesheet" type="text/css">
-    <!-- Immersive Design CSS -->
-    <link href="{{ asset('assets/css/immersive.css') }}" rel="stylesheet" type="text/css">
-    <!-- Modern Design CSS (Notion/Linear/Stripe style) -->
-    <link href="{{ asset('assets/css/modern.css') }}" rel="stylesheet" type="text/css">
-    <!-- Sidebar Custom CSS -->
-    <link href="{{ asset('assets/css/sidebar.css') }}" rel="stylesheet" type="text/css">
 </head>
 
 <body>

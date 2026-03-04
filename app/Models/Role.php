@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+
+use App\Models\permissions;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -11,7 +13,8 @@ class Role extends Model
     use HasUuids;
 
     protected $fillable = [
-        'nom',
+    'nom',
+    'description',
     ];
 
     /**
@@ -21,4 +24,15 @@ class Role extends Model
     {
         return $this->hasMany(RoleUsers::class, 'idRole');
     }
+    public function permissions()
+    {
+        return $this->belongsToMany(permissions::class, 'rolespermissions', 'roleId', 'permissionId');
+    }
+    // Ajoute cette méthode (si elle n'existe pas déjà)
+public function users()
+{
+    return $this->belongsToMany(Users::class, 'role_users', 'idRole', 'idUsers')
+                ->withTimestamps();
+}
+
 }

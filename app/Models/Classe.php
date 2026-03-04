@@ -16,6 +16,7 @@ class Classe extends Model
         'idSites',
     ];
 
+
     /**
      * Get the site that owns the classe.
      */
@@ -31,4 +32,13 @@ class Classe extends Model
     {
         return $this->hasMany(ClasseMatiereGroupe::class, 'idClasse');
     }
+    public function site()
+{
+    return $this->belongsTo(Sites::class, 'idSites');
+}
+
+public function groupes()
+{
+    return $this->hasMany(Groupe::class, 'idClasse');
+}
 }

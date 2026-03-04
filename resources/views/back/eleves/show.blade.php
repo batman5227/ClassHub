@@ -43,12 +43,8 @@
                                     <td>{{ $elefe->prenom }}</td>
                                 </tr>
                                 <tr>
-                                    <td><strong>Email:</strong></td>
-                                    <td>{{ $elefe->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td><strong>Classe:</strong></td>
-                                    <td>{{ $elefe->classe->nom ?? 'N/A' }}</td>
+                                    <td><strong>Numéro Parents:</strong></td>
+                                    <td>{{ $elefe->numParents }}</td>
                                 </tr>
                                 <tr>
                                     <td><strong>Date de création:</strong></td>
@@ -71,3 +67,4 @@
     </div>
 </div>
 @endsection
+

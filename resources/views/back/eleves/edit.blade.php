@@ -39,35 +39,8 @@
                             <input type="text" class="form-control" id="prenom" name="prenom" value="{{ $elefe->prenom }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="email" name="email" value="{{ $elefe->email }}" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idSites" class="form-label">Site</label>
-                            <select class="form-select" id="idSites" name="idSites" required>
-                                <option value="">Sélectionner un site</option>
-                                @foreach($sites as $site)
-                                <option value="{{ $site->id }}" {{ $elefe->idSites == $site->id ? 'selected' : '' }}>{{ $site->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idCoursDappuie" class="form-label">Cours d'Appui</label>
-                            <select class="form-select" id="idCoursDappuie" name="idCoursDappuie" required>
-                                <option value="">Sélectionner un cours d'appui</option>
-                                @foreach($coursdappuies as $coursdappuie)
-                                <option value="{{ $coursdappuie->id }}" {{ $elefe->idCoursDappuie == $coursdappuie->id ? 'selected' : '' }}>{{ $coursdappuie->nom }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label for="idClasse" class="form-label">Classe</label>
-                            <select class="form-select" id="idClasse" name="idClasse" required>
-                                <option value="">Sélectionner une classe</option>
-                                @foreach($classes as $classe)
-                                <option value="{{ $classe->id }}" {{ $elefe->idClasse == $classe->id ? 'selected' : '' }}>{{ $classe->nom }}</option>
-                                @endforeach
-                            </select>
+                            <label for="numParents" class="form-label">Numéro des Parents</label>
+                            <input type="text" class="form-control" id="numParents" name="numParents" value="{{ $elefe->numParents }}" required>
                         </div>
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-primary">Mettre à jour</button>
@@ -80,3 +53,4 @@
     </div>
 </div>
 @endsection
+
