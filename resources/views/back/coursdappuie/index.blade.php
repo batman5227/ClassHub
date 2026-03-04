@@ -1,0 +1,168 @@
+@extends('layouts.master')
+@section('content')
+<div class="container-fluid px-4 py-5">
+    <!-- En-tête avec gradient -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="bg-gradient-primary rounded-4 p-5 shadow-lg position-relative overflow-hidden">
+                <div class="position-absolute top-0 end-0 opacity-10">
+                    <i class="fas fa-book-open fa-8x text-blue"></i>
+                </div>
+                <div class="position-absolute bottom-0 start-0 opacity-10">
+                    <i class="fas fa-graduation-cap fa-8x text-blue"></i>
+                </div>
+
+                <div class="row align-items-center position-relative">
+                    <div class="col-lg-8">
+                        <nav aria-label="breadcrumb" class="mb-3">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Cours d'appui</li>
+                            </ol>
+                        </nav>
+
+                        <h1 class="display-4 fw-bold text-blue mb-3">Gestion des cours d'appui</h1>
+                        <p class="text-blue opacity-90 lead mb-4">
+                            Gérez les cours d'appui de l'application
+                        </p>
+
+                        <div class="d-flex gap-3">
+                            <div class="bg-blue bg-opacity-20 rounded-3 px-4 py-2">
+                                <small class="text-blue opacity-75 d-block">Total cours</small>
+                                <span class="text-blue fw-bold">{{ $coursdappuies->total() }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                        <a href="{{ route('coursdappuies.create') }}" class="btn btn-light btn-lg rounded-pill px-5 shadow-sm hover-lift">
+                            <i class="fas fa-plus-circle me-2 text-primary"></i>Nouveau cours
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Messages flash stylisés -->
+    {{-- @include('partials.flash-messages') --}}
+
+    <!-- Filtres et recherche -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-3">
+            <div class="row g-3 align-items-center">
+                <div class="col-lg-8">
+                    <div class="input-group">
+                        <span class="input-group-text bg-transparent border-end-0">
+                            <i class="fas fa-search text-muted"></i>
+                        </span>
+                        <input type="text" class="form-control border-start-0" id="search-cours"
+                               placeholder="Rechercher par nom, slogan...">
+                    </div>
+                </div>
+                <div class="col-lg-4 text-lg-end">
+                    <span class="text-muted">
+                        <i class="fas fa-layer-group me-1"></i>
+                        <span id="displayed-count">{{ $coursdappuies->count() }}</span> / {{ $coursdappuies->total() }} affiché(s)
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grille des cours d'appui -->
+    <div class="row g-4" id="cours-grid">
+        @forelse ($coursdappuies as $cours)
+            <div class="col-xl-4 col-lg-6 cours-item" data-name="{{ strtolower($cours->nom . ' ' . $cours->slogan) }}">
+                <div class="card border-0 shadow-lg rounded-4 overflow-hidden h-100 hover-lift">
+                    <div class="position-relative">
+                        @if($cours->logo)
+                            <img src="{{ asset('storage/' . $cours->logo) }}"
+                                 class="card-img-top"
+                                 alt="{{ $cours->nom }}"
+                                 style="height: 200px; object-fit: cover;">
+                        @else
+                            <div class="bg-primary bg-opacity-10 d-flex align-items-center justify-content-center" style="height: 200px;">
+                                <i class="fas fa-book-open fa-5x text-primary"></i>
+                            </div>
+                        @endif
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="badge bg-white text-primary rounded-pill px-3 py-2 shadow-sm">
+                                <i class="far fa-clock me-1"></i>
+                                {{ $cours->created_at->diffForHumans() }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <h4 class="fw-bold mb-2">{{ $cours->nom }}</h4>
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-quote-right me-1"></i>
+                            {{ $cours->slogan }}
+                        </p>
+
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="bg-primary bg-opacity-10 rounded-2 p-2 me-2">
+                                <i class="fas fa-fingerprint text-primary"></i>
+                            </div>
+                            <small class="text-muted">
+                                ID: {{ substr($cours->id, 0, 6) }}...{{ substr($cours->id, -4) }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-white border-0 p-4 pt-0">
+                        <div class="d-flex justify-content-between gap-2">
+                            <a href="{{ route('coursdappuies.show', $cours->id) }}"
+                               class="btn btn-outline-info rounded-pill px-4 flex-grow-1"
+                               data-bs-toggle="tooltip" title="Voir les détails">
+                                <i class="fas fa-eye me-2"></i>Voir
+                            </a>
+                            <a href="{{ route('coursdappuies.edit', $cours->id) }}"
+                               class="btn btn-outline-warning rounded-pill px-4 flex-grow-1"
+                               data-bs-toggle="tooltip" title="Modifier">
+                                <i class="fas fa-edit me-2"></i>Modifier
+                            </a>
+                            <button type="button"
+                                    class="btn btn-outline-danger rounded-pill px-4 flex-grow-1 btn-delete"
+                                    data-id="{{ $cours->id }}"
+                                    data-name="{{ $cours->nom }}"
+                                    data-bs-toggle="tooltip" title="Supprimer">
+                                <i class="fas fa-trash me-2"></i>Supprimer
+                            </button>
+                        </div>
+                        <form id="delete-form-{{ $cours->id }}"
+                              action="{{ route('coursdappuies.destroy', $cours->id) }}"
+                              method="POST"
+                              style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @empty
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <div class="mb-4">
+                        <i class="fas fa-book-open fa-5x text-muted"></i>
+                    </div>
+                    <h3 class="fw-bold mb-3">Aucun cours d'appui</h3>
+                    <p class="text-muted mb-4">Commencez par créer un nouveau cours d'appui</p>
+                    <a href="{{ route('coursdappuies.create') }}" class="btn btn-primary btn-lg rounded-pill px-5">
+                        <i class="fas fa-plus-circle me-2"></i>Créer un cours
+                    </a>
+                </div>
+            </div>
+        @endforelse
+    </div>
+
+    <!-- Pagination -->
+    @if($coursdappuies->hasPages())
+        <div class="d-flex justify-content-center mt-5">
+            {{ $coursdappuies->links() }}
+        </div>
+    @endif
+</div>
+@endsection
