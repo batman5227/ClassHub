@@ -9,7 +9,6 @@ use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolespermissionsController;
-use App\Http\Controllers\RoleUserController;
 use App\Http\Controllers\RoleUsersController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UsersController;

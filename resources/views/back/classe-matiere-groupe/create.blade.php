@@ -32,8 +32,8 @@
                         @csrf
 
                         <div class="mb-3">
-                            <label for="idClasse" class="form-label">Classe</label>
-                            <select class="form-select" id="idClasse" name="idClasse" required>
+                            <label for="classe_id" class="form-label">Classe</label>
+                            <select class="form-select" id="classe_id" name="classe_id" required>
                                 <option value="">Sélectionner une classe</option>
                                 @foreach($classes as $classe)
                                     <option value="{{ $classe->id }}">{{ $classe->nom }}</option>
@@ -42,8 +42,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="idMatiere" class="form-label">Matière</label>
-                            <select class="form-select" id="idMatiere" name="idMatiere" required>
+                            <label for="matiere_id" class="form-label">Matière</label>
+                            <select class="form-select" id="matiere_id" name="matiere_id" required>
                                 <option value="">Sélectionner une matière</option>
                                 @foreach($matieres as $matiere)
                                     <option value="{{ $matiere->id }}">{{ $matiere->nom }}</option>
@@ -52,8 +52,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label for="idGroupe" class="form-label">Groupe</label>
-                            <select class="form-select" id="idGroupe" name="idGroupe" required>
+                            <label for="groupe_id" class="form-label">Groupe</label>
+                            <select class="form-select" id="groupe_id" name="groupe_id" required>
                                 <option value="">Sélectionner un groupe</option>
                                 @foreach($groupes as $groupe)
                                     <option value="{{ $groupe->id }}">{{ $groupe->nom }}</option>
@@ -76,4 +76,3 @@
     </div>
 </div>
 @endsection
-

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreRoleUsersRequest;
 use App\Http\Requests\UpdateRoleUsersRequest;
 use App\Models\Role;
-use App\Models\RoleUser;
 use App\Models\RoleUsers;
 use App\Models\Users;
 use Illuminate\Support\Facades\DB;

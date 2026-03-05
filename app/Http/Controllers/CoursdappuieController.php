@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoursdappuieRequest;
 use App\Http\Requests\UpdateCoursdappuieRequest;
 use App\Models\Coursdappuie;

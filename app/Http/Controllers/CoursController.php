@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Cours;
 use App\Models\Matiere;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCoursRequest;
 use App\Http\Requests\UpdateCoursRequest;
 
@@ -88,3 +87,4 @@ class CoursController extends Controller
             ->with('success', 'Cours supprimé avec succès.');
     }
 }
+

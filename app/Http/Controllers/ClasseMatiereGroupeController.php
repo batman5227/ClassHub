@@ -6,7 +6,6 @@ use App\Models\Classe;
 use App\Models\Matiere;
 use App\Models\Groupe;
 use App\Models\ClasseMatiereGroupe;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClasseMatiereGroupeRequest;
 use App\Http\Requests\UpdateClasseMatiereGroupeRequest;
 
@@ -101,3 +100,4 @@ class ClasseMatiereGroupeController extends Controller
             ->with('success', 'Association supprimée.');
     }
 }
+

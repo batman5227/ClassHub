@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Documents;
 use App\Models\Matiere;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDocumentRequest;
 use App\Http\Requests\UpdateDocumentRequest;
 use Illuminate\Support\Facades\Storage;
@@ -107,3 +106,4 @@ class DocumentsController extends Controller
             ->with('success', 'Document supprimé avec succès.');
     }
 }
+

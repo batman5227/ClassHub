@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Matiere;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMatiereRequest;
 use App\Http\Requests\UpdateMatiereRequest;
 
@@ -79,3 +78,4 @@ class MatiereController extends Controller
             ->with('success', 'Matière supprimée avec succès.');
     }
 }
+

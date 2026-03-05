@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\eleves;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreelevesRequest;
 use App\Http\Requests\UpdateelevesRequest;
 

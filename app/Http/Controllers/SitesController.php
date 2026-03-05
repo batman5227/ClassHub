@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Sites;
 use App\Models\Coursdappuie;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreSitesRequest;
 use App\Http\Requests\UpdateSitesRequest;
 
