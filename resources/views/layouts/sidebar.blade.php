@@ -196,6 +196,23 @@
                                     <i class="ri-add-circle-line me-2"></i> Ajouter une classe
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('matieres.index') }}" class="nav-link" data-key="t-liste-matiere">
+                            <i class="ri-list-check me-2"></i> Liste des matieres
+                                </a>
+                                <li class="nav-item">
+                                <a href="{{ route('matieres.create') }}" class="nav-link" data-key="t-create-matieres">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter une matiere
+                                </a>
+                                 <li class="nav-item">
+                                <a href="{{ route('cours.index') }}" class="nav-link" data-key="t-liste-cours">
+                            <i class="ri-list-check me-2"></i> Liste des cours
+                                </a>
+                                <li class="nav-item">
+                                <a href="{{ route('cours.create') }}" class="nav-link" data-key="t-create-cours">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>

@@ -10,10 +10,13 @@ use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolespermissionsController;
 use App\Http\Controllers\RoleUserController;
+use App\Http\Controllers\MatiereController;
+use App\Http\Controllers\CoursController;
 use App\Http\Controllers\RoleUsersController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UsersCoursappuieSiteClasseController;
+use App\Models\Matiere;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -95,3 +98,7 @@ Route::get('eleves/coursdappuie/{idCoursDappuie}', [ElevesController::class, 'by
 Route::resource('classe-matiere-groupe', ClasseMatiereGroupeController::class);
 // Routes pour les Documents
 Route::resource('documents', DocumentsController::class);
+// Routes pour les Matieres
+Route::resource('matieres', MatiereController::class);
+// Routes pour les cours
+Route::resource('cours', CoursController::class);
