@@ -122,6 +122,7 @@
                             <tr>
                                 <th class="px-4 py-3">Élève</th>
                                 <th class="px-4 py-3">Email</th>
+                                <th class="px-4 py-3">Téléphone parent</th>
                                 <th class="px-4 py-3">Classe</th>
                                 <th class="px-4 py-3">Site</th>
                                 <th class="px-4 py-3">Date d'inscription</th>
@@ -146,6 +147,17 @@
                                     </td>
                                     <td class="px-4 py-3">
                                         <i class="fas fa-envelope text-muted me-2"></i>{{ $eleve->email }}
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($eleve->numParent)
+                                            <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2">
+                                                <i class="fas fa-phone me-1"></i>{{ $eleve->numParent }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">
+                                                <i class="fas fa-minus-circle me-1"></i>Non fourni
+                                            </span>
+                                        @endif
                                     </td>
                                     <td class="px-4 py-3">
                                         @if($eleve->classe)

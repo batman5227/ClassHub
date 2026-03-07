@@ -108,6 +108,22 @@
                             </div>
                         </div>
 
+                        <!-- Numéro du parent -->
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-4 h-100">
+                                <small class="text-muted text-uppercase tracking-wide">Téléphone du parent</small>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="bg-warning bg-opacity-10 rounded-3 p-3 me-3">
+                                        <i class="fas fa-phone fa-2x text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">{{ $eleve->numParent ?? 'Non fourni' }}</h5>
+                                        <small class="text-muted">Numéro de téléphone</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Classe -->
                         <div class="col-md-6">
                             <div class="bg-light rounded-4 p-4 h-100">

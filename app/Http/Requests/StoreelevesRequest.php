@@ -25,6 +25,7 @@ class StoreelevesRequest extends FormRequest
             'nom' => 'required|string|max:255',
             'prenom' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:eleves,email',
+            'numParent' => 'nullable|string|max:20|regex:/^[0-9+\s\-()]+$/',
             'idClasse' => 'required|uuid|exists:classes,id',
             'idSites' => 'required|uuid|exists:sites,id',
             'idCoursDappuie' => 'required|uuid|exists:coursdappuies,id',

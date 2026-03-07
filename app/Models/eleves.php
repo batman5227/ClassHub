@@ -14,6 +14,7 @@ class eleves extends Model
         'nom',
         'prenom',
         'email',
+        'numParent',
         'idClasse',
         'idSites',
         'idCoursDappuie',

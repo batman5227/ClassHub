@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Ajouter un Élève 
+    Ajouter un Élève
 @endsection
 
 @section('content')
@@ -125,6 +125,25 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <small class="text-muted">L'email sera utilisé pour la connexion</small>
+                                </div>
+                            </div>
+
+                            <!-- Numéro du parent -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="numParent" class="form-label fw-semibold">
+                                        <i class="fas fa-phone text-primary me-2"></i>Numéro du parent
+                                    </label>
+                                    <input type="text"
+                                           class="form-control form-control-lg rounded-4 @error('numParent') is-invalid @enderror"
+                                           id="numParent"
+                                           name="numParent"
+                                           value="{{ old('numParent') }}"
+                                           placeholder="Ex: +33 6 12 34 56 78">
+                                    @error('numParent')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="text-muted">Numéro de téléphone du parent (optionnel)</small>
                                 </div>
                             </div>
 

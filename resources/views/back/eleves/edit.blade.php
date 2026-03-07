@@ -129,6 +129,25 @@
                                 </div>
                             </div>
 
+                            <!-- Numéro du parent -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="numParent" class="form-label fw-semibold">
+                                        <i class="fas fa-phone text-primary me-2"></i>Numéro du parent
+                                    </label>
+                                    <input type="text"
+                                           class="form-control form-control-lg rounded-4 @error('numParent') is-invalid @enderror"
+                                           id="numParent"
+                                           name="numParent"
+                                           value="{{ old('numParent', $eleve->numParent) }}"
+                                           placeholder="Ex: +33 6 12 34 56 78">
+                                    @error('numParent')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="text-muted">Numéro de téléphone du parent (optionnel)</small>
+                                </div>
+                            </div>
+
                             <!-- Site -->
                             <div class="col-md-6">
                                 <div class="mb-3">
@@ -217,13 +236,17 @@
                         <div class="bg-light rounded-4 p-4 mb-4">
                             <h6 class="fw-bold mb-3"><i class="fas fa-info-circle me-2 text-primary"></i>Informations actuelles :</h6>
                             <div class="row g-3">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <small class="text-muted d-block">Nom complet</small>
                                     <span class="fw-semibold">{{ $eleve->prenom }} {{ $eleve->nom }}</span>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <small class="text-muted d-block">Email</small>
                                     <span class="fw-semibold">{{ $eleve->email }}</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <small class="text-muted d-block">Téléphone parent</small>
+                                    <span class="fw-semibold">{{ $eleve->numParent ?? 'N/A' }}</span>
                                 </div>
                                 <div class="col-md-2">
                                     <small class="text-muted d-block">Site</small>
