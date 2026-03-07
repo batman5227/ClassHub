@@ -14,14 +14,19 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
-            $table->uuid('idMatiere')->nullable();
+
             $table->string('fichier')->nullable();
-            $table->string('fichier')->nullable()->after('idMatiere');
-             $table->foreign('idMatiere')
+
+             $table->uuid('idMatiere');
+              $table->foreign('idMatiere')
                   ->references('id')
                   ->on('matieres')
-                  ->onDelete('set null');
-     
+                  ->onDelete('cascade');
+
+
+
+
+
             $table->timestamps();
         });
     }

@@ -93,7 +93,7 @@ Route::resource('eleves', ElevesController::class);
 Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');
 Route::get('eleves/site/{idSites}', [ElevesController::class, 'bySite'])->name('eleves.bySite');
 Route::get('eleves/coursdappuie/{idCoursDappuie}', [ElevesController::class, 'byCoursDappuie'])->name('eleves.byCoursDappuie');
-
+ Route::resource('cours', CoursController::class);
 // Routes pour Classe-Matière-Groupe
 Route::resource('classe-matiere-groupe', ClasseMatiereGroupeController::class);
 // Routes pour les Documents

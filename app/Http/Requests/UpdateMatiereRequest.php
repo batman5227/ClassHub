@@ -11,7 +11,7 @@ class UpdateMatiereRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,8 @@ class UpdateMatiereRequest extends FormRequest
     {
         return [
             //
+            'nom' => 'required|string|max:255',
+            'idClasse' => 'required|exists:classes,id',
         ];
     }
 }

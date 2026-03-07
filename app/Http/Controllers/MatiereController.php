@@ -11,13 +11,13 @@ class MatiereController extends Controller
 public function index()
 {
 $matieres = Matiere::with('classe')->paginate(10);
-return view('back.matieres.index',compact('matieres'));
+return view('back.matiere.index',compact('matieres'));
 }
 
 public function create()
 {
 $classes = Classe::all();
-return view('back.matieres.create',compact('classes'));
+return view('back.matiere.create',compact('classes'));
 }
 
 public function store(Request $request)
@@ -58,6 +58,6 @@ return redirect()->route('matieres.index');
 }
 };
 
-   
-  
+
+
 

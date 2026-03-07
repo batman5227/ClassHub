@@ -11,7 +11,7 @@ class UpdateCoursRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,22 @@ class UpdateCoursRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nom' => 'required|string|max:255|unique:cours,nom,' . $this->cours->id,
+            'idMatiere' => 'required|exists:matieres,id',
+        ];
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     */
+    public function messages(): array
+    {
+        return [
+            'nom.required' => 'Le nom du cours est obligatoire',
+            'nom.unique' => 'Ce nom de cours existe déjà',
+            'nom.max' => 'Le nom ne doit pas dépasser 255 caractères',
+            'idMatiere.required' => 'La matière est obligatoire',
+            'idMatiere.exists' => 'La matière sélectionnée n\'existe pas',
         ];
     }
 }

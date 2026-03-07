@@ -19,7 +19,7 @@ class Documents extends Model
     /**
      * Get the matiere that owns the document.
      */
-    public function matiere(): BelongsTo
+    public function matieres(): BelongsTo
     {
         return $this->belongsTo(Matiere::class, 'idMatiere');
     }

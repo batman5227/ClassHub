@@ -48,21 +48,21 @@ class ElevesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(eleves $elefe)
+    public function show(eleves $eleve)
     {
-        $elefe->load(['classe', 'sites', 'coursdappuie']);
-        return view('back.eleves.show', compact('elefe'));
+        $eleve->load(['classe', 'sites', 'coursdappuie']);
+        return view('back.eleves.show', compact('eleve'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(eleves $elefe)
+    public function edit(eleves $eleve)
     {
         $classes = Classe::all();
         $sites = Sites::all();
         $coursdappuies = Coursdappuie::all();
-        return view('back.eleves.edit', compact('elefe', 'classes', 'sites', 'coursdappuies'));
+        return view('back.eleves.edit', compact('eleve', 'classes', 'sites', 'coursdappuies'));
     }
 
     /**

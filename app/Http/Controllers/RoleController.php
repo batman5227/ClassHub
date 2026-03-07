@@ -65,7 +65,7 @@ class RoleController extends Controller
         $nom = strtolower($data['nom']);
         $nom = str_replace(' ', '_', $nom);
 
-        Role::create(['nom' => $nom]);
+        Role::create(['nom' => $nom,'description' => $data['description']]);
 
         return redirect()
             ->route('roles.index')

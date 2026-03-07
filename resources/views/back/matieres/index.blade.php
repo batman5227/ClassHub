@@ -1,5 +1,4 @@
-extends('layouts.app')
-
+@extends('layouts.master')
 @section('content')
 
 <h2>Liste des matières</h2>

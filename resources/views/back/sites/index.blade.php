@@ -4,12 +4,12 @@
     <!-- En-tête avec gradient -->
     <div class="row mb-5">
         <div class="col-12">
-            <div class="bg-gradient-primary rounded-4 p-5 shadow-lg position-relative overflow-hidden">
+            <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-map-marker-alt fa-8x text-white"></i>
+                    <i class="fas fa-map-marker-alt fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-building fa-8x text-white"></i>
+                    <i class="fas fa-building fa-8x text-blue"></i>
                 </div>
 
                 <div class="row align-items-center position-relative">
@@ -17,21 +17,21 @@
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Sites</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Sites</li>
                             </ol>
                         </nav>
 
-                        <h1 class="display-4 fw-bold text-white mb-3">Gestion des sites</h1>
-                        <p class="text-white opacity-90 lead mb-4">
+                        <h1 class="display-4 fw-bold text-blue mb-3">Gestion des sites</h1>
+                        <p class="text-blue opacity-90 lead mb-4">
                             Gérez les sites de l'application
                         </p>
 
                         <div class="d-flex gap-3">
                             <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
-                                <small class="text-white opacity-75 d-block">Total sites</small>
-                                <span class="text-white fw-bold">{{ $site->count() }}</span>
+                                <small class="text-blue opacity-75 d-block">Total sites</small>
+                                <span class="text-blue fw-bold">{{ $site->count() }}</span>
                             </div>
                         </div>
                     </div>
