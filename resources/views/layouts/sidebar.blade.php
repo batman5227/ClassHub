@@ -321,6 +321,25 @@
                     </div>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarcours" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcours">
+                        <i class="ri-links-line"></i> <span data-key="t-cours">Associations Cours-Site-Classe-Utilisateur</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarcours">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('usercoursdappuiesiteclasses.index') }}" class="nav-link" data-key="t-list-users">
+                                    <i class="ri-list-check me-2"></i> Liste des associations cours-site-classe-utilisateur
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('usercoursdappuiesiteclasses.create') }}" class="nav-link" data-key="t-create-user">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter une association cours-site-classe-utilisateur
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarmatieres" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarmatieres">
                         <i class="ri-links-line"></i> <span data-key="t-matieres">matières</span>
                     </a>

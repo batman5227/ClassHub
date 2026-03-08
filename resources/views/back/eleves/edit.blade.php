@@ -16,30 +16,30 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-user-graduate fa-8x text-white"></i>
+                    <i class="fas fa-user-graduate fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-edit fa-8x text-white"></i>
+                    <i class="fas fa-edit fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('eleves.index') }}" class="text-white opacity-75">Élèves</a>
+                                    <a href="{{ route('eleves.index') }}" class="text-blue opacity-75">Élèves</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Modifier</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Modifier</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Modifier un élève</h1>
-                        <p class="text-white opacity-90 lead mb-4">{{ $eleve->prenom }} {{ $eleve->nom }}</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Modifier un élève</h1>
+                        <p class="text-blue opacity-90 lead mb-4">{{ $eleve->prenom }} {{ $eleve->nom }}</p>
                         <div class="d-flex gap-3">
                             <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
-                                <small class="text-white opacity-75 d-block">ID Élève</small>
-                                <span class="text-white fw-bold">{{ substr($eleve->id, 0, 8) }}...</span>
+                                <small class="text-blue opacity-75 d-block">ID Élève</small>
+                                <span class="text-blue fw-bold">{{ substr($eleve->id, 0, 8) }}...</span>
                             </div>
                         </div>
                     </div>
@@ -126,6 +126,26 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                     <small class="text-muted">L'email sera utilisé pour la connexion</small>
+                                </div>
+                            </div>
+
+                            <!-- Téléphone Parent -->
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="telephoneParent" class="form-label fw-semibold">
+                                        <i class="fas fa-phone-alt text-primary me-2"></i>Téléphone du parent
+                                    </label>
+                                    <input type="tel"
+                                           class="form-control form-control-lg rounded-4 @error('telephoneParent') is-invalid @enderror"
+                                           id="telephoneParent"
+                                           name="telephoneParent"
+                                           value="{{ old('telephoneParent', $eleve->telephoneParent) }}"
+                                           placeholder="Ex: 70 12 34 56"
+                                           required>
+                                    @error('telephoneParent')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <small class="text-muted">Numéro de téléphone du parent ou tuteur</small>
                                 </div>
                             </div>
 
@@ -225,15 +245,19 @@
                                     <small class="text-muted d-block">Email</small>
                                     <span class="fw-semibold">{{ $eleve->email }}</span>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
+                                    <small class="text-muted d-block">Téléphone parent</small>
+                                    <span class="fw-semibold">{{ $eleve->telephoneParent }}</span>
+                                </div>
+                                <div class="col-md-3">
                                     <small class="text-muted d-block">Site</small>
                                     <span class="fw-semibold">{{ $eleve->site->nom ?? 'N/A' }}</span>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <small class="text-muted d-block">Cours d'appui</small>
                                     <span class="fw-semibold">{{ $eleve->coursDappuie->nom ?? 'N/A' }}</span>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-3">
                                     <small class="text-muted d-block">Classe</small>
                                     <span class="fw-semibold">{{ $eleve->classe->nom ?? 'N/A' }}</span>
                                 </div>
@@ -354,6 +378,10 @@
                                     <span class="fw-semibold">${document.getElementById('email').value}</span>
                                 </div>
                                 <div class="col-6">
+                                    <span class="text-muted">Tél. parent:</span><br>
+                                    <span class="fw-semibold">${document.getElementById('telephoneParent').value}</span>
+                                </div>
+                                <div class="col-6 mt-2">
                                     <span class="text-muted">Classe:</span><br>
                                     <span class="fw-semibold">${document.getElementById('idClasse').options[document.getElementById('idClasse').selectedIndex]?.text || 'N/A'}</span>
                                 </div>
@@ -396,6 +424,10 @@
 
     document.getElementById('email')?.addEventListener('input', function() {
         this.value = this.value.toLowerCase().replace(/\s/g, '');
+    });
+
+    document.getElementById('telephoneParent')?.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9+\s]/g, '');
     });
 
     // Animation de focus sur les champs

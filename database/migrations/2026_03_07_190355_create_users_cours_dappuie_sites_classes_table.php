@@ -12,34 +12,28 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users_coursappuie_site_classes', function (Blueprint $table) {
-            $table->uuid('id')
-                ->primary()
-                ->default(DB::raw('uuid_generate_v4()'));
-             $table->uuid('userId')->nullable();
-            $table->uuid('classeId')->nullable();
-             $table->uuid('siteId')->nullable();
-             $table->uuid('coursAppuieId')->nullable();
-             $table->foreign('userId')
+        Schema::create('users_cours_dappuie_sites_classes', function (Blueprint $table) {
+            $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
+            $table->uuid('idUsers');
+            $table->uuid('idCoursDappuie');
+            $table->uuid('idSites')->nullable();
+            $table->uuid('idClasse')->nullable();
+            $table->foreign('idUsers')
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-
-             $table->foreign('classeId')
-                  ->references('id')
-                  ->on('classes')
-                  ->onDelete('cascade');
-
-             $table->foreign('siteId')
-                  ->references('id')
-                  ->on('sites')
-                  ->onDelete('cascade');
-
-             $table->foreign('coursAppuieId')
+            $table->foreign('idCoursDappuie')
                   ->references('id')
                   ->on('coursdappuies')
                   ->onDelete('cascade');
-
+            $table->foreign('idSites')
+                  ->references('id')
+                  ->on('sites')
+                  ->onDelete('cascade');
+            $table->foreign('idClasse')
+                  ->references('id')
+                  ->on('classes')
+                  ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -49,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users_coursappuie_site_classes');
+        Schema::dropIfExists('users_cours_dappuie_sites_classes');
     }
 };

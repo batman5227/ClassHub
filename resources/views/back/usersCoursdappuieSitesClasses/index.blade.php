@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Élèves - ClassHub
+    Associations Utilisateur-Cours-Site-Classe - ClassHub
 @endsection
 
 @section('content')
@@ -16,34 +16,34 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-users fa-8x text-blue"></i>
+                    <i class="fas fa-link fa-8x text-white"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-user-graduate fa-8x text-blue"></i>
+                    <i class="fas fa-users-cog fa-8x text-white"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active text-blue" aria-current="page">Élèves</li>
+                                <li class="breadcrumb-item active text-white" aria-current="page">Associations</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-blue mb-3">Gestion des élèves</h1>
-                        <p class="text-blue opacity-90 lead mb-4">Gérez tous les élèves de l'établissement</p>
+                        <h1 class="display-4 fw-bold text-white mb-3">Gestion des associations</h1>
+                        <p class="text-white opacity-90 lead mb-4">Gérez les associations Utilisateur-Cours-Site-Classe</p>
                         <div class="d-flex gap-3">
                             <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
-                                <small class="text-blue opacity-75 d-block">Total élèves</small>
-                                <span class="text-blue fw-bold">{{ $eleves->total() }}</span>
+                                <small class="text-white opacity-75 d-block">Total associations</small>
+                                <span class="text-white fw-bold">{{ $usersCoursDappuieSitesClasse->count() }}</span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                        <a href="{{ route('eleves.create') }}"
+                        <a href="{{ route('usercoursdappuiesiteclasses.create') }}"
                            class="btn btn-light btn-lg rounded-pill px-5 shadow-sm hover-lift">
-                            <i class="fas fa-plus-circle me-2 text-primary"></i>Nouvel élève
+                            <i class="fas fa-plus-circle me-2 text-primary"></i>Nouvelle association
                         </a>
                     </div>
                 </div>
@@ -88,31 +88,31 @@
             <div class="row align-items-center">
                 <div class="col">
                     <h4 class="mb-0 fw-bold">
-                        <i class="fas fa-list text-primary me-2"></i>Liste des élèves
+                        <i class="fas fa-list text-primary me-2"></i>Liste des associations
                     </h4>
-                    <p class="text-muted mb-0 mt-1">{{ $eleves->total() }} élève(s) trouvé(s)</p>
+                    <p class="text-muted mb-0 mt-1">{{ $usersCoursDappuieSitesClasse->count() }} association(s) trouvée(s)</p>
                 </div>
                 <div class="col-auto">
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-end-0">
                             <i class="fas fa-search text-muted"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0" id="search-eleves"
-                               placeholder="Rechercher un élève...">
+                        <input type="text" class="form-control border-start-0" id="search-associations"
+                               placeholder="Rechercher...">
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="card-body p-0">
-            @if($eleves->isEmpty())
+            @if($usersCoursDappuieSitesClasse->isEmpty())
                 <div class="text-center py-5">
-                    <i class="fas fa-user-graduate fa-4x text-muted mb-3 d-block"></i>
-                    <h5 class="text-muted">Aucun élève trouvé</h5>
-                    <p class="text-muted mb-3">Commencez par ajouter votre premier élève</p>
-                    <a href="{{ route('eleves.create') }}"
+                    <i class="fas fa-link fa-4x text-muted mb-3 d-block"></i>
+                    <h5 class="text-muted">Aucune association trouvée</h5>
+                    <p class="text-muted mb-3">Commencez par créer votre première association</p>
+                    <a href="{{ route('usercoursdappuiesiteclasses.create') }}"
                        class="btn btn-primary rounded-pill px-4">
-                        <i class="fas fa-plus-circle me-2"></i>Ajouter un élève
+                        <i class="fas fa-plus-circle me-2"></i>Nouvelle association
                     </a>
                 </div>
             @else
@@ -120,52 +120,62 @@
                     <table class="table table-hover align-middle mb-0">
                         <thead class="bg-light">
                             <tr>
-                                <th class="px-4 py-3">Élève</th>
-                                <th class="px-4 py-3">Email</th>
-                                <th class="px-4 py-3">Tél. Parent</th>
-                                <th class="px-4 py-3">Classe</th>
+                                <th class="px-4 py-3">Utilisateur</th>
+                                <th class="px-4 py-3">Cours d'appui</th>
                                 <th class="px-4 py-3">Site</th>
-                                <th class="px-4 py-3">Date d'inscription</th>
+                                <th class="px-4 py-3">Classe</th>
+                                <th class="px-4 py-3">Date de création</th>
                                 <th class="px-4 py-3 text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($eleves as $eleve)
-                                <tr class="eleve-row" data-name="{{ strtolower($eleve->nom . ' ' . $eleve->prenom . ' ' . $eleve->email) }}">
+                            @foreach($usersCoursDappuieSitesClasse as $association)
+                                <tr class="association-row"
+                                    data-name="{{ strtolower(
+                                        ($association->users->name ?? '') . ' ' .
+                                        ($association->coursDappuie->nom ?? '') . ' ' .
+                                        ($association->sites->nom ?? '') . ' ' .
+                                        ($association->classe->nom ?? '')
+                                    ) }}">
                                     <td class="px-4 py-3">
                                         <div class="d-flex align-items-center">
                                             <div class="bg-primary bg-opacity-10 rounded-3 p-3 me-3">
-                                                <i class="fas fa-user-graduate fa-2x text-primary"></i>
+                                                <i class="fas fa-user-circle fa-2x text-primary"></i>
                                             </div>
                                             <div>
-                                                <span class="fw-semibold">{{ $eleve->nom }} {{ $eleve->prenom }}</span>
+                                                <span class="fw-semibold">{{ $association->users->name ?? 'Utilisateur' }}</span>
                                                 <small class="text-muted d-block">
-                                                    ID: {{ substr($eleve->id, 0, 6) }}...{{ substr($eleve->id, -4) }}
+                                                    Email: {{ $association->users->email ?? 'N/A' }}
                                                 </small>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-4 py-3">
-                                        <i class="fas fa-envelope text-muted me-2"></i>{{ $eleve->email }}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        <i class="fas fa-phone-alt text-muted me-2"></i>{{ $eleve->telephoneParent }}
-                                    </td>
-                                    <td class="px-4 py-3">
-                                        @if($eleve->classe)
+                                        @if($association->coursDappuie)
                                             <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-2">
-                                                <i class="fas fa-users me-1"></i>{{ $eleve->classe->nom }}
+                                                <i class="fas fa-book-open me-1"></i>{{ $association->coursDappuie->nom }}
                                             </span>
                                         @else
                                             <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">
-                                                <i class="fas fa-times-circle me-1"></i>Non assignée
+                                                <i class="fas fa-times-circle me-1"></i>Non assigné
                                             </span>
                                         @endif
                                     </td>
                                     <td class="px-4 py-3">
-                                        @if($eleve->site)
+                                        @if($association->sites)
                                             <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
-                                                <i class="fas fa-building me-1"></i>{{ $eleve->site->nom }}
+                                                <i class="fas fa-building me-1"></i>{{ $association->sites->nom }}
+                                            </span>
+                                        @else
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">
+                                                <i class="fas fa-times-circle me-1"></i>Non assigné
+                                            </span>
+                                        @endif
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        @if($association->classe)
+                                            <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2">
+                                                <i class="fas fa-users me-1"></i>{{ $association->classe->nom }}
                                             </span>
                                         @else
                                             <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">
@@ -175,19 +185,19 @@
                                     </td>
                                     <td class="px-4 py-3">
                                         <i class="far fa-calendar-alt text-muted me-2"></i>
-                                        {{ $eleve->created_at->format('d/m/Y') }}
+                                        {{ $association->created_at ? $association->created_at->format('d/m/Y') : 'N/A' }}
                                     </td>
                                     <td class="px-4 py-3 text-center">
                                         <div class="d-flex justify-content-center gap-2">
                                             <!-- Voir -->
-                                            <a href="{{ route('eleves.show', $eleve->id) }}"
+                                            <a href="{{ route('usercoursdappuiesiteclasses.show', $association->id) }}"
                                                class="btn btn-sm btn-outline-info rounded-pill px-3"
                                                data-bs-toggle="tooltip" title="Voir les détails">
                                                 <i class="fas fa-eye"></i>
                                             </a>
 
                                             <!-- Modifier -->
-                                            <a href="{{ route('eleves.edit', $eleve->id) }}"
+                                            <a href="{{ route('usercoursdappuiesiteclasses.edit', $association->id) }}"
                                                class="btn btn-sm btn-outline-warning rounded-pill px-3"
                                                data-bs-toggle="tooltip" title="Modifier">
                                                 <i class="fas fa-edit"></i>
@@ -196,14 +206,14 @@
                                             <!-- Supprimer -->
                                             <button type="button"
                                                     class="btn btn-sm btn-outline-danger rounded-pill px-3 btn-delete"
-                                                    data-eleve-id="{{ $eleve->id }}"
-                                                    data-eleve-nom="{{ $eleve->nom }} {{ $eleve->prenom }}"
+                                                    data-association-id="{{ $association->id }}"
+                                                    data-association-nom="Association #{{ substr($association->id, 0, 6) }}"
                                                     data-bs-toggle="tooltip" title="Supprimer">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </div>
-                                        <form id="delete-form-{{ $eleve->id }}"
-                                              action="{{ route('eleves.destroy', $eleve->id) }}"
+                                        <form id="delete-form-{{ $association->id }}"
+                                              action="{{ route('usercoursdappuiesiteclasses.destroy', $association->id) }}"
                                               method="POST"
                                               style="display:none;">
                                             @csrf
@@ -217,17 +227,6 @@
                 </div>
             @endif
         </div>
-
-        @if($eleves->count() > 0)
-        <div class="card-footer bg-white border-0 p-4">
-            <div class="d-flex justify-content-between align-items-center">
-                <span class="text-muted">Affichage de {{ $eleves->count() }} élève(s)</span>
-                <div class="pagination">
-                    {{ $eleves->links() }}
-                </div>
-            </div>
-        </div>
-        @endif
     </div>
 </div>
 
@@ -249,11 +248,6 @@
     .swal2-container { z-index: 99999 !important; }
     .bg-opacity-10 { --bs-bg-opacity: 0.1; }
     .bg-opacity-20 { --bs-bg-opacity: 0.2; }
-    .pagination { margin-bottom: 0; }
-    .pagination > * {
-        border-radius: 50px !important;
-        margin: 0 2px;
-    }
     .table > :not(caption) > * > * {
         padding: 1rem 1rem;
     }
@@ -275,11 +269,11 @@
         });
 
         // Recherche
-        var searchInput = document.getElementById('search-eleves');
+        var searchInput = document.getElementById('search-associations');
         if (searchInput) {
             searchInput.addEventListener('input', function() {
                 var search = this.value.toLowerCase();
-                document.querySelectorAll('.eleve-row').forEach(function(row) {
+                document.querySelectorAll('.association-row').forEach(function(row) {
                     var name = row.dataset.name;
                     row.style.display = name.includes(search) ? '' : 'none';
                 });
@@ -291,11 +285,11 @@
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                var id   = this.getAttribute('data-eleve-id');
-                var nom = this.getAttribute('data-eleve-nom');
+                var id  = this.getAttribute('data-association-id');
+                var nom = this.getAttribute('data-association-nom');
 
                 Swal.fire({
-                    title: 'Supprimer cet élève ?',
+                    title: 'Supprimer cette association ?',
                     html: `
                         <div class="text-center">
                             <i class="fas fa-exclamation-triangle text-warning fa-4x mb-3"></i>

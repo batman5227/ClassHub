@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Détails de l'Élève - ClassHub
+    Détails de l'Association - ClassHub
 @endsection
 
 @section('content')
@@ -16,29 +16,29 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-user-graduate fa-8x text-blue"></i>
+                    <i class="fas fa-link fa-8x text-white"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-info-circle fa-8x text-blue"></i>
+                    <i class="fas fa-info-circle fa-8x text-white"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('eleves.index') }}" class="text-blue opacity-75">Élèves</a>
+                                    <a href="{{ route('users-coursappuie-site-classes.index') }}" class="text-white opacity-75">Associations</a>
                                 </li>
-                                <li class="breadcrumb-item active text-blue" aria-current="page">Détails</li>
+                                <li class="breadcrumb-item active text-white" aria-current="page">Détails</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-blue mb-3">Détails de l'élève</h1>
-                        <p class="text-blue opacity-90 lead mb-4">{{ $eleve->prenom }} {{ $eleve->nom }}</p>
+                        <h1 class="display-4 fw-bold text-white mb-3">Détails de l'association</h1>
+                        <p class="text-white opacity-90 lead mb-4">Association #{{ substr($usersCoursDappuieSitesClasse->id, 0, 6) }}...</p>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
-                        <a href="{{ route('eleves.index') }}"
+                        <a href="{{ route('users-coursappuie-site-classes.index') }}"
                            class="btn btn-light btn-lg rounded-pill px-5 shadow-sm hover-lift">
                             <i class="fas fa-arrow-left me-2 text-primary"></i>Retour à la liste
                         </a>
@@ -48,13 +48,13 @@
         </div>
     </div>
 
-    <!-- Détails de l'élève -->
+    <!-- Détails de l'association -->
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="card-header bg-white border-0 p-4">
                     <h4 class="mb-0 fw-bold">
-                        <i class="fas fa-info-circle text-primary me-2"></i>Informations générales
+                        <i class="fas fa-info-circle text-primary me-2"></i>Informations de l'association
                     </h4>
                 </div>
 
@@ -69,88 +69,24 @@
                                         <i class="fas fa-fingerprint fa-2x text-primary"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ substr($eleve->id, 0, 8) }}...{{ substr($eleve->id, -4) }}</h5>
+                                        <h5 class="mb-0 fw-bold">{{ substr($usersCoursDappuieSitesClasse->id, 0, 8) }}...{{ substr($usersCoursDappuieSitesClasse->id, -4) }}</h5>
                                         <small class="text-muted">ID unique</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Nom complet -->
+                        <!-- Utilisateur -->
                         <div class="col-md-6">
                             <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Nom complet</small>
+                                <small class="text-muted text-uppercase tracking-wide">Utilisateur</small>
                                 <div class="d-flex align-items-center mt-2">
                                     <div class="bg-success bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-user fa-2x text-success"></i>
+                                        <i class="fas fa-user-circle fa-2x text-success"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->nom }} {{ $eleve->prenom }}</h5>
-                                        <small class="text-muted">Élève</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Email -->
-                        <div class="col-md-6">
-                            <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Email</small>
-                                <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-info bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-envelope fa-2x text-info"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->email }}</h5>
-                                        <small class="text-muted">Adresse email</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Téléphone Parent -->
-                        <div class="col-md-6">
-                            <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Téléphone parent</small>
-                                <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-phone-alt fa-2x text-primary"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->telephoneParent }}</h5>
-                                        <small class="text-muted">Contact du parent/tuteur</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Classe -->
-                        <div class="col-md-6">
-                            <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Classe</small>
-                                <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-warning bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-users fa-2x text-warning"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->classe->nom ?? 'Non assignée' }}</h5>
-                                        <small class="text-muted">Classe actuelle</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Site -->
-                        <div class="col-md-6">
-                            <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Site</small>
-                                <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-success bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-building fa-2x text-success"></i>
-                                    </div>
-                                    <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->site->nom ?? 'Non assigné' }}</h5>
-                                        <small class="text-muted">Site de rattachement</small>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->users->name ?? 'N/A' }}</h5>
+                                        <small class="text-muted">{{ $usersCoursDappuieSitesClasse->users->email ?? '' }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -165,8 +101,40 @@
                                         <i class="fas fa-book-open fa-2x text-info"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->coursDappuie->nom ?? 'Non assigné' }}</h5>
-                                        <small class="text-muted">Cours d'appui suivi</small>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->coursDappuie->nom ?? 'N/A' }}</h5>
+                                        <small class="text-muted">Cours d'appui</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Site -->
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-4 h-100">
+                                <small class="text-muted text-uppercase tracking-wide">Site</small>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="bg-warning bg-opacity-10 rounded-3 p-3 me-3">
+                                        <i class="fas fa-building fa-2x text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->sites->nom ?? 'Non assigné' }}</h5>
+                                        <small class="text-muted">Site de rattachement</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Classe -->
+                        <div class="col-md-6">
+                            <div class="bg-light rounded-4 p-4 h-100">
+                                <small class="text-muted text-uppercase tracking-wide">Classe</small>
+                                <div class="d-flex align-items-center mt-2">
+                                    <div class="bg-danger bg-opacity-10 rounded-3 p-3 me-3">
+                                        <i class="fas fa-users fa-2x text-danger"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->classe->nom ?? 'Non assigné' }}</h5>
+                                        <small class="text-muted">Classe</small>
                                     </div>
                                 </div>
                             </div>
@@ -175,14 +143,14 @@
                         <!-- Date de création -->
                         <div class="col-md-6">
                             <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Date d'inscription</small>
+                                <small class="text-muted text-uppercase tracking-wide">Date de création</small>
                                 <div class="d-flex align-items-center mt-2">
                                     <div class="bg-secondary bg-opacity-10 rounded-3 p-3 me-3">
                                         <i class="fas fa-calendar-alt fa-2x text-secondary"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->created_at ? $eleve->created_at->format('d/m/Y') : 'N/A' }}</h5>
-                                        <small class="text-muted">{{ $eleve->created_at ? $eleve->created_at->format('H:i:s') : '' }}</small>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->created_at ? $usersCoursDappuieSitesClasse->created_at->format('d/m/Y') : 'N/A' }}</h5>
+                                        <small class="text-muted">{{ $usersCoursDappuieSitesClasse->created_at ? $usersCoursDappuieSitesClasse->created_at->format('H:i:s') : '' }}</small>
                                     </div>
                                 </div>
                             </div>
@@ -193,19 +161,19 @@
                             <div class="bg-light rounded-4 p-4 h-100">
                                 <small class="text-muted text-uppercase tracking-wide">Dernière modification</small>
                                 <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-danger bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-clock fa-2x text-danger"></i>
+                                    <div class="bg-dark bg-opacity-10 rounded-3 p-3 me-3">
+                                        <i class="fas fa-clock fa-2x text-dark"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->updated_at ? $eleve->updated_at->format('d/m/Y') : 'N/A' }}</h5>
-                                        <small class="text-muted">{{ $eleve->updated_at ? $eleve->updated_at->format('H:i:s') : '' }}</small>
+                                        <h5 class="mb-0 fw-bold">{{ $usersCoursDappuieSitesClasse->updated_at ? $usersCoursDappuieSitesClasse->updated_at->format('d/m/Y') : 'N/A' }}</h5>
+                                        <small class="text-muted">{{ $usersCoursDappuieSitesClasse->updated_at ? $usersCoursDappuieSitesClasse->updated_at->format('H:i:s') : '' }}</small>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Informations supplémentaires -->
+                    <!-- Résumé -->
                     <div class="row mt-4">
                         <div class="col-12">
                             <div class="bg-light rounded-4 p-4">
@@ -214,35 +182,28 @@
                                     <div class="col-md-3">
                                         <div class="text-center">
                                             <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">
-                                                <i class="fas fa-user-graduate me-1"></i>Élève
+                                                <i class="fas fa-user-circle me-1"></i>{{ $usersCoursDappuieSitesClasse->users->name ?? 'Utilisateur' }}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="text-center">
                                             <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-2">
-                                                <i class="fas fa-envelope me-1"></i>{{ $eleve->email }}
+                                                <i class="fas fa-book-open me-1"></i>{{ $usersCoursDappuieSitesClasse->coursDappuie->nom ?? 'N/A' }}
                                             </span>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
-                                        <div class="text-center">
-                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">
-                                                <i class="fas fa-phone-alt me-1"></i>{{ $eleve->telephoneParent }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="text-center">
-                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
-                                                <i class="fas fa-building me-1"></i>{{ $eleve->site->nom ?? 'N/A' }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mt-2">
                                         <div class="text-center">
                                             <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2">
-                                                <i class="fas fa-users me-1"></i>{{ $eleve->classe->nom ?? 'N/A' }}
+                                                <i class="fas fa-building me-1"></i>{{ $usersCoursDappuieSitesClasse->sites->nom ?? 'Aucun site' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
+                                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3 py-2">
+                                                <i class="fas fa-users me-1"></i>{{ $usersCoursDappuieSitesClasse->classe->nom ?? 'Aucune classe' }}
                                             </span>
                                         </div>
                                     </div>
@@ -255,23 +216,23 @@
                 <!-- Actions -->
                 <div class="card-footer bg-white border-0 p-4">
                     <div class="d-flex gap-3 justify-content-center">
-                        <a href="{{ route('eleves.edit', $eleve->id) }}"
+                        <a href="{{ route('users-coursappuie-site-classes.edit', $usersCoursDappuieSitesClasse->id) }}"
                            class="btn btn-warning rounded-pill px-5 py-3 shadow-sm hover-lift">
                             <i class="fas fa-edit me-2"></i>Modifier
                         </a>
                         <button type="button"
                                 class="btn btn-outline-danger rounded-pill px-5 py-3 shadow-sm hover-lift btn-delete"
-                                data-eleve-id="{{ $eleve->id }}"
-                                data-eleve-nom="{{ $eleve->nom }} {{ $eleve->prenom }}">
+                                data-association-id="{{ $usersCoursDappuieSitesClasse->id }}"
+                                data-association-nom="Association #{{ substr($usersCoursDappuieSitesClasse->id, 0, 6) }}">
                             <i class="fas fa-trash me-2"></i>Supprimer
                         </button>
-                        <a href="{{ route('eleves.index') }}"
+                        <a href="{{ route('users-coursappuie-site-classes.index') }}"
                            class="btn btn-outline-secondary rounded-pill px-5 py-3 shadow-sm hover-lift">
                             <i class="fas fa-arrow-left me-2"></i>Retour
                         </a>
                     </div>
-                    <form id="delete-form-{{ $eleve->id }}"
-                          action="{{ route('eleves.destroy', $eleve->id) }}"
+                    <form id="delete-form-{{ $usersCoursDappuieSitesClasse->id }}"
+                          action="{{ route('users-coursappuie-site-classes.destroy', $usersCoursDappuieSitesClasse->id) }}"
                           method="POST"
                           style="display:none;">
                         @csrf
@@ -310,11 +271,11 @@
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                var id   = this.getAttribute('data-eleve-id');
-                var nom = this.getAttribute('data-eleve-nom');
+                var id   = this.getAttribute('data-association-id');
+                var nom = this.getAttribute('data-association-nom');
 
                 Swal.fire({
-                    title: 'Supprimer cet élève ?',
+                    title: 'Supprimer cette association ?',
                     html: `
                         <div class="text-center">
                             <i class="fas fa-exclamation-triangle text-warning fa-4x mb-3"></i>

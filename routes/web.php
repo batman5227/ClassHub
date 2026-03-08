@@ -2,20 +2,21 @@
 
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ClasseMatiereGroupeController;
+use App\Http\Controllers\CoursController;
 use App\Http\Controllers\CoursdappuieController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\ElevesController;
 use App\Http\Controllers\GroupeController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolespermissionsController;
 use App\Http\Controllers\RoleUserController;
-use App\Http\Controllers\MatiereController;
-use App\Http\Controllers\CoursController;
 use App\Http\Controllers\RoleUsersController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UsersCoursappuieSiteClasseController;
+use App\Http\Controllers\UsersCoursDappuieSitesClasseController;
 use App\Models\Matiere;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,9 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::delete('/{user}/roles', [RoleUsersController::class, 'destroy'])->name('roles.destroy');
 });
 
+Route::resource('usercoursdappuiesiteclasses', UsersCoursDappuieSitesClasseController::class)->parameters([
+    'usercoursdappuiesiteclasses' => 'usersCoursDappuieSitesClasse'
+]);
 Route::resource('classes', ClasseController::class)->parameters([
     'classes' => 'classe'  // Force le paramètre à s'appeler "classe" au lieu de "class"
 ]);
@@ -43,24 +47,24 @@ Route::resource('groupes', GroupeController::class);
 Route::resource('sites',SitesController::class);
 Route::resource('coursdappuies',CoursdappuieController::class);
 // Routes pour les affectations
-Route::prefix('users-coursappuie-site-classes')->name('users-coursappuie-site-classes.')->group(function () {
-    Route::get('/', [UsersCoursappuieSiteClasseController::class, 'index'])->name('index');
-    Route::get('/create', [UsersCoursappuieSiteClasseController::class, 'create'])->name('create');
-    Route::post('/', [UsersCoursappuieSiteClasseController::class, 'store'])->name('store');
-    Route::get('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'show'])->name('show');
-    Route::get('/{usersCoursappuieSiteClasse}/assigner', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('assigner');
-    Route::get('/{usersCoursappuieSiteClasse}/retirer', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer');
-    Route::get('/{usersCoursappuieSiteClasse}/edit', [UsersCoursappuieSiteClasseController::class, 'edit'])->name('edit');
-    Route::put('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'update'])->name('update');
-    Route::delete('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'destroy'])->name('destroy');
-});
+// Route::prefix('users-coursappuie-site-classes')->name('users-coursappuie-site-classes.')->group(function () {
+//     Route::get('/', [UsersCoursappuieSiteClasseController::class, 'index'])->name('index');
+//     Route::get('/create', [UsersCoursappuieSiteClasseController::class, 'create'])->name('create');
+//     Route::post('/', [UsersCoursappuieSiteClasseController::class, 'store'])->name('store');
+//     Route::get('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'show'])->name('show');
+//     Route::get('/{usersCoursappuieSiteClasse}/assigner', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('assigner');
+//     Route::get('/{usersCoursappuieSiteClasse}/retirer', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer');
+//     Route::get('/{usersCoursappuieSiteClasse}/edit', [UsersCoursappuieSiteClasseController::class, 'edit'])->name('edit');
+//     Route::put('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'update'])->name('update');
+//     Route::delete('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'destroy'])->name('destroy');
+// });
 //assigner
 // Routes spécifiques pour un utilisateur
-Route::prefix('users/{userId}')->name('users.')->group(function () {
-    Route::get('/affecter-cours', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('affecter-cours');
-    Route::get('/retirer-cours', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer-cours');
-    Route::delete('/retirer-cours-multiple', [UsersCoursappuieSiteClasseController::class, 'retirerMultiple'])->name('retirer-cours-multiple');
-});
+// Route::prefix('users/{userId}')->name('users.')->group(function () {
+//     Route::get('/affecter-cours', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('affecter-cours');
+//     Route::get('/retirer-cours', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer-cours');
+//     Route::delete('/retirer-cours-multiple', [UsersCoursappuieSiteClasseController::class, 'retirerMultiple'])->name('retirer-cours-multiple');
+// });
 
 
 Route::resource('roles', RoleController::class);
@@ -87,7 +91,9 @@ Route::resource('users',UsersController::class);
 //Yanick
 
 // Routes pour les Élèves
-Route::resource('eleves', ElevesController::class);
+Route::resource('eleves', ElevesController::class)->parameters([
+    'eleves' => 'eleve'
+]);
 
 // Routes pour filtrer les eleves
 Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');

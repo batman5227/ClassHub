@@ -6,10 +6,10 @@
         <div class="col-12">
             <div class="bg-gradient-primary rounded-4 p-5 shadow-lg position-relative overflow-hidden">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-user-plus fa-8x text-white"></i> <!-- text-white au lieu de text-blue -->
+                    <i class="fas fa-user-plus fa-8x text-blue"></i> <!-- text-white au lieu de text-blue -->
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-users fa-8x text-white"></i>
+                    <i class="fas fa-users fa-8x text-blue"></i>
                 </div>
 
                 <div class="row align-items-center position-relative">
@@ -17,17 +17,17 @@
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('users.index') }}" class="text-white opacity-75">Utilisateurs</a>
+                                    <a href="{{ route('users.index') }}" class="text-blue opacity-75">Utilisateurs</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Création</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Création</li>
                             </ol>
                         </nav>
 
-                        <h1 class="display-4 fw-bold text-white mb-3">Création d'un utilisateur</h1>
-                        <p class="text-white opacity-90 lead mb-4">
+                        <h1 class="display-4 fw-bold text-blue mb-3">Création d'un utilisateur</h1>
+                        <p class="text-blue opacity-90 lead mb-4">
                             Ajoutez un nouvel utilisateur à l'application
                         </p>
                     </div>

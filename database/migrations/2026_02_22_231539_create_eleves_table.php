@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('prenom');
             $table->string('email')->unique();
+            $table->string('telephoneParent');
             $table->uuid('idClasse');
             $table->uuid('idSites');
             $table->uuid('idCoursDappuie');
