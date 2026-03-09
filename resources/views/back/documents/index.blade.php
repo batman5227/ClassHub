@@ -16,27 +16,27 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-file-alt fa-8x text-white"></i>
+                    <i class="fas fa-file-alt fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-folder-open fa-8x text-white"></i>
+                    <i class="fas fa-folder-open fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Documents</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Documents</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Gestion des documents</h1>
-                        <p class="text-white opacity-90 lead mb-4">Gérez tous les documents de l'établissement</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Gestion des documents</h1>
+                        <p class="text-blue opacity-90 lead mb-4">Gérez tous les documents de l'établissement</p>
                         <div class="d-flex gap-3">
-                            <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
-                                <small class="text-white opacity-75 d-block">Total documents</small>
-                                <span class="text-white fw-bold">{{ $documents->total() }}</span>
+                            <div class="bg-blue bg-opacity-20 rounded-3 px-4 py-2">
+                                <small class="text-blue opacity-75 d-block">Total documents</small>
+                                <span class="text-blue fw-bold">{{ $documents->total() }}</span>
                             </div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@
                         </thead>
                         <tbody>
                             @foreach($documents as $document)
-                                <tr class="document-row" data-name="{{ strtolower($document->nom . ' ' . ($document->matiere->nom ?? '')) }}">
+                                <tr class="document-row" data-name="{{ strtolower($document->nom . ' ' . ($document->matieres->nom ?? '')) }}">
                                     <td class="px-4 py-3">
                                         <div class="d-flex align-items-center">
                                             <div class="bg-primary bg-opacity-10 rounded-3 p-3 me-3">
@@ -144,9 +144,9 @@
                                         </div>
                                     </td>
                                     <td class="px-4 py-3">
-                                        @if($document->matiere)
+                                        @if($document->matieres)
                                             <span class="badge bg-info bg-opacity-10 text-info rounded-pill px-3 py-2">
-                                                <i class="fas fa-book me-1"></i>{{ $document->matiere->nom }}
+                                                <i class="fas fa-book me-1"></i>{{ $document->matieres->nom }}
                                             </span>
                                         @else
                                             <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">

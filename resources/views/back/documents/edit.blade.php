@@ -16,26 +16,26 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #f46b45 0%, #eea849 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-file-alt fa-8x text-white"></i>
+                    <i class="fas fa-file-alt fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-edit fa-8x text-white"></i>
+                    <i class="fas fa-edit fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('documents.index') }}" class="text-white opacity-75">Documents</a>
+                                    <a href="{{ route('documents.index') }}" class="text-blue opacity-75">Documents</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Modifier</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Modifier</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Modifier un document</h1>
-                        <p class="text-white opacity-90 lead mb-4">{{ $document->nom }}</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Modifier un document</h1>
+                        <p class="text-blue opacity-90 lead mb-4">{{ $document->nom }}</p>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                         <a href="{{ route('documents.index') }}"

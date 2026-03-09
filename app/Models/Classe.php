@@ -18,6 +18,9 @@ class Classe extends Model
 {
     return $this->belongsTo(Sites::class, 'idSites');
 }
+public function eleves(){
+    return $this->hasMany(eleves::class, 'idClasse');
+}
 
 public function groupes()
 {

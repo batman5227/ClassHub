@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnneeScolaireController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ClasseMatiereGroupeController;
 use App\Http\Controllers\CoursController;
@@ -36,9 +37,21 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::delete('/{user}/roles', [RoleUsersController::class, 'destroy'])->name('roles.destroy');
 });
 
+// Routes pour les années scolaires
+Route::resource('annees-scolaires', AnneeScolaireController::class);
+Route::put('annees-scolaires/{anneeScolaire}/set-active', [AnneeScolaireController::class, 'setActive'])
+    ->name('annees-scolaires.set-active');
 Route::resource('usercoursdappuiesiteclasses', UsersCoursDappuieSitesClasseController::class)->parameters([
     'usercoursdappuiesiteclasses' => 'usersCoursDappuieSitesClasse'
 ]);
+
+
+// Remplacer votre route resource actuelle par :
+// Route::resource('classes', ClasseController::class);
+
+// Ajouter une route pour le filtrage (optionnel mais recommandé)
+Route::get('classes/filter/annee/{idAnneeScolaire}', [ClasseController::class, 'filterByAnnee'])
+    ->name('classes.filter.annee');
 Route::resource('classes', ClasseController::class)->parameters([
     'classes' => 'classe'  // Force le paramètre à s'appeler "classe" au lieu de "class"
 ]);
@@ -47,24 +60,24 @@ Route::resource('groupes', GroupeController::class);
 Route::resource('sites',SitesController::class);
 Route::resource('coursdappuies',CoursdappuieController::class);
 // Routes pour les affectations
-// Route::prefix('users-coursappuie-site-classes')->name('users-coursappuie-site-classes.')->group(function () {
-//     Route::get('/', [UsersCoursappuieSiteClasseController::class, 'index'])->name('index');
-//     Route::get('/create', [UsersCoursappuieSiteClasseController::class, 'create'])->name('create');
-//     Route::post('/', [UsersCoursappuieSiteClasseController::class, 'store'])->name('store');
-//     Route::get('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'show'])->name('show');
-//     Route::get('/{usersCoursappuieSiteClasse}/assigner', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('assigner');
-//     Route::get('/{usersCoursappuieSiteClasse}/retirer', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer');
-//     Route::get('/{usersCoursappuieSiteClasse}/edit', [UsersCoursappuieSiteClasseController::class, 'edit'])->name('edit');
-//     Route::put('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'update'])->name('update');
-//     Route::delete('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'destroy'])->name('destroy');
-// });
-//assigner
+Route::prefix('users-coursappuie-site-classes')->name('users-coursappuie-site-classes.')->group(function () {
+    Route::get('/', [UsersCoursappuieSiteClasseController::class, 'index'])->name('index');
+    Route::get('/create', [UsersCoursappuieSiteClasseController::class, 'create'])->name('create');
+    Route::post('/', [UsersCoursappuieSiteClasseController::class, 'store'])->name('store');
+    Route::get('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'show'])->name('show');
+    Route::get('/{usersCoursappuieSiteClasse}/assigner', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('assigner');
+    Route::get('/{usersCoursappuieSiteClasse}/retirer', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer');
+    Route::get('/{usersCoursappuieSiteClasse}/edit', [UsersCoursappuieSiteClasseController::class, 'edit'])->name('edit');
+    Route::put('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'update'])->name('update');
+    Route::delete('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'destroy'])->name('destroy');
+});
+// assigner
 // Routes spécifiques pour un utilisateur
-// Route::prefix('users/{userId}')->name('users.')->group(function () {
-//     Route::get('/affecter-cours', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('affecter-cours');
-//     Route::get('/retirer-cours', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer-cours');
-//     Route::delete('/retirer-cours-multiple', [UsersCoursappuieSiteClasseController::class, 'retirerMultiple'])->name('retirer-cours-multiple');
-// });
+Route::prefix('users/{userId}')->name('users.')->group(function () {
+    Route::get('/affecter-cours', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('affecter-cours');
+    Route::get('/retirer-cours', [UsersCoursappuieSiteClasseController::class, 'retirer'])->name('retirer-cours');
+    Route::delete('/retirer-cours-multiple', [UsersCoursappuieSiteClasseController::class, 'retirerMultiple'])->name('retirer-cours-multiple');
+});
 
 
 Route::resource('roles', RoleController::class);

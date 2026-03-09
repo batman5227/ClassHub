@@ -22,4 +22,12 @@ class Matiere extends Model
     {
         return $this->belongsTo(Classe::class,'idClasse');
     }
+     public function classes()
+    {
+        return $this->belongsTo(Classe::class,'idClasse');
+    }
+        public function documents()
+        {
+            return $this->hasMany(Documents::class, 'idMatiere');
+        }
 };

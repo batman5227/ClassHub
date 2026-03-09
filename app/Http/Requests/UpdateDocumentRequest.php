@@ -11,7 +11,7 @@ class UpdateDocumentRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,10 @@ class UpdateDocumentRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+       return [
+            'nom' => 'required|string|max:255',
+            'idMatiere' => 'nullable|uuid|exists:matieres,id',
+            'fichier' => 'required|file|max:10240|mimes:pdf,doc,docx,xls,xlsx,ppt,pptx,txt,zip,rar',
         ];
     }
 }

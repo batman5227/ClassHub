@@ -22,9 +22,22 @@ class StoreClasseMatiereGroupeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'idMatiere' => 'required|uuid|exists:matieres,id',
-            'idClasse' => 'required|uuid|exists:classes,id',
-            'idGroupe' => 'required|uuid|exists:groupes,id',
+            'classe_id' => 'required|uuid|exists:classes,id',
+            'matiere_id' => 'required|uuid|exists:matieres,id',
+            'groupe_id' => 'required|uuid|exists:groupes,id',
         ];
+    }
+
+    /**
+     * Préparer les données pour la validation (optionnel)
+     * Si vous voulez garder les noms originaux dans la base de données
+     */
+    protected function prepareForValidation()
+    {
+        $this->merge([
+            'idClasse' => $this->classe_id,
+            'idMatiere' => $this->matiere_id,
+            'idGroupe' => $this->groupe_id,
+        ]);
     }
 }

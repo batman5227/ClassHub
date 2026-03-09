@@ -9,26 +9,26 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-book fa-8x text-white"></i>
+                    <i class="fas fa-book fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-info-circle fa-8x text-white"></i>
+                    <i class="fas fa-info-circle fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('matieres.index') }}" class="text-white opacity-75">Matières</a>
+                                    <a href="{{ route('matieres.index') }}" class="text-blue opacity-75">Matières</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Détails</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Détails</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Détails de la matière</h1>
-                        <p class="text-white opacity-90 lead mb-4">{{ $matiere->nom }}</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Détails de la matière</h1>
+                        <p class="text-blue opacity-90 lead mb-4">{{ $matiere->nom }}</p>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                         <a href="{{ route('matieres.index') }}"

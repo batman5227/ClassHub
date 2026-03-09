@@ -60,6 +60,30 @@
                         @csrf
                         @method('PUT')
 
+                        <!-- Année scolaire -->
+                        <div class="mb-4">
+                            <label for="idAnneeScolaire" class="form-label fw-semibold">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>Année scolaire
+                            </label>
+                            <select name="idAnneeScolaire"
+                                    id="idAnneeScolaire"
+                                    class="form-select form-select-lg @error('idAnneeScolaire') is-invalid @enderror"
+                                    required>
+                                <option value="">-- Sélectionner une année scolaire --</option>
+                                @foreach($anneesScolaires as $annee)
+                                    <option value="{{ $annee->id }}"
+                                        {{ old('idAnneeScolaire', $classe->idAnneeScolaire) == $annee->id ? 'selected' : '' }}
+                                        {{ $annee->is_active ? 'data-active="true"' : '' }}>
+                                        {{ $annee->annee }} {{ $annee->is_active ? '(Active)' : '' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('idAnneeScolaire')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">L'année scolaire à laquelle cette classe appartient</small>
+                        </div>
+
                         <!-- Nom de la classe -->
                         <div class="mb-4">
                             <label for="nom" class="form-label fw-semibold">
@@ -95,7 +119,26 @@
                             @error('idSites')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Sélectionnez le site où se trouve cette classe</small>
+                            <small class="text-muted">Sélectionnez le site où se trouve cette classe (optionnel)</small>
+                        </div>
+
+                        <!-- Récapitulatif -->
+                        <div class="bg-light rounded-4 p-4 mb-4">
+                            <h6 class="fw-bold mb-3"><i class="fas fa-info-circle me-2 text-primary"></i>Informations actuelles :</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <small class="text-muted d-block">Année scolaire</small>
+                                    <span class="fw-semibold">{{ $classe->anneeScolaire?->annee ?? 'Non assignée' }}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted d-block">Nom</small>
+                                    <span class="fw-semibold">{{ $classe->nom }}</span>
+                                </div>
+                                <div class="col-md-4">
+                                    <small class="text-muted d-block">Site</small>
+                                    <span class="fw-semibold">{{ $classe->site?->nom ?? 'Non assigné' }}</span>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Boutons d'action -->

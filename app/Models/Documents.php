@@ -23,4 +23,8 @@ class Documents extends Model
     {
         return $this->belongsTo(Matiere::class, 'idMatiere');
     }
+    public function classes()
+    {
+        return $this->belongsToMany(Classe::class, 'classe_document', 'document_id', 'classe_id');
+    }
 }
