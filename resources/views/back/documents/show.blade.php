@@ -16,26 +16,26 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-file-alt fa-8x text-white"></i>
+                    <i class="fas fa-file-alt fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-info-circle fa-8x text-white"></i>
+                    <i class="fas fa-info-circle fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('documents.index') }}" class="text-white opacity-75">Documents</a>
+                                    <a href="{{ route('documents.index') }}" class="text-blue opacity-75">Documents</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Détails</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Détails</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Détails du document</h1>
-                        <p class="text-white opacity-90 lead mb-4">{{ $document->nom }}</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Détails du document</h1>
+                        <p class="text-blue opacity-90 lead mb-4">{{ $document->nom }}</p>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                         <a href="{{ route('documents.index') }}"
@@ -52,7 +52,7 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
-                <div class="card-header bg-white border-0 p-4">
+                <div class="card-header bg-blue border-0 p-4">
                     <h4 class="mb-0 fw-bold">
                         <i class="fas fa-info-circle text-primary me-2"></i>Informations générales
                     </h4>
@@ -101,7 +101,7 @@
                                         <i class="fas fa-book fa-2x text-info"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $document->matiere->nom ?? 'Non associée' }}</h5>
+                                        <h5 class="mb-0 fw-bold">{{ $document->matieres->nom ?? 'Non associée' }}</h5>
                                         <small class="text-muted">Matière</small>
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                         <i class="fas fa-users fa-2x text-warning"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $document->matiere->classe->nom ?? 'Non spécifiée' }}</h5>
+                                        <h5 class="mb-0 fw-bold">{{ $document->matieres->classe->nom ?? 'Non spécifiée' }}</h5>
                                         <small class="text-muted">Classe</small>
                                     </div>
                                 </div>

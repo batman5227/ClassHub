@@ -59,6 +59,30 @@
                     <form action="{{ route('classes.store') }}" method="POST">
                         @csrf
 
+                        <!-- Année scolaire -->
+                        <div class="mb-4">
+                            <label for="idAnneeScolaire" class="form-label fw-semibold">
+                                <i class="fas fa-calendar-alt text-primary me-2"></i>Année scolaire
+                            </label>
+                            <select name="idAnneeScolaire"
+                                    id="idAnneeScolaire"
+                                    class="form-select form-select-lg @error('idAnneeScolaire') is-invalid @enderror"
+                                    required>
+                                <option value="">-- Sélectionner une année scolaire --</option>
+                                @foreach($anneesScolaires as $annee)
+                                    <option value="{{ $annee->id }}"
+                                        {{ old('idAnneeScolaire', $anneeActive?->id) == $annee->id ? 'selected' : '' }}
+                                        {{ $annee->is_active ? 'data-active="true"' : '' }}>
+                                        {{ $annee->annee }} {{ $annee->is_active ? '(Active)' : '' }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('idAnneeScolaire')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                            <small class="text-muted">L'année scolaire à laquelle cette classe appartient</small>
+                        </div>
+
                         <!-- Nom de la classe -->
                         <div class="mb-4">
                             <label for="nom" class="form-label fw-semibold">
@@ -94,7 +118,7 @@
                             @error('idSites')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
-                            <small class="text-muted">Sélectionnez le site où se trouve cette classe</small>
+                            <small class="text-muted">Sélectionnez le site où se trouve cette classe (optionnel)</small>
                         </div>
 
                         <!-- Boutons d'action -->

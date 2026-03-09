@@ -25,6 +25,7 @@ class UpdateClasseRequest extends FormRequest
             //
             'nom'=>'required|String|max:255',
             'idSites'=>'required|exists:sites,id',
+            'idAnneeScolaire'=>'nullable|exists:annee_scolaires,id',
         ];
     }
 }

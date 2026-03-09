@@ -16,27 +16,27 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-users fa-8x text-white"></i>
+                    <i class="fas fa-users fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-user-graduate fa-8x text-white"></i>
+                    <i class="fas fa-user-graduate fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Élèves</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Élèves</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Gestion des élèves</h1>
-                        <p class="text-white opacity-90 lead mb-4">Gérez tous les élèves de l'établissement</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Gestion des élèves</h1>
+                        <p class="text-blue opacity-90 lead mb-4">Gérez tous les élèves de l'établissement</p>
                         <div class="d-flex gap-3">
                             <div class="bg-white bg-opacity-20 rounded-3 px-4 py-2">
-                                <small class="text-white opacity-75 d-block">Total élèves</small>
-                                <span class="text-white fw-bold">{{ $eleves->total() }}</span>
+                                <small class="text-blue opacity-75 d-block">Total élèves</small>
+                                <span class="text-blue fw-bold">{{ $eleves->total() }}</span>
                             </div>
                         </div>
                     </div>
@@ -122,7 +122,8 @@
                             <tr>
                                 <th class="px-4 py-3">Élève</th>
                                 <th class="px-4 py-3">Email</th>
-                                <th class="px-4 py-3">Téléphone parent</th>
+
+                                <th class="px-4 py-3">Tél. Parent</th>
                                 <th class="px-4 py-3">Classe</th>
                                 <th class="px-4 py-3">Site</th>
                                 <th class="px-4 py-3">Date d'inscription</th>
@@ -149,15 +150,8 @@
                                         <i class="fas fa-envelope text-muted me-2"></i>{{ $eleve->email }}
                                     </td>
                                     <td class="px-4 py-3">
-                                        @if($eleve->numParent)
-                                            <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2">
-                                                <i class="fas fa-phone me-1"></i>{{ $eleve->numParent }}
-                                            </span>
-                                        @else
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3 py-2">
-                                                <i class="fas fa-minus-circle me-1"></i>Non fourni
-                                            </span>
-                                        @endif
+
+                                        <i class="fas fa-phone-alt text-muted me-2"></i>{{ $eleve->telephoneParent }}
                                     </td>
                                     <td class="px-4 py-3">
                                         @if($eleve->classe)

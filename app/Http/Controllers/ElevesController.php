@@ -68,10 +68,10 @@ class ElevesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateelevesRequest $request, eleves $elefe)
+    public function update(UpdateelevesRequest $request, eleves $eleve)
     {
         $data = $request->validated();
-        $elefe->update($data);
+        $eleve->update($data);
 
         return redirect()
             ->route('eleves.index')
@@ -81,9 +81,9 @@ class ElevesController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(eleves $elefe)
+    public function destroy(eleves $eleve)
     {
-        $elefe->delete();
+        $eleve->delete();
 
         return redirect()
             ->route('eleves.index')

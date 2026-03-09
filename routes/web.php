@@ -1,21 +1,23 @@
 <?php
 
+use App\Http\Controllers\AnneeScolaireController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\ClasseMatiereGroupeController;
+use App\Http\Controllers\CoursController;
 use App\Http\Controllers\CoursdappuieController;
 use App\Http\Controllers\DocumentsController;
 use App\Http\Controllers\ElevesController;
 use App\Http\Controllers\GroupeController;
+use App\Http\Controllers\MatiereController;
 use App\Http\Controllers\PermissionsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RolespermissionsController;
 use App\Http\Controllers\RoleUserController;
-use App\Http\Controllers\MatiereController;
-use App\Http\Controllers\CoursController;
 use App\Http\Controllers\RoleUsersController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\UsersCoursappuieSiteClasseController;
+use App\Http\Controllers\UsersCoursDappuieSitesClasseController;
 use App\Models\Matiere;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +37,21 @@ Route::prefix('users')->name('users.')->group(function () {
     Route::delete('/{user}/roles', [RoleUsersController::class, 'destroy'])->name('roles.destroy');
 });
 
+// Routes pour les années scolaires
+Route::resource('annees-scolaires', AnneeScolaireController::class);
+Route::put('annees-scolaires/{anneeScolaire}/set-active', [AnneeScolaireController::class, 'setActive'])
+    ->name('annees-scolaires.set-active');
+Route::resource('usercoursdappuiesiteclasses', UsersCoursDappuieSitesClasseController::class)->parameters([
+    'usercoursdappuiesiteclasses' => 'usersCoursDappuieSitesClasse'
+]);
+
+
+// Remplacer votre route resource actuelle par :
+// Route::resource('classes', ClasseController::class);
+
+// Ajouter une route pour le filtrage (optionnel mais recommandé)
+Route::get('classes/filter/annee/{idAnneeScolaire}', [ClasseController::class, 'filterByAnnee'])
+    ->name('classes.filter.annee');
 Route::resource('classes', ClasseController::class)->parameters([
     'classes' => 'classe'  // Force le paramètre à s'appeler "classe" au lieu de "class"
 ]);
@@ -54,7 +71,7 @@ Route::prefix('users-coursappuie-site-classes')->name('users-coursappuie-site-cl
     Route::put('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'update'])->name('update');
     Route::delete('/{usersCoursappuieSiteClasse}', [UsersCoursappuieSiteClasseController::class, 'destroy'])->name('destroy');
 });
-//assigner
+// assigner
 // Routes spécifiques pour un utilisateur
 Route::prefix('users/{userId}')->name('users.')->group(function () {
     Route::get('/affecter-cours', [UsersCoursappuieSiteClasseController::class, 'assigner'])->name('affecter-cours');
@@ -87,7 +104,9 @@ Route::resource('users',UsersController::class);
 //Yanick
 
 // Routes pour les Élèves
-Route::resource('eleves', ElevesController::class);
+Route::resource('eleves', ElevesController::class)->parameters([
+    'eleves' => 'eleve'
+]);
 
 // Routes pour filtrer les eleves
 Route::get('eleves/classe/{idClasse}', [ElevesController::class, 'byClass'])->name('eleves.byClass');

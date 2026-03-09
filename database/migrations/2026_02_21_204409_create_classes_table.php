@@ -14,6 +14,12 @@ class CreateClassesTable extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->uuid('id')->primary()->default(DB::raw('uuid_generate_v4()'));
             $table->string('nom');
+            // Dans la migration des classes, ajoutez :
+$table->uuid('idAnneeScolaire')->nullable();
+$table->foreign('idAnneeScolaire')
+      ->references('id')
+      ->on('annee_scolaires')
+      ->onDelete('set null');
 
             $table->uuid('idSites');
             $table->foreign('idSites')

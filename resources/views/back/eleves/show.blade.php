@@ -16,26 +16,26 @@
             <div class="bg-gradient rounded-4 p-5 shadow-lg position-relative overflow-hidden"
                  style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
                 <div class="position-absolute top-0 end-0 opacity-10">
-                    <i class="fas fa-user-graduate fa-8x text-white"></i>
+                    <i class="fas fa-user-graduate fa-8x text-blue"></i>
                 </div>
                 <div class="position-absolute bottom-0 start-0 opacity-10">
-                    <i class="fas fa-info-circle fa-8x text-white"></i>
+                    <i class="fas fa-info-circle fa-8x text-blue"></i>
                 </div>
                 <div class="row align-items-center position-relative">
                     <div class="col-lg-8">
                         <nav aria-label="breadcrumb" class="mb-3">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('dashboard') }}" class="text-white opacity-75">Dashboard</a>
+                                    <a href="{{ route('dashboard') }}" class="text-blue opacity-75">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item">
-                                    <a href="{{ route('eleves.index') }}" class="text-white opacity-75">Élèves</a>
+                                    <a href="{{ route('eleves.index') }}" class="text-blue opacity-75">Élèves</a>
                                 </li>
-                                <li class="breadcrumb-item active text-white" aria-current="page">Détails</li>
+                                <li class="breadcrumb-item active text-blue" aria-current="page">Détails</li>
                             </ol>
                         </nav>
-                        <h1 class="display-4 fw-bold text-white mb-3">Détails de l'élève</h1>
-                        <p class="text-white opacity-90 lead mb-4">{{ $eleve->prenom }} {{ $eleve->nom }}</p>
+                        <h1 class="display-4 fw-bold text-blue mb-3">Détails de l'élève</h1>
+                        <p class="text-blue opacity-90 lead mb-4">{{ $eleve->prenom }} {{ $eleve->nom }}</p>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
                         <a href="{{ route('eleves.index') }}"
@@ -108,17 +108,18 @@
                             </div>
                         </div>
 
-                        <!-- Numéro du parent -->
+
+                        <!-- Téléphone Parent -->
                         <div class="col-md-6">
                             <div class="bg-light rounded-4 p-4 h-100">
-                                <small class="text-muted text-uppercase tracking-wide">Téléphone du parent</small>
+                                <small class="text-muted text-uppercase tracking-wide">Téléphone parent</small>
                                 <div class="d-flex align-items-center mt-2">
-                                    <div class="bg-warning bg-opacity-10 rounded-3 p-3 me-3">
-                                        <i class="fas fa-phone fa-2x text-warning"></i>
+                                    <div class="bg-primary bg-opacity-10 rounded-3 p-3 me-3">
+                                        <i class="fas fa-phone-alt fa-2x text-primary"></i>
                                     </div>
                                     <div>
-                                        <h5 class="mb-0 fw-bold">{{ $eleve->numParent ?? 'Non fourni' }}</h5>
-                                        <small class="text-muted">Numéro de téléphone</small>
+                                        <h5 class="mb-0 fw-bold">{{ $eleve->telephoneParent }}</h5>
+                                        <small class="text-muted">Contact du parent/tuteur</small>
                                     </div>
                                 </div>
                             </div>
@@ -227,12 +228,19 @@
                                     </div>
                                     <div class="col-md-3">
                                         <div class="text-center">
+                                            <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3 py-2">
+                                                <i class="fas fa-phone-alt me-1"></i>{{ $eleve->telephoneParent }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="text-center">
                                             <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-2">
                                                 <i class="fas fa-building me-1"></i>{{ $eleve->site->nom ?? 'N/A' }}
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-3 mt-2">
                                         <div class="text-center">
                                             <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-3 py-2">
                                                 <i class="fas fa-users me-1"></i>{{ $eleve->classe->nom ?? 'N/A' }}

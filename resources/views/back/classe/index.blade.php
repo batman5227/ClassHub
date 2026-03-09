@@ -25,14 +25,21 @@
 
                         <h1 class="display-4 fw-bold text-blue mb-3">Gestion des classes</h1>
                         <p class="text-blue opacity-90 lead mb-4">
-                            Gérez les classes de l'application
+                            Gérez les classes de l'application par année scolaire
                         </p>
 
                         <div class="d-flex gap-3">
                             <div class="bg-blue bg-opacity-20 rounded-3 px-4 py-2">
                                 <small class="text-blue opacity-75 d-block">Total classes</small>
-                                <span class="text-blue fw-bold">{{ $classes->count() }}</span>
+                                <span class="text-blue fw-bold">{{ $classes->total() }}</span>
                             </div>
+                            @if(request('idAnneeScolaire'))
+                                @php $anneeActive = \App\Models\AnneeScolaire::find(request('idAnneeScolaire')); @endphp
+                                <div class="bg-blue bg-opacity-20 rounded-3 px-4 py-2">
+                                    <small class="text-blue opacity-75 d-block">Année filtrée</small>
+                                    <span class="text-blue fw-bold">{{ $anneeActive->annee ?? 'N/A' }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
@@ -46,13 +53,60 @@
     </div>
 
     <!-- Messages flash -->
-    {{-- @include('partials.flash-messages') --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show rounded-4 shadow-sm border-0 bg-success bg-opacity-10 mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-check-circle fa-2x text-success"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="alert-heading mb-1 text-success">Opération réussie !</h5>
+                    <p class="mb-0">{{ session('success') }}</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    @endif
 
-    <!-- Filtres et recherche -->
-    <div class="card border-0 shadow-sm rounded-4 mb-4">
-        <div class="card-body p-3">
-            <div class="row g-3 align-items-center">
-                <div class="col-lg-8">
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm border-0 bg-danger bg-opacity-10 mb-4" role="alert">
+            <div class="d-flex align-items-center">
+                <div class="flex-shrink-0">
+                    <i class="fas fa-exclamation-circle fa-2x text-danger"></i>
+                </div>
+                <div class="flex-grow-1 ms-3">
+                    <h5 class="alert-heading mb-1 text-danger">Erreur</h5>
+                    <p class="mb-0">{{ session('error') }}</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        </div>
+    @endif
+
+    <!-- Filtres -->
+    <div class="row g-3 mb-4">
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-3">
+                    <label class="form-label fw-semibold mb-2">
+                        <i class="fas fa-calendar-alt text-primary me-2"></i>Filtrer par année scolaire
+                    </label>
+                    <select class="form-select rounded-pill" id="filter-annee">
+                        <option value="">Toutes les années</option>
+                        @foreach($anneesScolaires ?? [] as $annee)
+                            <option value="{{ $annee->id }}"
+                                {{ request('idAnneeScolaire') == $annee->id ? 'selected' : '' }}
+                                {{ $annee->is_active ? 'data-active="true"' : '' }}>
+                                {{ $annee->annee }} {{ $annee->is_active ? '(Active)' : '' }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-3">
                     <div class="input-group">
                         <span class="input-group-text bg-transparent border-end-0">
                             <i class="fas fa-search text-muted"></i>
@@ -60,12 +114,6 @@
                         <input type="text" class="form-control border-start-0" id="search-classes"
                                placeholder="Rechercher par nom...">
                     </div>
-                </div>
-                <div class="col-lg-4 text-lg-end">
-                    <span class="text-muted">
-                        <i class="fas fa-layer-group me-1"></i>
-                        <span id="displayed-count">{{ $classes->count() }}</span> / {{ $classes->count() }} affiché(s)
-                    </span>
                 </div>
             </div>
         </div>
@@ -95,6 +143,14 @@
                             <div class="d-flex align-items-center text-muted mb-2">
                                 <i class="fas fa-map-marker-alt me-2 text-success"></i>
                                 <span>Site: {{ $classe->site?->nom ?? 'Non assigné' }}</span>
+                            </div>
+
+                            <div class="d-flex align-items-center text-muted mb-2">
+                                <i class="fas fa-calendar-alt me-2 text-info"></i>
+                                <span>Année: {{ $classe->anneeScolaire?->annee ?? 'Non assignée' }}</span>
+                                @if($classe->anneeScolaire?->is_active)
+                                    <span class="badge bg-success bg-opacity-10 text-success ms-2">Active</span>
+                                @endif
                             </div>
 
                             <div class="d-flex align-items-center text-muted">
@@ -150,7 +206,13 @@
                         <i class="fas fa-chalkboard fa-5x text-muted"></i>
                     </div>
                     <h3 class="fw-bold mb-3">Aucune classe trouvée</h3>
-                    <p class="text-muted mb-4">Commencez par créer une nouvelle classe</p>
+                    <p class="text-muted mb-4">
+                        @if(request('idAnneeScolaire'))
+                            Aucune classe pour l'année sélectionnée
+                        @else
+                            Commencez par créer une nouvelle classe
+                        @endif
+                    </p>
                     <a href="{{ route('classes.create') }}" class="btn btn-primary btn-lg rounded-pill px-5">
                         <i class="fas fa-plus-circle me-2"></i>Créer une classe
                     </a>
@@ -158,6 +220,13 @@
             </div>
         @endforelse
     </div>
+
+    <!-- Pagination -->
+    @if($classes->hasPages())
+        <div class="d-flex justify-content-center mt-5">
+            {{ $classes->withQueryString()->links() }}
+        </div>
+    @endif
 </div>
 @endsection
 
@@ -179,6 +248,11 @@
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     }
+    .pagination {
+        --bs-pagination-border-radius: 50rem;
+        --bs-pagination-active-bg: #667eea;
+        --bs-pagination-active-border-color: #667eea;
+    }
 </style>
 @endpush
 
@@ -192,22 +266,30 @@ document.addEventListener('DOMContentLoaded', function() {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 
+    // Filtre par année
+    const filterAnnee = document.getElementById('filter-annee');
+    if (filterAnnee) {
+        filterAnnee.addEventListener('change', function() {
+            const anneeId = this.value;
+            const url = new URL(window.location.href);
+            if (anneeId) {
+                url.searchParams.set('idAnneeScolaire', anneeId);
+            } else {
+                url.searchParams.delete('idAnneeScolaire');
+            }
+            window.location.href = url.toString();
+        });
+    }
+
     // Recherche
     const searchInput = document.getElementById('search-classes');
     if (searchInput) {
         searchInput.addEventListener('input', function(e) {
             const search = e.target.value.toLowerCase();
-            let visibleCount = 0;
             document.querySelectorAll('.classe-item').forEach(item => {
                 const name = item.dataset.name;
-                if (name.includes(search)) {
-                    item.style.display = '';
-                    visibleCount++;
-                } else {
-                    item.style.display = 'none';
-                }
+                item.style.display = name.includes(search) ? '' : 'none';
             });
-            document.getElementById('displayed-count').textContent = visibleCount;
         });
     }
 

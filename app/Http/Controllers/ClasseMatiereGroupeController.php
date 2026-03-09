@@ -21,7 +21,7 @@ class ClasseMatiereGroupeController extends Controller
                     ->latest()
                     ->paginate(10);
 
-        return view('back.classe-matiere-groupe.index', compact('classeMatiereGroupes'));
+        return view('back.classe-Matiere-Groupe.index', compact('classeMatiereGroupes'));
     }
 
     /**
@@ -33,29 +33,37 @@ class ClasseMatiereGroupeController extends Controller
         $matieres = Matiere::all();
         $groupes = Groupe::all();
 
-        return view('back.classe-matiere-groupe.create', compact('classes', 'matieres', 'groupes'));
+        return view('back.classe-Matiere-Groupe.create', compact('classes', 'matieres', 'groupes'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreClasseMatiereGroupeRequest $request)
-    {
-        $data = $request->validated();
+{
+    // Si vous avez utilisé la préparation dans la Request
+    $data = $request->validated(); // Contiendra idClasse, idMatiere, idGroupe
 
-        ClasseMatiereGroupe::create($data);
+    // OU si vous voulez garder les noms du formulaire
+    $data = [
+        'idClasse' => $request->classe_id,
+        'idMatiere' => $request->matiere_id,
+        'idGroupe' => $request->groupe_id,
+    ];
 
-        return redirect()
-            ->route('classe-matiere-groupe.index')
-            ->with('success', 'Association créée avec succès.');
-    }
+    ClasseMatiereGroupe::create($data);
+
+    return redirect()
+        ->route('classe-matiere-groupe.index')
+        ->with('success', 'Association créée avec succès.');
+}
 
     /**
      * Display the specified resource.
      */
     public function show(ClasseMatiereGroupe $classeMatiereGroupe)
     {
-        return view('back.classe-matiere-groupe.show', compact('classeMatiereGroupe'));
+        return view('back.classe-Matiere-Groupe.show', compact('classeMatiereGroupe'));
     }
 
     /**
@@ -68,7 +76,7 @@ class ClasseMatiereGroupeController extends Controller
         $groupes = Groupe::all();
 
         return view(
-            'back.classe-matiere-groupe.edit',
+            'back.classe-Matiere-Groupe.edit',
             compact('classeMatiereGroupe', 'classes', 'matieres', 'groupes')
         );
     }

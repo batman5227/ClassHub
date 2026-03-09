@@ -37,7 +37,14 @@ public function edit($id)
 $matiere = Matiere::findOrFail($id);
 $classes = Classe::all();
 
-return view('matieres.edit',compact('matiere','classes'));
+return view('back.matiere.updat',compact('matiere','classes'));
+}
+public function show($id)
+{
+$matiere = Matiere::findOrFail($id);
+
+
+return view('back.matiere.show',compact('matiere'));
 }
 
 public function update(Request $request,$id)

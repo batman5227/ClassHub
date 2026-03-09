@@ -14,7 +14,8 @@ class eleves extends Model
         'nom',
         'prenom',
         'email',
-        'numParent',
+
+        'telephoneParent',
         'idClasse',
         'idSites',
         'idCoursDappuie',
@@ -40,6 +41,10 @@ class eleves extends Model
      * Get the site that owns the eleve.
      */
     public function sites(): BelongsTo
+    {
+        return $this->belongsTo(Sites::class, 'idSites');
+    }
+     public function site(): BelongsTo
     {
         return $this->belongsTo(Sites::class, 'idSites');
     }

@@ -10,6 +10,7 @@ class Classe extends Model
     protected $fillable = [
     'nom',
     'idSites',
+    'idAnneeScolaire'
 
     ];
 
@@ -17,9 +18,16 @@ class Classe extends Model
 {
     return $this->belongsTo(Sites::class, 'idSites');
 }
+public function eleves(){
+    return $this->hasMany(eleves::class, 'idClasse');
+}
 
 public function groupes()
 {
     return $this->hasMany(Groupe::class, 'idClasse');
+}
+public function anneeScolaire()
+{
+    return $this->belongsTo(AnneeScolaire::class, 'idAnneeScolaire');
 }
 }

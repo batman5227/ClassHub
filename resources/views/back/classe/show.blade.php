@@ -43,7 +43,7 @@
 
     <!-- Cartes de statistiques -->
     <div class="row g-4 mb-5">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 hover-shadow-lg transition-all">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
@@ -61,32 +61,52 @@
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 hover-shadow-lg transition-all">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <div class="bg-success bg-opacity-10 rounded-3 p-3">
-                                <i class="fas fa-calendar-alt fa-2x text-success"></i>
+                            <div class="bg-info bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-calendar-alt fa-2x text-info"></i>
                             </div>
                         </div>
-
                         <div class="flex-grow-1 ms-3">
-                            <h3 class="fw-bold mb-0">{{ $classe->created_at}}</h3>
-                            <p class="text-muted mb-0">Date de création</p>
+                            <h3 class="fw-bold mb-0">{{ $classe->anneeScolaire?->annee ?? 'N/A' }}</h3>
+                            <p class="text-muted mb-0">Année scolaire</p>
+                            @if($classe->anneeScolaire?->is_active)
+                                <span class="badge bg-success bg-opacity-10 text-success">Active</span>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="card border-0 shadow-sm rounded-4 hover-shadow-lg transition-all">
                 <div class="card-body">
                     <div class="d-flex align-items-center">
                         <div class="flex-shrink-0">
-                            <div class="bg-info bg-opacity-10 rounded-3 p-3">
-                                <i class="fas fa-users fa-2x text-info"></i>
+                            <div class="bg-success bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-map-marker-alt fa-2x text-success"></i>
+                            </div>
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                            <h3 class="fw-bold mb-0">{{ $classe->site?->nom ?? 'Non assigné' }}</h3>
+                            <p class="text-muted mb-0">Site</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 hover-shadow-lg transition-all">
+                <div class="card-body">
+                    <div class="d-flex align-items-center">
+                        <div class="flex-shrink-0">
+                            <div class="bg-warning bg-opacity-10 rounded-3 p-3">
+                                <i class="fas fa-users fa-2x text-warning"></i>
                             </div>
                         </div>
                         <div class="flex-grow-1 ms-3">
@@ -142,14 +162,43 @@
                         <div class="col-md-6 mb-4">
                             <div class="bg-light rounded-4 p-4">
                                 <h5 class="text-primary mb-3">
+                                    <i class="fas fa-calendar-alt me-2"></i>Année scolaire
+                                </h5>
+
+                                <div class="mb-3">
+                                    <label class="text-muted small text-uppercase">Année</label>
+                                    <div class="d-flex align-items-start mt-2">
+                                        <div class="bg-info bg-opacity-10 rounded-2 p-2 me-3">
+                                            <i class="fas fa-calendar text-info"></i>
+                                        </div>
+                                        <div>
+                                            <span class="fw-semibold">{{ $classe->anneeScolaire?->annee ?? 'Non assignée' }}</span>
+                                            @if($classe->anneeScolaire?->is_active)
+                                                <span class="badge bg-success bg-opacity-10 text-success ms-2">Active</span>
+                                            @endif
+                                            @if($classe->anneeScolaire)
+                                                <small class="text-muted d-block">
+                                                    Du {{ $classe->anneeScolaire->date_debut?->format('d/m/Y') }}
+                                                    au {{ $classe->anneeScolaire->date_fin?->format('d/m/Y') }}
+                                                </small>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <div class="bg-light rounded-4 p-4">
+                                <h5 class="text-primary mb-3">
                                     <i class="fas fa-location-dot me-2"></i>Localisation
                                 </h5>
 
                                 <div class="mb-3">
                                     <label class="text-muted small text-uppercase">Site associé</label>
                                     <div class="d-flex align-items-start mt-2">
-                                        <div class="bg-info bg-opacity-10 rounded-2 p-2 me-3">
-                                            <i class="fas fa-map-marker-alt text-info"></i>
+                                        <div class="bg-success bg-opacity-10 rounded-2 p-2 me-3">
+                                            <i class="fas fa-map-marker-alt text-success"></i>
                                         </div>
                                         <span class="fw-semibold">{{ $classe->site?->nom ?? 'Non assigné' }}</span>
                                     </div>
@@ -165,39 +214,29 @@
                             </div>
                         </div>
 
-                        <div class="col-12">
+                        <div class="col-md-6 mb-4">
                             <div class="bg-light rounded-4 p-4">
                                 <h5 class="text-primary mb-3">
                                     <i class="fas fa-history me-2"></i>Historique
                                 </h5>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="bg-primary bg-opacity-10 rounded-2 p-3 me-3">
-                                                    <i class="fas fa-calendar-plus text-primary fa-lg"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <small class="text-muted d-block">Date de création</small>
-                                                <span class="fw-semibold">{{ $classe->created_at }}</span>
-                                            </div>
+                                <div class="mb-3">
+                                    <label class="text-muted small text-uppercase">Date de création</label>
+                                    <div class="d-flex align-items-center mt-2">
+                                        <div class="bg-primary bg-opacity-10 rounded-2 p-2 me-3">
+                                            <i class="fas fa-calendar-plus text-primary"></i>
                                         </div>
+                                        <span class="fw-semibold">{{ $classe->created_at->format('d/m/Y H:i:s') }}</span>
                                     </div>
+                                </div>
 
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-center">
-                                            <div class="flex-shrink-0">
-                                                <div class="bg-info bg-opacity-10 rounded-2 p-3 me-3">
-                                                    <i class="fas fa-calendar-check text-info fa-lg"></i>
-                                                </div>
-                                            </div>
-                                            <div>
-                                                <small class="text-muted d-block">Dernière modification</small>
-                                                <span class="fw-semibold">{{ $classe->updated_at}}</span>
-                                            </div>
+                                <div class="mb-3">
+                                    <label class="text-muted small text-uppercase">Dernière modification</label>
+                                    <div class="d-flex align-items-center mt-2">
+                                        <div class="bg-info bg-opacity-10 rounded-2 p-2 me-3">
+                                            <i class="fas fa-calendar-check text-info"></i>
                                         </div>
+                                        <span class="fw-semibold">{{ $classe->updated_at->format('d/m/Y H:i:s') }}</span>
                                     </div>
                                 </div>
                             </div>

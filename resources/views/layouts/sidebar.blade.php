@@ -28,7 +28,7 @@
             <span class="d-flex align-items-center gap-2">
                 <img class="rounded header-profile-user" src="{{ asset('assets/images/avatar-1.jpg') }}" alt="Header Avatar">
                 <span class="text-start">
-                    <span class="d-block fw-medium sidebar-user-name-text">StarCode Kh</span>
+                    <span class="d-block fw-medium sidebar-user-name-text">Class Hub</span>
                     <span class="d-block fs-14 sidebar-user-name-sub-text"><i class="ri ri-circle-fill fs-10 text-success align-baseline"></i> <span class="align-middle">Online</span></span>
                 </span>
             </span>
@@ -62,7 +62,9 @@
                     <div class="menu-dropdown collapse" id="sidebarDashboards">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('dashboard') }}" class="nav-link" data-key="t-analytics"> Dashboard Principal</a>
+                                <a href="{{ route('dashboard') }}" class="nav-link" data-key="t-analytics">
+                                    <i class="ri-dashboard-line me-2"></i> Dashboard Principal
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -137,21 +139,42 @@
                 <!-- GESTION PÉDAGOGIQUE -->
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pedagogie">Gestion pédagogique</span></li>
 
-                <!-- Cours d'appui -->
+                <!-- Années Scolaires (NOUVEAU) -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarCours" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCours">
-                        <i class="ri-book-open-line"></i> <span data-key="t-cours">Cours d'appui</span>
+                    <a class="nav-link menu-link" href="#sidebarAnnees" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAnnees">
+                        <i class="ri-calendar-line"></i> <span data-key="t-annees">Années scolaires</span>
                     </a>
-                    <div class="collapse menu-dropdown" id="sidebarCours">
+                    <div class="collapse menu-dropdown" id="sidebarAnnees">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('coursdappuies.index') }}" class="nav-link" data-key="t-list-cours">
-                                    <i class="ri-list-check me-2"></i> Liste des cours
+                                <a href="{{ route('annees-scolaires.index') }}" class="nav-link" data-key="t-list-annees">
+                                    <i class="ri-list-check me-2"></i> Liste des années
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('coursdappuies.create') }}" class="nav-link" data-key="t-create-cours">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours
+                                <a href="{{ route('annees-scolaires.create') }}" class="nav-link" data-key="t-create-annee">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter une année
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Cours d'appui -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCoursAppui" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCoursAppui">
+                        <i class="ri-book-open-line"></i> <span data-key="t-cours-appui">Cours d'appui</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCoursAppui">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('coursdappuies.index') }}" class="nav-link" data-key="t-list-cours-appui">
+                                    <i class="ri-list-check me-2"></i> Liste des cours d'appui
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('coursdappuies.create') }}" class="nav-link" data-key="t-create-cours-appui">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours d'appui
                                 </a>
                             </li>
                         </ul>
@@ -196,23 +219,6 @@
                                     <i class="ri-add-circle-line me-2"></i> Ajouter une classe
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('matieres.index') }}" class="nav-link" data-key="t-liste-matiere">
-                            <i class="ri-list-check me-2"></i> Liste des matieres
-                                </a>
-                                <li class="nav-item">
-                                <a href="{{ route('matieres.create') }}" class="nav-link" data-key="t-create-matieres">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter une matiere
-                                </a>
-                                 <li class="nav-item">
-                                <a href="{{ route('cours.index') }}" class="nav-link" data-key="t-liste-cours">
-                            <i class="ri-list-check me-2"></i> Liste des cours
-                                </a>
-                                <li class="nav-item">
-                                <a href="{{ route('cours.create') }}" class="nav-link" data-key="t-create-cours">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours
-                                </a>
-                            </li>
                         </ul>
                     </div>
                 </li>
@@ -238,32 +244,119 @@
                     </div>
                 </li>
 
-                <!-- Affectations (optionnel) -->
+                <!-- Matières -->
                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="" data-key="t-affectations">
-                        {{-- {{ route('users.affecter-cours') }} --}}
-                        <i class="ri-link"></i> <span>Affectations</span>
+                    <a class="nav-link menu-link" href="#sidebarMatieres" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarMatieres">
+                        <i class="ri-booklet-line"></i> <span data-key="t-matieres">Matières</span>
                     </a>
-                </li>
-                 <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarEleves" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEleves">
-                        <i class="ri-user-smile-line"></i> <span data-key="t-eleves">Eleves</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarEleves">
+                    <div class="collapse menu-dropdown" id="sidebarMatieres">
                         <ul class="nav nav-sm flex-column">
                             <li class="nav-item">
-                                <a href="{{ route('eleves.index') }}" class="nav-link" data-key="t-list-users">
-                                    <i class="ri-list-check me-2"></i> Liste des eleves
+                                <a href="{{ route('matieres.index') }}" class="nav-link" data-key="t-list-matieres">
+                                    <i class="ri-list-check me-2"></i> Liste des matières
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('eleves.create') }}" class="nav-link" data-key="t-create-user">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter un eleve
+                                <a href="{{ route('matieres.create') }}" class="nav-link" data-key="t-create-matiere">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter une matière
                                 </a>
                             </li>
                         </ul>
                     </div>
-                </li> <li class="nav-item">
+                </li>
+
+                <!-- Cours -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarCours" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarCours">
+                        <i class="ri-slideshow-line"></i> <span data-key="t-cours">Cours</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarCours">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('cours.index') }}" class="nav-link" data-key="t-list-cours">
+                                    <i class="ri-list-check me-2"></i> Liste des cours
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cours.create') }}" class="nav-link" data-key="t-create-cours">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Élèves -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarEleves" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarEleves">
+                        <i class="ri-user-smile-line"></i> <span data-key="t-eleves">Élèves</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarEleves">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('eleves.index') }}" class="nav-link" data-key="t-list-eleves">
+                                    <i class="ri-list-check me-2"></i> Liste des élèves
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('eleves.create') }}" class="nav-link" data-key="t-create-eleve">
+                                    <i class="ri-add-circle-line me-2"></i> Ajouter un élève
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- GESTION DES ASSOCIATIONS -->
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-associations">Gestion des associations</span></li>
+
+                <!-- Classe-Matière-Groupe -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarClasseMatiereGroupe" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarClasseMatiereGroupe">
+                        <i class="ri-links-line"></i> <span data-key="t-classe-matiere-groupe">Classe - Matière - Groupe</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarClasseMatiereGroupe">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('classe-matiere-groupe.index') }}" class="nav-link" data-key="t-list-associations">
+                                    <i class="ri-list-check me-2"></i> Liste des associations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('classe-matiere-groupe.create') }}" class="nav-link" data-key="t-create-association">
+                                    <i class="ri-add-circle-line me-2"></i> Nouvelle association
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Utilisateur - Cours - Site - Classe -->
+                <li class="nav-item">
+                    <a class="nav-link menu-link" href="#sidebarUserCoursSiteClasse" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUserCoursSiteClasse">
+                        <i class="ri-link-unlink-m"></i> <span data-key="t-user-cours-site-classe">Utilisateur - Cours - Site - Classe</span>
+                    </a>
+                    <div class="collapse menu-dropdown" id="sidebarUserCoursSiteClasse">
+                        <ul class="nav nav-sm flex-column">
+                            <li class="nav-item">
+                                <a href="{{ route('usercoursdappuiesiteclasses.index') }}" class="nav-link" data-key="t-list-associations-user">
+                                    <i class="ri-list-check me-2"></i> Liste des associations
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('usercoursdappuiesiteclasses.create') }}" class="nav-link" data-key="t-create-association-user">
+                                    <i class="ri-add-circle-line me-2"></i> Nouvelle association
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- GESTION DES DOCUMENTS -->
+                <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-documents">Gestion des documents</span></li>
+
+                <!-- Documents -->
+                <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarDocuments" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarDocuments">
                         <i class="ri-file-chart-line"></i> <span data-key="t-documents">Documents</span>
                     </a>
@@ -282,68 +375,11 @@
                         </ul>
                     </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarclasse-matiere-groupe" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarclasse-matiere-groupe">
-                        <i class="ri-links-line"></i> <span data-key="t-classe-matiere-groupe">classe matiere groupe</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarclasse-matiere-groupe">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('classe-matiere-groupe.index') }}" class="nav-link" data-key="t-list-users">
-                                    <i class="ri-list-check me-2"></i> Liste des associations classe-matière-groupe
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('classe-matiere-groupe.create') }}" class="nav-link" data-key="t-create-user">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter une association classe-matière-groupe
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarcours" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarcours">
-                        <i class="ri-links-line"></i> <span data-key="t-cours">cours</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarcours">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('cours.index') }}" class="nav-link" data-key="t-list-users">
-                                    <i class="ri-list-check me-2"></i> Liste des cours
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cours.create') }}" class="nav-link" data-key="t-create-user">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter un cours
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link menu-link" href="#sidebarmatieres" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarmatieres">
-                        <i class="ri-links-line"></i> <span data-key="t-matieres">matières</span>
-                    </a>
-                    <div class="collapse menu-dropdown" id="sidebarmatieres">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="{{ route('matieres.index') }}" class="nav-link" data-key="t-list-users">
-                                    <i class="ri-list-check me-2"></i> Liste des matières
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('matieres.create') }}" class="nav-link" data-key="t-create-user">
-                                    <i class="ri-add-circle-line me-2"></i> Ajouter une matière
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
 
                 <!-- Menu existant à conserver -->
                 <li class="menu-title"><i class="ri-more-fill"></i> <span data-key="t-pages">Pages</span></li>
 
-                <!-- Le reste de ton menu existant -->
+                <!-- Le reste du menu existant -->
                 <li class="nav-item">
                     <a class="nav-link menu-link" href="#sidebarAuth" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAuth">
                         <i class="ri-account-circle-line"></i> <span data-key="t-authentication">Authentication</span>

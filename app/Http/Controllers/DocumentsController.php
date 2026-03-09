@@ -16,7 +16,7 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $documents = Documents::with('matiere')->latest()->paginate(10);
+        $documents = Documents::with('matieres')->latest()->paginate(10);
 
         return view('back.documents.index', compact('documents'));
     }
@@ -54,7 +54,7 @@ class DocumentsController extends Controller
      */
     public function show(Documents $document)
     {
-        $document->load('matiere');
+        $document->load('matieres');
         return view('back.documents.show', compact('document'));
     }
 
